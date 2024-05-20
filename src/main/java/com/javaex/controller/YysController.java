@@ -16,15 +16,27 @@ public class YysController {
 	@Autowired
 	private YysService yysService;
 	
-	@GetMapping(value = "/api/walking/coursebooklist/{category}")
-	public List<YysVo> list(@PathVariable("category") String category) {
+	@GetMapping(value = "/api/walking/coursebooklist/{users_no}")
+	public List<YysVo> list(@PathVariable("users_no") String users_no) {
 		System.out.println("YysController.list()");
-		System.out.println(category);
+		//System.out.println(users_no);
 		
-		List<YysVo> coursebookList = yysService.exeCourseList(category);
+		List<YysVo> coursebookList = yysService.exeCourseList(users_no);
 
-		System.out.println(coursebookList);
+		//System.out.println(coursebookList);
 		return coursebookList;
+		//return null;
+	}
+	
+	@GetMapping(value = "/api/walking/coursebookflist/{users_no}")
+	public List<YysVo> favoritlist(@PathVariable("users_no") String users_no) {
+		System.out.println("YysController.favoritlist()");
+		//System.out.println(users_no);
+		
+		List<YysVo> coursebookfList = yysService.exeCoursefList(users_no);
+
+		//System.out.println(coursebookList);
+		return coursebookfList;
 		//return null;
 	}
 

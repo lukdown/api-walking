@@ -14,8 +14,9 @@ public class YysVo {
 	private String course_date;
 	private boolean course_open;
 	private String course_introduce;
+	private int course_favorites_no;
+	private int course_like_no;
 	
-	private int course_categoty_no;
 	
 	//생성자
 	public YysVo() {
@@ -24,7 +25,7 @@ public class YysVo {
 
 	public YysVo(int course_no, int users_no, String course_name, String course_difficulty, int course_length,
 			String course_time, int course_hit, String course_region, String course_date, boolean course_open,
-			String course_introduce, int course_categoty_no) {
+			String course_introduce, int course_favorites_no, int course_like_no) {
 		super();
 		this.course_no = course_no;
 		this.users_no = users_no;
@@ -37,24 +38,13 @@ public class YysVo {
 		this.course_date = course_date;
 		this.course_open = course_open;
 		this.course_introduce = course_introduce;
-		this.course_categoty_no = course_categoty_no;
+		this.course_favorites_no = course_favorites_no;
+		this.course_like_no = course_like_no;
 	}
 
-
-
-	//메소드  - g/s
-	public int getCourse_categoty_no() {
-		return course_categoty_no;
-	}
-	
-	public void setCourse_categoty_no(int course_categoty_no) {
-		this.course_categoty_no = course_categoty_no;
-	}
-	
 	public int getCourse_no() {
 		return course_no;
 	}
-
 
 	public void setCourse_no(int course_no) {
 		this.course_no = course_no;
@@ -140,16 +130,33 @@ public class YysVo {
 		this.course_introduce = course_introduce;
 	}
 
-	//메소드 - 일반
+	public int getCourse_favorites_no() {
+		return course_favorites_no;
+	}
+
+	public void setCourse_favorites_no(int course_favorites_no) {
+		this.course_favorites_no = course_favorites_no;
+	}
+
+	public int getCourse_like_no() {
+		return course_like_no;
+	}
+
+	public void setCourse_like_no(int course_like_no) {
+		this.course_like_no = course_like_no;
+	}
+
 	@Override
 	public String toString() {
 		return "YysVo [course_no=" + course_no + ", users_no=" + users_no + ", course_name=" + course_name
 				+ ", course_difficulty=" + course_difficulty + ", course_length=" + course_length + ", course_time="
 				+ course_time + ", course_hit=" + course_hit + ", course_region=" + course_region + ", course_date="
 				+ course_date + ", course_open=" + course_open + ", course_introduce=" + course_introduce
-				+ ", course_categoty_no=" + course_categoty_no + "]";
+				+ ", course_favorites_no=" + course_favorites_no + ", course_like_no=" + course_like_no + "]";
 	}
 
+
+	
 	
 	
 	
