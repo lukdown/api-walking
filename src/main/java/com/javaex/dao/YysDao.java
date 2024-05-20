@@ -14,7 +14,14 @@ public class YysDao {
 	@Autowired
 	private SqlSession sqlSession;
 
+	// 리스트 가져오기
+	public List<YysVo> coursebookList() {
+		System.out.println("YysDao.coursebookList()");
 
-	
+		List<YysVo> coursebookList = sqlSession.selectList("yys.courseList");
+		System.out.println(coursebookList);
+
+		return coursebookList;
+	}
 
 }

@@ -14,8 +14,13 @@ public class YysService {
 	@Autowired
 	private YysDao yysDao;
 
-	
+	// 리스트 가져오기
+	public List<YysVo> exeCourseList() {
+		System.out.println("YysService.exeCourseList()");
 
+		List<YysVo> coursebookList = yysDao.coursebookList();
 
+		return coursebookList;
+	}
 
 }
