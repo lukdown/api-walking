@@ -15,10 +15,10 @@ public class YysService {
 	private YysDao yysDao;
 
 	// 리스트 가져오기
-	public List<YysVo> exeCourseList() {
+	public List<YysVo> exeCourseList(String category) {
 		System.out.println("YysService.exeCourseList()");
 
-		List<YysVo> coursebookList = yysDao.coursebookList();
+		List<YysVo> coursebookList = yysDao.coursebookList(category);
 
 		return coursebookList;
 	}

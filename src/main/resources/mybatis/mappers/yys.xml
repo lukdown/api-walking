@@ -3,15 +3,37 @@
 
 <mapper namespace="yys">
 	<!-- 전체리스트 -->
-   <select id="courseList" resultType="YysVo">
+	<select id="courseList" parameterType="String"
+		resultType="YysVo">
       <![CDATA[ 
-         select *
-         from course_list
+        select *
+		from course_list cl
       ]]>
-   </select>
-	
-	
-	
+		<choose>
+			<when test="category == total">
+				<![CDATA[
+					left join users_list ul on cl.users_no = ul.users_no
+				]]>
+			</when>
+			<when test="category == mycourse">
+				<![CDATA[
+					left join users_list ul on cl.users_no = ul.users_no
+					where cl.users_no = 1
+				]]>
+			</when>
+			<when test="category == bookmarks">
+				<![CDATA[
+					left join users_list ul on cl.users_no = ul.users_no
+					where cl.users_no = 1
+				]]>
+			</when>
 
-	
+			<otherwise></otherwise>
+		</choose>
+	</select>
+
+
+
+
+
 </mapper>
