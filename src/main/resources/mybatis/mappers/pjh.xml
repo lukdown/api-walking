@@ -3,4 +3,32 @@
 
 <mapper namespace="pjh">
 	
+	<!-- 회원가입 -->
+	<select id ="join" resultType="PjhVo" parameterType="PjhVo">
+		<![CDATA[
+			insert into users_list
+			values(null, #{users_id}, #{users_pw}, #{users_name}, #{users_nickname}, #{users_hp},#{users_birth_date}, #{users_gender}, #{users_residence});
+		]]>
+	</select>
+	
+	<!-- id 중복체크 -->
+	<select id="idCheck" resultType="int" parameterType="String">
+		<![CDATA[
+			select count(users_id) from users_list
+			where users_id = #{users_id}
+		]]>
+	
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="selectByIdPw" parameterType="PjhVo" resultType="PjhVo">
+		<![CDATA[
+			select  users_no,
+					users_name
+			from users_list
+			where users_id= #{users_id}
+			and users_pw= #{users_pw}
+		]]>
+	</select>
+	
 </mapper>
