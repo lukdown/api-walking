@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -83,5 +84,25 @@ public class PjhController {
 
 	}
 
-	
+	// 회원정보수정
+	@PutMapping("/api/walking/modify")
+	public JsonResult modify(@RequestBody PjhVo users_listVo, HttpServletRequest request) {
+		System.out.println("UserController.modify()");
+
+		System.out.println(users_listVo);
+
+		int no = JwtUtil.getNoFromHeader(request);
+
+		users_listVo.setUsers_no(no);
+		
+		if (no != -1) {
+			// db에 수정시킨다
+			pjhService.exeModify(users_listVo);
+
+			return JsonResult.success(users_listVo.getUsers_nickname());
+		} else {
+
+			return JsonResult.fail("로그인하지않음");
+		}
+	}
 }

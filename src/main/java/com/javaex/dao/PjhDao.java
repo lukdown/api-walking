@@ -48,4 +48,12 @@ public class PjhDao {
 		PjhVo users_listVo = sqlSession.selectOne("pjh.selectOneByNo", no);
 		return users_listVo;
 	}
+
+	// 회원정보수정
+	public int userUpdate(PjhVo users_listVo) {
+		System.out.println("UserDao.userUpdate()");
+
+		int count = sqlSession.update("pjh.update", users_listVo);
+		return count;
+	}
 }

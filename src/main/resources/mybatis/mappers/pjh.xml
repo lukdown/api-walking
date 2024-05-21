@@ -47,4 +47,19 @@
 		]]>
 	</select>
 	
+	<!-- 회원정보수정 -->
+	<update id="update" parameterType="PjhVo">
+		<![CDATA[ 
+			update users_list
+			set users_pw = #{users_pw},
+				users_name = #{users_name},
+				users_nickname = #{users_nickname},
+				users_hp = #{users_hp},
+				users_birth_date = #{users_birth_date},
+				users_gender = #{users_gender},
+				users_residence = #{users_residence}
+			where users_no = #{users_no}
+		]]>
+	</update>
+	
 </mapper>

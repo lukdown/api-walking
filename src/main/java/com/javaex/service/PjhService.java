@@ -47,4 +47,12 @@ public class PjhService {
 		return users_listVo;
 	}
 
+	// 회원정보수정
+	public int exeModify(PjhVo users_listVo) {
+		System.out.println("UserService.exeModify()");
+
+		int count = pjhDao.userUpdate(users_listVo);
+		return count;
+	}
+
 }
