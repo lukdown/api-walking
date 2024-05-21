@@ -4,9 +4,9 @@
     <typeAliases>
     <!-- 
     	<typeAlias alias="LebVo" type="com.javaex.vo.LebVo" />
-    	<typeAlias alias="KsbVo" type="com.javaex.vo.KsbVo" />
      -->
      
+    	<typeAlias alias="KsbVo" type="com.javaex.vo.KsbVo" />
     	<typeAlias alias="YdsVo" type="com.javaex.vo.YdsVo" />
      	<typeAlias alias="PjhVo" type="com.javaex.vo.PjhVo" />
     	<typeAlias alias="YysVo" type="com.javaex.vo.YysVo" />
