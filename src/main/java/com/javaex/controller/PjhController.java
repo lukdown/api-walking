@@ -1,5 +1,7 @@
 package com.javaex.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -105,4 +107,31 @@ public class PjhController {
 			return JsonResult.fail("로그인하지않음");
 		}
 	}
+	
+	
+	//카카오로그인
+	@GetMapping("/api/walking/kakaologin")
+	public String main() {
+		String url = "https://kauth.kakao.com/oauth/authorize?client_id=10058c98eea1a5e753d74e9e41744dbd&redirect_uri=http://localhost:8080/walking/kakaojoinpage&response_type=code";
+		System.out.println("login 컨트롤러 접근");
+		return url;
+	}
+	//(인증코드)
+	@GetMapping("walking/kakaojoinpage")
+	public HashMap<String, String> kakaoLogin(@PathVariable("code") String code) {
+		
+		System.out.println(code);
+		
+		//토큰을 요청하여 얻음
+		String kakaoToken = pjhService.requestToken(code);
+		System.out.println("카카오토큰" + kakaoToken);
+		
+		//사용자 정보를 요청하여 얻음
+		HashMap<String, String> userInfo = pjhService.requestUser(kakaoToken);
+		System.out.println("userIfo : " + userInfo);
+		
+		return userInfo;
+		
+	}
+	
 }

@@ -54,5 +54,17 @@ public class PjhService {
 		int count = pjhDao.userUpdate(users_listVo);
 		return count;
 	}
-
+	
+	//카카오로그인
+	//(인증코드)
+	public String requestToken(String code) {
+		String access_Token = "";
+		String refresh_Token = "";
+		
+		String strUrl = "https://kauth.kakao.com/oauth/token";//토큰 요청 보낼 주소
+		KakaoToken kakaoToken = new KakaoToken(); //요청 받을 객체
+		
+		
+		
+	}
 }
