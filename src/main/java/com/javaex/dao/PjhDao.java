@@ -10,7 +10,7 @@ import com.javaex.vo.PjhVo;
 public class PjhDao {
 
 	@Autowired
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 
 	// 회원가입
 	public int join(PjhVo users_listVo) {

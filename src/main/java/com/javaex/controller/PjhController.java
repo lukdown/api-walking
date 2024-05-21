@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class PjhController {
 
 	@Autowired
-	PjhService pjhService;
+	private PjhService pjhService;
 
 	// 회원가입
 	@PostMapping("/api/walking/joinpage")
