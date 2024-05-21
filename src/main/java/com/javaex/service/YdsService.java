@@ -13,6 +13,17 @@ public class YdsService {
 
 	@Autowired
 	private YdsDao ydsDao;
+	
+	// 리스트
+		public List<YdsVo> exeAllList() {
+			System.out.println("YdsService.exeAllList()");
+
+			List<YdsVo> gList = ydsDao.selectList();
+
+			return gList;
+		}
+	
+	
 
 	// 다솜이꺼
 }

@@ -3,6 +3,29 @@
 
 <mapper namespace="yds">
 
+	<!-- 전체 리스트 불러오기 -->
+	<select id="selectList" resultType="YdsVo">
+	
+	<![CDATA[
+	
+	
+        SELECT gal.gallery_no,
+			   gal.users_no,
+			   gal.course_no,
+			   gal.gallery_introduce,
+		       ul.users_nickname,
+		       ul.users_filePath,
+		       ul.users_orgName,
+		       ul.users_saveName,
+		       ul.users_fileSize
+		FROM gallery_list gal
+		left join users_list ul on ul.users_no = gal.users_no
+   
+	
+	]]>
+
+	</select>
+
 
 
 </mapper>
