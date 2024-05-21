@@ -1,7 +1,5 @@
 package com.javaex.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +12,13 @@ public class KsbService {
 	private KsbDao ksbDao;
 
 	//수빈이꺼
+	
+	//마이페이지
+	public KsbVo exeSelectMember(int no) {
+		System.out.println("KsbService.exeSelectMember()");
+		KsbVo memberInfo = ksbDao.selectMember(no);
+		return memberInfo;
+	}
 	
 	
 }
