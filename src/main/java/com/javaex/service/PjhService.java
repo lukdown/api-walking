@@ -39,4 +39,12 @@ public class PjhService {
 		return authUser;
 	}
 
+	// 회원정보 수정폼(1명 데이터 가져오기)
+	public PjhVo exeModifyForm(int no) {
+		System.out.println("UserService.exeModifyForm()");
+
+		PjhVo users_listVo = pjhDao.userSelectOneByNo(no);
+		return users_listVo;
+	}
+
 }

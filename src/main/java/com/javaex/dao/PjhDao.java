@@ -40,4 +40,12 @@ public class PjhDao {
 
 		return authUser;
 	}
+
+	// 회원정보 수정폼(1명 데이터 가져오기)
+	public PjhVo userSelectOneByNo(int no) {
+		System.out.println("UserDao.userSelectOneByNo()");
+
+		PjhVo users_listVo = sqlSession.selectOne("pjh.selectOneByNo", no);
+		return users_listVo;
+	}
 }

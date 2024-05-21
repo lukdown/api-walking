@@ -7,7 +7,7 @@
 	<select id ="join" resultType="PjhVo" parameterType="PjhVo">
 		<![CDATA[
 			insert into users_list
-			values(null, #{users_id}, #{users_pw}, #{users_name}, #{users_nickname}, #{users_hp},#{users_birth_date}, #{users_gender}, #{users_residence});
+			values(null, #{users_id}, #{users_pw}, #{users_name}, #{users_nickname}, #{users_hp},#{users_birth_date}, #{users_gender}, #{users_residence}, #{users_filePath}, #{users_orgName}, #{users_fileSize}, #{users_filePath});
 		]]>
 	</select>
 	
@@ -24,10 +24,26 @@
 	<select id="selectByIdPw" parameterType="PjhVo" resultType="PjhVo">
 		<![CDATA[
 			select  users_no,
-					users_name
+					users_nickname
 			from users_list
 			where users_id= #{users_id}
 			and users_pw= #{users_pw}
+		]]>
+	</select>
+	
+	<!-- 회원정보 수정폼 1개 데이터 가져오기 -->
+	<select id="selectOneByNo" parameterType="int" resultType="PjhVo">
+		<![CDATA[ 
+			select 	users_id, 
+					users_pw,
+					users_name,
+					users_nickname,
+					users_hp,
+					users_birth_date,
+					users_gender,
+					users_residence
+			from users_list
+			where users_no = #{no}
 		]]>
 	</select>
 	
