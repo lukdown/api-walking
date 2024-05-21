@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="yys">
-	<!-- 전체리스트 -->
+	<!-- 전체리스트/내코스리스트 -->
 	<select id="courseList" parameterType="String"
 		resultType="YysVo">
 
@@ -62,7 +62,7 @@
 			<otherwise></otherwise>
 		</choose>
 	</select>
-	<!-- 전체리스트 -->
+	<!-- 즐겨찾기리스트 -->
 	<select id="coursefList" parameterType="String"
 		resultType="YysVo">
 
@@ -94,7 +94,30 @@
 		</choose>
 	</select>
 
-
+	<!-- 리뷰리스트 -->
+	<select id="coursereviewList" parameterType="int" resultType="YysVo">
+		<![CDATA[
+			select crl.review_no,
+				   crl.course_no,
+			       crl.users_no,
+			       crl.review_content,
+			       crl.review_date,
+			       ul.users_name,
+			       ul.users_nickname
+			from course_review_list crl
+			left join course_list cl on crl.course_no = cl.course_no
+			left join users_list ul on ul.users_no = crl.users_no
+			where crl.course_no = #{course_no}
+		]]>
+	</select>
+	
+	<!-- 후기등록 -->
+   <insert id="reviewinsert" parameterType="YysVo">
+      <![CDATA[   
+          insert into course_review_list
+              values ( null, #{course_no}, #{users_no}, #{review_content}, now() )
+       ]]>
+   </insert>
 
 
 </mapper>

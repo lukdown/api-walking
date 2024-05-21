@@ -32,4 +32,22 @@ public class YysService {
 		return coursebookfList;
 	}
 
+	// 리스트 가져오기
+	public List<YysVo> exeCoursereviewList(int course_no) {
+		System.out.println("YysService.exeCoursereviewList()");
+
+		List<YysVo> coursereviewList = yysDao.coursereviewList(course_no);
+
+		return coursereviewList;
+	}
+
+	// 저장
+	public int exereviewupdate(YysVo yysVo) {
+		System.out.println("YysService.exereviewupdate()");
+
+		// 등록
+		int count = yysDao.reviewinsert(yysVo);
+
+		return count;
+	}
 }
