@@ -117,7 +117,7 @@ public class PjhController {
 		return url;
 	}
 	//(인증코드)
-	@GetMapping("walking/kakaojoinpage")
+	@GetMapping("/api/walking/kakaojoinpage/{code}")
 	public HashMap<String, String> kakaoLogin(@PathVariable("code") String code) {
 		
 		System.out.println(code);

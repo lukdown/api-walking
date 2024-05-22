@@ -1,5 +1,8 @@
 package com.javaex.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class KakaoToken {
 	
 	private String token_type;
