@@ -120,6 +120,38 @@
 			where users_no = #{users_no} and course_no = #{course_no}
 		]]>
 	</select>
+	
+	<!-- 즐겨찾기 등록 -->
+   <insert id="favoritesinsert" parameterType="YysVo">
+      <![CDATA[   
+          insert into course_favorites
+              values ( null, #{users_no}, #{course_no} )
+       ]]>
+   </insert>
+   
+   <!-- 즐겨찾기 삭제 -->
+	<delete id="favoritesdelete" parameterType="YysVo">
+		<![CDATA[
+			delete from course_favorites
+			where users_no = #{users_no} and course_no = #{course_no}
+		]]>
+	</delete>
+
+	<!-- 좋아요 등록 -->
+   <insert id="likeinsert" parameterType="YysVo">
+      <![CDATA[   
+          insert into course_like
+              values ( null, #{users_no}, #{course_no} )
+       ]]>
+   </insert>
+   
+   <!-- 좋아요 삭제 -->
+	<delete id="likedelete" parameterType="YysVo">
+		<![CDATA[
+			delete from course_like
+			where users_no = #{users_no} and course_no = #{course_no}
+		]]>
+	</delete>
 
 
 </mapper>

@@ -62,4 +62,35 @@ public class YysDao {
 		return yysVo;
 	}
 
+	// 즐겨찾기 저장
+	public int favoritesinsert(YysVo yysVo) {
+		System.out.println("YysDao.favoritesinsert()");
+		
+		int count = sqlSession.insert("yys.favoritesinsert", yysVo);
+		return count;
+	}
+
+	// 즐겨찾기 삭제
+	public int favoritesdelete(YysVo yysVo) {
+		System.out.println("YysDao.favoritesdelete()");
+
+		int count = sqlSession.delete("yys.favoritesdelete", yysVo);
+		return count;
+	}
+
+	// 좋아요 저장
+	public int likeinsert(YysVo yysVo) {
+		System.out.println("YysDao.likeinsert()");
+
+		int count = sqlSession.insert("yys.likeinsert", yysVo);
+		return count;
+	}
+
+	// 좋아요 삭제
+	public int likedelete(YysVo yysVo) {
+		System.out.println("YysDao.likedelete()");
+
+		int count = sqlSession.delete("yys.likedelete", yysVo);
+		return count;
+	}
 }
