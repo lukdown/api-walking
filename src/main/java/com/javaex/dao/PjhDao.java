@@ -24,6 +24,7 @@ public class PjhDao {
 	// 중복체크
 	public int idCheck(String id) {
 		System.out.println("PjhDao.idCheck()");
+		System.out.println(id);
 		int count = sqlSession.selectOne("pjh.idCheck", id);
 		System.out.println(count);
 

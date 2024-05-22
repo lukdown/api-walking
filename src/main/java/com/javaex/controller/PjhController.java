@@ -133,5 +133,44 @@ public class PjhController {
 		return userInfo;
 		
 	}
+	//카카오 회원가입(가입유저,비가입유저구별)
+	@GetMapping("/api/walking/kakaoBysubscription/{id}")
+	public JsonResult kakaoBysubscription(@PathVariable("id") String id) {
+		
+		String KakaoId = "Kakao_"+id;
+
+		int count = pjhService.exejoinpageidcheck(KakaoId);
+		
+		boolean exejoinidcheck;
+		
+		if(count == 0) {
+			exejoinidcheck = false;
+		}else {
+			exejoinidcheck = true;
+		}
+		System.out.println(exejoinidcheck);
+		return JsonResult.success(exejoinidcheck);
+	}
+	
+	//카카오 자동 로그인
+	@PostMapping("/api/walking/Kakaologinpage")
+	public JsonResult kakaoAutoLogin(@RequestBody PjhVo users_listVo, HttpServletResponse response) {
+		
+		PjhVo authUser = pjhService.exeLogin(users_listVo);
+
+		if (authUser != null) {
+			// 토큰발급 해더에 실어 보낸다
+			JwtUtil.createTokenAndSetHeader(response, "" + authUser.getUsers_no());
+			return JsonResult.success(authUser);
+		} else {
+
+			return JsonResult.fail("로그인실패");
+		}
+		
+		
+		
+	}
+	
+	
 	
 }
