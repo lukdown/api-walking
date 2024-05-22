@@ -13,18 +13,46 @@
 			   gal.users_no,
 			   gal.course_no,
 			   gal.gallery_introduce,
+			   gp.gallery_filePath,
+               gp.gallery_orgName,
+               gp.gallery_saveName,
+               gp.gallery_fileSize,
 		       ul.users_nickname,
 		       ul.users_filePath,
 		       ul.users_orgName,
 		       ul.users_saveName,
-		       ul.users_fileSize
+		       ul.users_fileSize,
+		       cl.course_region,
+		       cl.course_length,
+		       cl.course_time,
+		       cl.course_difficulty,
+		       cl.course_hit,
+		       ch.challenge_name,
+		       rc.record_date
 		FROM gallery_list gal
 		left join users_list ul on ul.users_no = gal.users_no
+		left join record rc on ul.users_no = rc.users_no
+		left join gallery_photo gp on gp.gallery_no = gal.gallery_no
+		left join course_list cl on cl.course_no = gal.course_no
+		left join challenge_person cp on cp.users_no = gal.users_no
+        left join challenge ch on ch.challenge_no = cp.challenge_no
    
 	
 	]]>
 
 	</select>
+	
+	<!-- 파일 정보를 저장하는 쿼리문 -->
+	<insert id="saveFileInfo" parameterType="com.javaex.vo.YdsAttachVo">
+	<![CDATA[
+	
+    INSERT into gallery_photo (gallery_filePath, gallery_orgName, gallery_saveName, gallery_fileSize)
+    VALUES (#{gallery_filePath}, #{gallery_orgName}, #{gallery_saveName}, #{gallery_fileSize})
+    
+    ]]>
+	</insert>
+
+	
 
 
 
