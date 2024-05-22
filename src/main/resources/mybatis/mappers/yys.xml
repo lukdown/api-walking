@@ -10,6 +10,25 @@
 			<when test="users_no == 'total'">
 				<![CDATA[
 					select cl.course_no,
+						   cl.users_no,
+					       cl.course_name,
+					       cl.course_difficulty,
+					       cl.course_length,
+					       cl.course_time,
+					       cl.course_hit,
+					       cl.course_region,
+					       cl.course_date,
+					       cl.course_open,
+					       cl.course_introduce,
+					       ul.users_nickname
+					from course_list cl
+					left join users_list ul on cl.users_no = ul.users_no
+					left join course_point cp on cp.course_no = cl.course_no
+				]]>
+			</when>
+			<when test="users_no != null">
+				<![CDATA[
+				select cl.course_no,
 						   ul.users_no,
 					       cl.course_name,
 					       cl.course_difficulty,
@@ -20,35 +39,10 @@
 					       cl.course_date,
 					       cl.course_open,
 					       cl.course_introduce,
-					       cf.course_favorites_no,
-					       clike.course_like_no
+					       ul.users_nickname
 					from course_list cl
 					left join users_list ul on cl.users_no = ul.users_no
 					left join course_point cp on cp.course_no = cl.course_no
-					left join course_favorites cf on cf.course_no = cl.course_no
-					left join course_like clike on clike.course_no = cl.course_no
-				]]>
-			</when>
-			<when test="users_no != null">
-				<![CDATA[
-				select cl.course_no,
-					   ul.users_no,
-				       cl.course_name,
-				       cl.course_difficulty,
-				       cl.course_length,
-				       cl.course_time,
-				       cl.course_hit,
-				       cl.course_region,
-				       cl.course_date,
-				       cl.course_open,
-				       cl.course_introduce,
-				       cf.course_favorites_no,
-				       clike.course_like_no
-				from course_list cl
-				left join users_list ul on cl.users_no = ul.users_no
-				left join course_point cp on cp.course_no = cl.course_no
-				left join course_favorites cf on cf.course_no = cl.course_no
-				left join course_like clike on clike.course_no = cl.course_no
 				where cl.users_no = #{users_no}
 				]]>
 
@@ -70,21 +64,21 @@
 			<when test="users_no != null">
 				<![CDATA[
 				select cl.course_no,
-						   ul.users_no,
-					       cl.course_name,
-					       cl.course_difficulty,
-					       cl.course_length,
-					       cl.course_time,
-					       cl.course_hit,
-					       cl.course_region,
-					       cl.course_date,
-					       cl.course_open,
-					       cl.course_introduce,
-					       cf.course_favorites_no
-					from course_favorites cf
-					left join users_list ul on cf.users_no = ul.users_no
-					left join course_list cl on cf.course_no = cl.course_no
-					where cf.users_no = #{users_no}
+					   cl.users_no,
+					   cl.course_name,
+					   cl.course_difficulty,
+					   cl.course_length,
+					   cl.course_time,
+					   cl.course_hit,
+					   cl.course_region,
+					   cl.course_date,
+					   cl.course_open,
+					   cl.course_introduce,
+					   ul.users_nickname
+				from course_favorites cf
+				left join course_list cl on cf.course_no = cl.course_no
+				left join users_list ul on cf.users_no = ul.users_no
+				where cf.users_no = #{users_no}
 				]]>
 
 			</when>
@@ -118,6 +112,14 @@
               values ( null, #{course_no}, #{users_no}, #{review_content}, now() )
        ]]>
    </insert>
+   
+   <select id="favoritesOne" parameterType = "YysVo" resultType="YysVo">
+		<![CDATA[
+			select *
+			from course_favorites
+			where users_no = #{users_no} and course_no = #{course_no}
+		]]>
+	</select>
 
 
 </mapper>

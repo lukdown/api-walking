@@ -37,10 +37,10 @@ public class YysDao {
 	// 리스트 가져오기
 	public List<YysVo> coursereviewList(int course_no) {
 		System.out.println("YysDao.coursereviewList()");
-		System.out.println(course_no);
+		// System.out.println(course_no);
 		List<YysVo> coursereviewList = sqlSession.selectList("yys.coursereviewList", course_no);
 
-		System.out.println(coursereviewList);
+		// System.out.println(coursereviewList);
 		return coursereviewList;
 	}
 
@@ -50,6 +50,16 @@ public class YysDao {
 
 		int count = sqlSession.insert("yys.reviewinsert", yysVo);
 		return count;
+	}
+
+	// 즐겨찾기 해당 정보 가져오기
+	public YysVo favoritesOne(YysVo yVo) {
+		System.out.println("YysDao.favoritesOne()");
+		// System.out.println(course_no);
+		YysVo yysVo = sqlSession.selectOne("yys.favoritesOne", yVo);
+
+		// System.out.println(coursereviewList);
+		return yysVo;
 	}
 
 }

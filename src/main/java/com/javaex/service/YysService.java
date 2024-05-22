@@ -50,4 +50,16 @@ public class YysService {
 
 		return count;
 	}
+
+	// 즐겨찾기 해당 정보 가져오기
+	public YysVo exeonefavoritesinfo(YysVo yVo) {
+		System.out.println("YysService.exeonefavoritesinfo()");
+
+		
+		
+		YysVo yysVo = yysDao.favoritesOne(yVo);
+
+		return yysVo;
+	}
+
 }
