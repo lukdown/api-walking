@@ -83,6 +83,7 @@ public class YysController {
 		yVo.setCourse_no(course_no);
 		//System.out.println(yVo);
 
+		
 		YysVo yysVo = yysService.exeonefavoritesinfo(yVo);
 		System.out.println(yysVo);
 		// System.out.println(franchiseeName);
