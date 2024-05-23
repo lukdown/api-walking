@@ -113,6 +113,7 @@
        ]]>
    </insert>
    
+   <!-- 해당 유저 즐겨찾기 데이터 여부 확인 -->
    <select id="favoritesOne" parameterType = "YysVo" resultType="YysVo">
 		<![CDATA[
 			select *
@@ -136,6 +137,15 @@
 			where users_no = #{users_no} and course_no = #{course_no}
 		]]>
 	</delete>
+	
+	<!-- 해당 유저 좋아요 데이터 여부 확인 -->
+   <select id="likeOne" parameterType = "YysVo" resultType="YysVo">
+		<![CDATA[
+			select *
+			from course_like
+			where users_no = #{users_no} and course_no = #{course_no}
+		]]>
+	</select>
 
 	<!-- 좋아요 등록 -->
    <insert id="likeinsert" parameterType="YysVo">

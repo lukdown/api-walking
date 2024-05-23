@@ -81,9 +81,10 @@ public class YysController {
 		YysVo yVo = new YysVo();
 		yVo.setUsers_no(users_no);
 		yVo.setCourse_no(course_no);
-		System.out.println(yVo);
+		//System.out.println(yVo);
 
 		YysVo yysVo = yysService.exeonefavoritesinfo(yVo);
+		System.out.println(yysVo);
 		// System.out.println(franchiseeName);
 		return JsonResult.success(yysVo);
 		// return null;
@@ -93,7 +94,7 @@ public class YysController {
 	@PostMapping(value = "/api/walking/favoritesupdatedelete")
 	public int favoritesupdate(@RequestBody YysVo yysVo) {
 		System.out.println("YysController.favoritesupdate()");
-		// System.out.println(yysVo);
+		System.out.println(yysVo);
 
 		int count = yysService.exefavoritesupdate(yysVo);
 		// System.out.println(guestVo);
@@ -115,11 +116,28 @@ public class YysController {
 		// return 0;
 	}
 
+	// 좋아요 상세정보
+	@GetMapping(value = "/api/walking/onelikeinfo/{users_no}/{course_no}")
+	public JsonResult onelikeinfo(@PathVariable("users_no") int users_no,
+			@PathVariable("course_no") int course_no) {
+		System.out.println("YysController.onelikeinfo()");
+
+		YysVo yVo = new YysVo();
+		yVo.setUsers_no(users_no);
+		yVo.setCourse_no(course_no);
+		System.out.println(yVo);
+
+		YysVo yysVo = yysService.exeonelikeinfo(yVo);
+		// System.out.println(franchiseeName);
+		return JsonResult.success(yysVo);
+		// return null;
+	}
+
 	// 좋아요 등록
 	@PostMapping(value = "/api/walking/likeupdatedelete")
 	public int likeupdate(@RequestBody YysVo yysVo) {
 		System.out.println("YysController.likeupdate()");
-		// System.out.println(yysVo);
+		 System.out.println(yysVo);
 
 		int count = yysService.exelikeupdate(yysVo);
 		// System.out.println(guestVo);

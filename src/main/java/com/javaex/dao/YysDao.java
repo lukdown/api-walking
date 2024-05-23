@@ -65,7 +65,7 @@ public class YysDao {
 	// 즐겨찾기 저장
 	public int favoritesinsert(YysVo yysVo) {
 		System.out.println("YysDao.favoritesinsert()");
-		
+
 		int count = sqlSession.insert("yys.favoritesinsert", yysVo);
 		return count;
 	}
@@ -76,6 +76,16 @@ public class YysDao {
 
 		int count = sqlSession.delete("yys.favoritesdelete", yysVo);
 		return count;
+	}
+
+	// 좋아요 해당 정보 가져오기
+	public YysVo likeOne(YysVo yVo) {
+		System.out.println("YysDao.likeOne()");
+		// System.out.println(course_no);
+		YysVo yysVo = sqlSession.selectOne("yys.likeOne", yVo);
+
+		// System.out.println(coursereviewList);
+		return yysVo;
 	}
 
 	// 좋아요 저장

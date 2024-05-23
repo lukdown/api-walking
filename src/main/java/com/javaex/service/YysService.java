@@ -79,7 +79,16 @@ public class YysService {
 		return count;
 	}
 
-	// 즐겨찾기 저장
+	// 좋아요 해당 정보 가져오기
+	public YysVo exeonelikeinfo(YysVo yVo) {
+		System.out.println("YysService.exeonelikeinfo()");
+
+		YysVo yysVo = yysDao.likeOne(yVo);
+
+		return yysVo;
+	}
+
+	// 좋아요 저장
 	public int exelikeupdate(YysVo yysVo) {
 		System.out.println("YysService.exelikeupdate()");
 
@@ -88,7 +97,7 @@ public class YysService {
 		return count;
 	}
 
-	// 즐겨찾기 삭제
+	// 좋아요 삭제
 	public int exelikedelete(YysVo yysVo) {
 		System.out.println("YysService.exelikedelete()");
 
