@@ -87,6 +87,18 @@
 			<otherwise></otherwise>
 		</choose>
 	</select>
+	
+	
+	
+	<!-- 좋아요 리스트 -->
+   <select id="selectLikeList" resultType="YysVo">
+      <![CDATA[ 
+        select course_like_no,
+			   users_no,
+		       course_no
+		from course_like
+      ]]>
+   </select>
 
 	<!-- 리뷰리스트 -->
 	<select id="coursereviewList" parameterType="int" resultType="YysVo">

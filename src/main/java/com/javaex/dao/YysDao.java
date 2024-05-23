@@ -24,7 +24,7 @@ public class YysDao {
 		return coursebookList;
 	}
 
-	// 리스트 가져오기
+	// 즐겨찾기 리스트 가져오기
 	public List<YysVo> coursebookfList(String users_no) {
 		System.out.println("YysDao.coursebookfList()");
 		// System.out.println(users_no);
@@ -34,7 +34,16 @@ public class YysDao {
 		return coursebookfList;
 	}
 
-	// 리스트 가져오기
+
+	// 좋아요 리스트
+	public List<YysVo> selectLike() {
+		System.out.println("YysDao.selectLike()");
+
+		List<YysVo> lList = sqlSession.selectList("yys.selectLikeList");
+		return lList;
+	}
+	
+	// 후기 리스트 가져오기
 	public List<YysVo> coursereviewList(int course_no) {
 		System.out.println("YysDao.coursereviewList()");
 		// System.out.println(course_no);

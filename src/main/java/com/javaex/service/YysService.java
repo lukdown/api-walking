@@ -23,7 +23,7 @@ public class YysService {
 		return coursebookList;
 	}
 
-	// 리스트 가져오기
+	// 즐겨찾기 리스트 가져오기
 	public List<YysVo> exeCoursefList(String users_no) {
 		System.out.println("YysService.exeCoursefList()");
 
@@ -32,7 +32,20 @@ public class YysService {
 		return coursebookfList;
 	}
 
-	// 리스트 가져오기
+	// 좋아요 리스트
+	public List<YysVo> exelikeList() {
+		System.out.println("YysService.exelikeList()");
+
+		List<YysVo> lList = yysDao.selectLike();
+
+		System.out.println("======================================");
+		System.out.println(lList);
+		System.out.println("======================================");
+
+		return lList;
+	}
+
+	// 후기리스트 가져오기
 	public List<YysVo> exeCoursereviewList(int course_no) {
 		System.out.println("YysService.exeCoursereviewList()");
 
@@ -41,7 +54,7 @@ public class YysService {
 		return coursereviewList;
 	}
 
-	// 저장
+	// 후기 저장
 	public int exereviewupdate(YysVo yysVo) {
 		System.out.println("YysService.exereviewupdate()");
 
