@@ -5,7 +5,10 @@ public class YdsVo {
 	//필드
 	private int users_no;
     private String users_nickname;
-    private YdsAttachVo users_attach;
+    private String users_orgName;
+    private String users_saveName;
+    private String users_filePath;
+    private long users_fileSize;
     private int gallery_no;
     private YdsAttachVo gallery_attach;
     private int course_no;
@@ -23,15 +26,18 @@ public class YdsVo {
     public YdsVo() {
 		
 	}
-    
-	public YdsVo(int users_no, String users_nickname, YdsAttachVo users_attach, int gallery_no,
-			YdsAttachVo gallery_attach, int course_no, String course_name, String course_region, int course_length,
-			String course_time, int course_hit, String course_difficulty, String gallery_introduce, String record_date,
-			String challenge_name) {
+
+	public YdsVo(int users_no, String users_nickname, String users_orgName, String users_saveName,
+			String users_filePath, long users_fileSize, int gallery_no, YdsAttachVo gallery_attach, int course_no,
+			String course_name, String course_region, int course_length, String course_time, int course_hit,
+			String course_difficulty, String gallery_introduce, String record_date, String challenge_name) {
 		
 		this.users_no = users_no;
 		this.users_nickname = users_nickname;
-		this.users_attach = users_attach;
+		this.users_orgName = users_orgName;
+		this.users_saveName = users_saveName;
+		this.users_filePath = users_filePath;
+		this.users_fileSize = users_fileSize;
 		this.gallery_no = gallery_no;
 		this.gallery_attach = gallery_attach;
 		this.course_no = course_no;
@@ -45,7 +51,7 @@ public class YdsVo {
 		this.record_date = record_date;
 		this.challenge_name = challenge_name;
 	}
-
+	
 	// g/s
 	public int getUsers_no() {
 		return users_no;
@@ -63,12 +69,36 @@ public class YdsVo {
 		this.users_nickname = users_nickname;
 	}
 
-	public YdsAttachVo getUsers_attach() {
-		return users_attach;
+	public String getUsers_orgName() {
+		return users_orgName;
 	}
 
-	public void setUsers_attach(YdsAttachVo users_attach) {
-		this.users_attach = users_attach;
+	public void setUsers_orgName(String users_orgName) {
+		this.users_orgName = users_orgName;
+	}
+
+	public String getUsers_saveName() {
+		return users_saveName;
+	}
+
+	public void setUsers_saveName(String users_saveName) {
+		this.users_saveName = users_saveName;
+	}
+
+	public String getUsers_filePath() {
+		return users_filePath;
+	}
+
+	public void setUsers_filePath(String users_filePath) {
+		this.users_filePath = users_filePath;
+	}
+
+	public long getUsers_fileSize() {
+		return users_fileSize;
+	}
+
+	public void setUsers_fileSize(long users_fileSize) {
+		this.users_fileSize = users_fileSize;
 	}
 
 	public int getGallery_no() {
@@ -170,16 +200,21 @@ public class YdsVo {
 	//일반
 	@Override
 	public String toString() {
-		return "YdsVo [users_no=" + users_no + ", users_nickname=" + users_nickname + ", users_attach=" + users_attach
-				+ ", gallery_no=" + gallery_no + ", gallery_attach=" + gallery_attach + ", course_no=" + course_no
-				+ ", course_name=" + course_name + ", course_region=" + course_region + ", course_length="
+		return "YdsVo [users_no=" + users_no + ", users_nickname=" + users_nickname + ", users_orgName=" + users_orgName
+				+ ", users_saveName=" + users_saveName + ", users_filePath=" + users_filePath + ", users_fileSize="
+				+ users_fileSize + ", gallery_no=" + gallery_no + ", gallery_attach=" + gallery_attach + ", course_no="
+				+ course_no + ", course_name=" + course_name + ", course_region=" + course_region + ", course_length="
 				+ course_length + ", course_time=" + course_time + ", course_hit=" + course_hit + ", course_difficulty="
 				+ course_difficulty + ", gallery_introduce=" + gallery_introduce + ", record_date=" + record_date
 				+ ", challenge_name=" + challenge_name + "]";
 	}
+	
+	
+	
+	
+	
     
 	
-
 	
 	}
 

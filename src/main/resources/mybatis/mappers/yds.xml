@@ -22,6 +22,7 @@
 		       ul.users_orgName,
 		       ul.users_saveName,
 		       ul.users_fileSize,
+		       cl.course_name,
 		       cl.course_region,
 		       cl.course_length,
 		       cl.course_time,
@@ -42,14 +43,72 @@
 
 	</select>
 	
+	<!-- 특정 회원의 코스 목록 조회 -->
+	<select id="selectCoursesByUserNo" parameterType="int" resultType="YdsVo">
+        
+        <![CDATA[
+        
+        SELECT 	course_no,
+ 				users_no, 
+ 				course_name, 
+ 				course_difficulty, 
+				course_length, 
+				course_time, 
+				course_hit, 
+				course_region, 
+				course_date, 
+				course_open, 
+				course_introduce
+				        
+		FROM course_list 
+		WHERE users_no = #{usersNo}
+        
+        ]]>
+        
+    </select>
+    
+    <!-- 로그인한 회원의 특정 코스 소개 등록(저장) -->
+   
+    <insert id="insertCourseIntroduction" parameterType="com.javaex.vo.YdsVo">
+    
+    <![CDATA[
+        INSERT INTO gallery_list (gallery_no, users_no, course_no, gallery_introduce)
+        VALUES (#{gallery_no}, #{users_no}, #{course_no}, #{gallery_introduce})
+    ]]>
+    </insert>
+    
+    <!-- 선택한 코스의 상세 정보 조회 -->
+    
+    <select id="selectCourseDetailsByName" parameterType="String" resultType="YdsVo">
+        <![CDATA[
+        
+        SELECT 	course_no,
+ 				users_no, 
+ 				course_name, 
+ 				course_difficulty, 
+				course_length, 
+				course_time, 
+				course_hit, 
+				course_region, 
+				course_date, 
+				course_open, 
+				course_introduce
+		FROM course_list 
+		WHERE course_name = #{courseName}
+		
+        ]]>
+    </select>
+	
 	<!-- 파일 정보를 저장하는 쿼리문 -->
 	<insert id="saveFileInfo" parameterType="com.javaex.vo.YdsAttachVo">
+	
 	<![CDATA[
 	
     INSERT into gallery_photo (gallery_filePath, gallery_orgName, gallery_saveName, gallery_fileSize)
     VALUES (#{gallery_filePath}, #{gallery_orgName}, #{gallery_saveName}, #{gallery_fileSize})
     
     ]]>
+    
 	</insert>
 
 	

@@ -30,19 +30,53 @@ public class YdsService {
 
 		return gList;
 	}
-
-	/*
+	
+	// 로그인한 회원의 코스 목록 조회
+	public List<YdsVo> exefindCoursesByUserNo(int userNo){
+		System.out.println("YdsService.exefindCoursesByUserNo()");
+		
+		List<YdsVo> userCourses = ydsDao.selectCoursesByUserNo(userNo);
+        System.out.println(userCourses);
+        return userCourses;
+	}
+	// 로그인한 회원의 특정 코스 소개 등록(저장)
+    public void saveCourseIntroduction(YdsVo ydsVo) {
+        ydsDao.insertCourseIntroduction(ydsVo);
+        System.out.println(ydsVo);
+    }
+	
+	// 선택한 코스의 상세 정보 조회
+	public YdsVo exefindCourseInfo(String courseName) {
+        System.out.println("YdsService.exefindCourseInfo()");
+        
+        YdsVo courseInfo = ydsDao.selectCourseDetailsByName(courseName);
+        System.out.println("YdsService.exefindCourseInfo().courseINfo"+courseInfo);
+        return courseInfo;
+    }
+	
+	
 	// 이미지 등록 서비스
-	public String exeUpload(MultipartFile file) {
+	/*public String exeSaveGalleryFile(MultipartFile galleryfile) {
 		System.out.println("YdsService.exeUpload()");
 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		// 파일저장디렉토리
-		String saveDir = "C:\\javaStudy\\upload";
+		String saveDir = "C:\\JavaStudy\\workspace-vue\\vue-walking\\src\\assets\\upload";
 
 		// (1)파일관련 정보 추출///////////////////////////////////////////////////
 
 		// 오리지널 파일명
-		String orgName = file.getOriginalFilename();
+		String orgName = galleryfile.getOriginalFilename();
 		System.out.println(orgName);
 
 		// 확장자
@@ -54,7 +88,7 @@ public class YdsService {
 		System.out.println(saveName);
 
 		// 파일사이즈
-		long fileSize = file.getSize();
+		long fileSize = galleryfile.getSize();
 		System.out.println(fileSize);
 
 		// 파일전체경로
@@ -65,17 +99,17 @@ public class YdsService {
 		// String content = gVo.getContent();
 
 		// vo로묶기
-		GalleryVo galleryVo = new GalleryVo(filePath, orgName, saveName, fileSize);
+		YdsAttachVo galleryVo = new YdsAttachVo(filePath, orgName, saveName, fileSize);
 		System.out.println(galleryVo);
 
 		// Dao만들기 --> DB저장 과제
 		System.out.println(galleryVo + "DB저장");
-		galleryDao.galleryInsert(galleryVo);
+		ydsDao.galleryInsert(galleryVo);
 
 		// (2)파일저장(서버쪽 하드디스크에 저장)///////////////////////////////////////////////////
 		try {
 			byte[] fileData;
-			fileData = file.getBytes();
+			fileData = galleryfile.getBytes();
 
 			OutputStream os = new FileOutputStream(filePath);
 			BufferedOutputStream bos = new BufferedOutputStream(os);
