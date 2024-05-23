@@ -28,6 +28,9 @@ public class PjhController {
 	@PostMapping("/api/walking/joinpage")
 	public JsonResult joinpage(@RequestBody PjhVo users_listVo) {
 		System.out.println("PjhController.joinpage()");
+
+		users_listVo.setUsers_login_type(0);
+
 		int count = pjhService.exejoinpage(users_listVo);
 		System.out.println(count);
 
@@ -96,7 +99,7 @@ public class PjhController {
 		int no = JwtUtil.getNoFromHeader(request);
 
 		users_listVo.setUsers_no(no);
-		
+
 		if (no != -1) {
 			// db에 수정시킨다
 			pjhService.exeModify(users_listVo);
@@ -107,56 +110,81 @@ public class PjhController {
 			return JsonResult.fail("로그인하지않음");
 		}
 	}
-	
-	
-	//카카오로그인
+
+	// 카카오로그인
 	@GetMapping("/api/walking/kakaologin")
-	public String main() {
+	public String Kakaomain() {
 		String url = "https://kauth.kakao.com/oauth/authorize?client_id=10058c98eea1a5e753d74e9e41744dbd&redirect_uri=http://localhost:8080/walking/kakaojoinpage&response_type=code";
 		System.out.println("login 컨트롤러 접근");
 		return url;
 	}
-	//(인증코드)
+
+	// (인증코드)
 	@GetMapping("/api/walking/kakaojoinpage/{code}")
 	public HashMap<String, String> kakaoLogin(@PathVariable("code") String code) {
-		
+
 		System.out.println(code);
-		
-		//토큰을 요청하여 얻음
+
+		// 토큰을 요청하여 얻음
 		String kakaoToken = pjhService.requestToken(code);
 		System.out.println("카카오토큰" + kakaoToken);
-		
-		//사용자 정보를 요청하여 얻음
+
+		// 사용자 정보를 요청하여 얻음
 		HashMap<String, String> userInfo = pjhService.requestUser(kakaoToken);
 		System.out.println("userIfo : " + userInfo);
-		
+
 		return userInfo;
-		
+
 	}
-	//카카오 회원가입(가입유저,비가입유저구별)
+
+	// 카카오 회원가입(가입유저,비가입유저구별)
 	@GetMapping("/api/walking/kakaoBysubscription/{id}")
 	public JsonResult kakaoBysubscription(@PathVariable("id") String id) {
-		
-		String KakaoId = "Kakao_"+id;
+
+		String KakaoId = "Kakao_" + id;
 
 		int count = pjhService.exejoinpageidcheck(KakaoId);
-		
+
 		boolean exejoinidcheck;
-		
-		if(count == 0) {
+
+		if (count == 0) {
 			exejoinidcheck = false;
-		}else {
+		} else {
 			exejoinidcheck = true;
 		}
 		System.out.println(exejoinidcheck);
 		return JsonResult.success(exejoinidcheck);
 	}
-	
-	//카카오 자동 로그인
+
+	// 카카오로 회원가입하기
+	@PostMapping("/api/walking/Kakaojoinpage")
+	public JsonResult Kakaojoinpage(@RequestBody PjhVo users_listVo) {
+		System.out.println("PjhController.joinpage()");
+
+		String id = users_listVo.getUsers_id();
+		System.out.println(id);
+
+		users_listVo.setUsers_id("Kakao_" + id);
+		users_listVo.setUsers_login_type(1);
+
+		int count = pjhService.exejoinpage(users_listVo);
+		System.out.println(count);
+
+		return JsonResult.success("");
+	}
+
+	// 카카오 자동 로그인
 	@PostMapping("/api/walking/Kakaologinpage")
 	public JsonResult kakaoAutoLogin(@RequestBody PjhVo users_listVo, HttpServletResponse response) {
-		
-		PjhVo authUser = pjhService.exeLogin(users_listVo);
+
+		System.out.println("sssss" + users_listVo);
+
+		String id = users_listVo.getUsers_id();
+		System.out.println(id);
+
+		users_listVo.setUsers_id("Kakao_" + id);
+
+		PjhVo authUser = pjhService.exeKakaoLogin(users_listVo);
 
 		if (authUser != null) {
 			// 토큰발급 해더에 실어 보낸다
@@ -166,11 +194,15 @@ public class PjhController {
 
 			return JsonResult.fail("로그인실패");
 		}
-		
-		
-		
+
 	}
-	
-	
-	
+
+	// 카카오로그아웃
+	@GetMapping("/api/walking/kakaologout")
+	public String Kakaologout() {
+		String url = "https://kauth.kakao.com/oauth/logout?client_id=10058c98eea1a5e753d74e9e41744dbd&logout_redirect_uri=http://localhost:8080/";
+		System.out.println("logout 컨트롤러 접근");
+		return url;
+	}
+
 }

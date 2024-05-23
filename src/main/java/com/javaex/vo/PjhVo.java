@@ -16,6 +16,7 @@ public class PjhVo {
 	private String users_orgName;
 	private String users_saveName;
 	private String users_fileSize;
+	private int users_login_type;
 
 	// 생성자
 	public PjhVo() {
@@ -24,7 +25,8 @@ public class PjhVo {
 
 	public PjhVo(int users_no, String users_id, String users_pw, String users_name, String users_nickname,
 			String users_hp, String users_birth_date, String users_gender, String users_residence,
-			String users_filePath, String users_orgName, String users_saveName, String users_fileSize) {
+			String users_filePath, String users_orgName, String users_saveName, String users_fileSize,
+			int users_login_type) {
 		super();
 		this.users_no = users_no;
 		this.users_id = users_id;
@@ -39,6 +41,7 @@ public class PjhVo {
 		this.users_orgName = users_orgName;
 		this.users_saveName = users_saveName;
 		this.users_fileSize = users_fileSize;
+		this.users_login_type = users_login_type;
 	}
 
 	// 메소드 - g/s
@@ -146,15 +149,23 @@ public class PjhVo {
 		this.users_fileSize = users_fileSize;
 	}
 
+	public int getUsers_login_type() {
+		return users_login_type;
+	}
+
+	public void setUsers_login_type(int users_login_type) {
+		this.users_login_type = users_login_type;
+	}
+
+	// 메소드 - 일반
 	@Override
 	public String toString() {
 		return "PjhVo [users_no=" + users_no + ", users_id=" + users_id + ", users_pw=" + users_pw + ", users_name="
 				+ users_name + ", users_nickname=" + users_nickname + ", users_hp=" + users_hp + ", users_birth_date="
 				+ users_birth_date + ", users_gender=" + users_gender + ", users_residence=" + users_residence
 				+ ", users_filePath=" + users_filePath + ", users_orgName=" + users_orgName + ", users_saveName="
-				+ users_saveName + ", users_fileSize=" + users_fileSize + "]";
+				+ users_saveName + ", users_fileSize=" + users_fileSize + ", users_login_type=" + users_login_type
+				+ "]";
 	}
-
-	// 메소드 - 일반
 
 }

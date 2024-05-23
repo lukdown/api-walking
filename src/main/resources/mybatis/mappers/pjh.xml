@@ -7,7 +7,7 @@
 	<select id ="join" resultType="PjhVo" parameterType="PjhVo">
 		<![CDATA[
 			insert into users_list
-			values(null, #{users_id}, #{users_pw}, #{users_name}, #{users_nickname}, #{users_hp},#{users_birth_date}, #{users_gender}, #{users_residence}, #{users_filePath}, #{users_orgName}, #{users_fileSize}, #{users_filePath});
+			values(null, #{users_id}, #{users_pw}, #{users_name}, #{users_nickname}, #{users_hp},#{users_birth_date}, #{users_gender}, #{users_residence}, #{users_filePath}, #{users_orgName}, #{users_fileSize}, #{users_filePath}, #{users_login_type});
 		]]>
 	</select>
 	
@@ -24,7 +24,8 @@
 	<select id="selectByIdPw" parameterType="PjhVo" resultType="PjhVo">
 		<![CDATA[
 			select  users_no,
-					users_nickname
+					users_nickname,
+					users_login_type
 			from users_list
 			where users_id= #{users_id}
 			and users_pw= #{users_pw}
@@ -61,5 +62,16 @@
 			where users_no = #{users_no}
 		]]>
 	</update>
+	
+	<!--카카오 로그인 -->
+	<select id="selectBykakakoId" parameterType="PjhVo" resultType="PjhVo">
+		<![CDATA[
+			select  users_no,
+					users_nickname,
+					users_login_type
+			from users_list
+			where users_id= #{users_id}
+		]]>
+	</select>
 	
 </mapper>

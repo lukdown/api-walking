@@ -57,4 +57,15 @@ public class PjhDao {
 		int count = sqlSession.update("pjh.update", users_listVo);
 		return count;
 	}
+	
+	//카카오 로그인
+	public PjhVo userSelscetByKakaoId(PjhVo users_listVo) {
+		System.out.println("UserDao.userSelscetByKakaoId()");
+
+		System.out.println(users_listVo);
+		PjhVo authUser = sqlSession.selectOne("pjh.selectBykakakoId", users_listVo);
+		System.out.println("qwer"+authUser);
+
+		return authUser;
+	}
 }

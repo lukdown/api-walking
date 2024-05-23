@@ -244,7 +244,13 @@ public class PjhService {
 		return userInfo;
 	}
 			
-		
-	
+	//카카오 자동 로그인
+	public PjhVo exeKakaoLogin(PjhVo users_listVo) {
+		System.out.println("UserService.exeKakaoLogin()");
+
+		PjhVo authUser = pjhDao.userSelscetByKakaoId(users_listVo);
+
+		return authUser;
+	}
 
 }
