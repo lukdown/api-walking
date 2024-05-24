@@ -1,5 +1,7 @@
 package com.javaex.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -67,5 +69,14 @@ public class PjhDao {
 		System.out.println("qwer"+authUser);
 
 		return authUser;
+	}
+	
+	//편의시설 리스트불러오기
+	public List<PjhVo> ConvenientFacilitieslist() {
+		System.out.println("PjhDao.ConvenientFacilitieslist()");
+
+		List<PjhVo> convenient_facilities_list = sqlSession.selectList("pjh.ConvenientFacilitieslist");
+
+		return convenient_facilities_list;
 	}
 }

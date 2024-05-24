@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -204,5 +205,18 @@ public class PjhController {
 		System.out.println("logout 컨트롤러 접근");
 		return url;
 	}
+	
+	//편의시설 리스트불러오기
+	@GetMapping("/api/walking/convenientlist")
+	public JsonResult convenientlist(HttpServletRequest request) {
+		System.out.println("PjhController.convenientlist()");
 
+		List<PjhVo> convenient_facilities_list = pjhService.exeConvenientlist();
+
+		System.out.println(convenient_facilities_list);
+
+		return JsonResult.success(convenient_facilities_list);
+	}
+	
+	
 }

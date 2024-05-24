@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -252,5 +253,14 @@ public class PjhService {
 
 		return authUser;
 	}
+	
+	//편의시설 리스트불러오기
+	public List<PjhVo> exeConvenientlist() {
+		System.out.println("PjhService.exeConvenientlist()");
 
+		List<PjhVo> convenient_facilities_list = pjhDao.ConvenientFacilitieslist();
+
+		return convenient_facilities_list;
+	}
+	
 }

@@ -74,4 +74,18 @@
 		]]>
 	</select>
 	
+	
+	<!-- 편의시설 리스트불러오기 -->
+	<select id="ConvenientFacilitieslist" resultType="PjhVo" parameterType="PjhVo">
+		<![CDATA[		
+			select cl.facilities_no,
+				   cl.convenient_facilities_type_no,
+			       cl.facilities_name,
+			       cl.facilities_latitude,
+			       cl.facilities_longitude,
+			       cl.facilities_memo
+			from convenient_facilities_list cl,convenient_facilities_type ct
+			where cl.convenient_facilities_type_no = ct.convenient_facilities_type_no;
+		]]>
+	</select>
 </mapper>
