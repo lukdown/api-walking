@@ -15,10 +15,11 @@ public class YysDao {
 	private SqlSession sqlSession;
 
 	// 리스트 가져오기
-	public List<YysVo> coursebookList(String users_no) {
+	public List<YysVo> coursebookList(YysVo yysVo) {
 		System.out.println("YysDao.coursebookList()");
-		// System.out.println(users_no);
-		List<YysVo> coursebookList = sqlSession.selectList("yys.courseList", users_no);
+		System.out.println(yysVo);
+		System.out.println("fewfwegegegwegwegerjighserilhgseroghsergohejo");
+		List<YysVo> coursebookList = sqlSession.selectList("yys.courseList", yysVo);
 
 		// System.out.println(coursebookList);
 		return coursebookList;
@@ -36,10 +37,10 @@ public class YysDao {
 
 
 	// 좋아요 리스트
-	public List<YysVo> selectLike() {
+	public List<YysVo> selectLike(int users_no) {
 		System.out.println("YysDao.selectLike()");
 
-		List<YysVo> lList = sqlSession.selectList("yys.selectLikeList");
+		List<YysVo> lList = sqlSession.selectList("yys.selectLikeList", users_no);
 		return lList;
 	}
 	

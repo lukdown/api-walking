@@ -3,51 +3,51 @@
 
 <mapper namespace="yys">
 	<!-- 전체리스트/내코스리스트 -->
-	<select id="courseList" parameterType="String"
+	<select id="courseList" parameterType="YysVo"
 		resultType="YysVo">
+		<![CDATA[
+					SELECT 
+					    cl.course_no,
+					    cl.users_no AS 'write_users_no',
+					    cl.course_name,
+					    cl.course_difficulty,
+					    cl.course_length,
+					    cl.course_time,
+					    cl.course_hit,
+					    cl.course_region,
+					    cl.course_date,
+					    cl.course_open,
+					    cl.course_introduce,
+					    clike.course_like_no,
+					    clike.login_users_no,
+					    CASE 
+					        WHEN clike.login_users_no IS NOT NULL THEN 1 
+					        ELSE 0 
+					    END AS is_liked
+					FROM 
+					    course_list cl
+					LEFT JOIN (
+					    SELECT 
+					        course_like_no,
+					        course_no,
+					        users_no AS 'login_users_no'
+					    FROM 
+					        course_like
+					    WHERE 
+					        users_no = #{login_users_no}
+					) clike 
+					ON 
+					    clike.course_no = cl.course_no
+				]]>
+
 
 		<choose>
-			<when test="users_no == 'total'">
+			<when test="write_users_no != 0">
 				<![CDATA[
-					select cl.course_no,
-						   cl.users_no,
-					       cl.course_name,
-					       cl.course_difficulty,
-					       cl.course_length,
-					       cl.course_time,
-					       cl.course_hit,
-					       cl.course_region,
-					       cl.course_date,
-					       cl.course_open,
-					       cl.course_introduce,
-					       ul.users_nickname
-					from course_list cl
-					left join users_list ul on cl.users_no = ul.users_no
-					left join course_point cp on cp.course_no = cl.course_no
+					where cl.users_no = #{ write_users_no }
 				]]>
 			</when>
-			<when test="users_no != null">
-				<![CDATA[
-				select cl.course_no,
-						   ul.users_no,
-					       cl.course_name,
-					       cl.course_difficulty,
-					       cl.course_length,
-					       cl.course_time,
-					       cl.course_hit,
-					       cl.course_region,
-					       cl.course_date,
-					       cl.course_open,
-					       cl.course_introduce,
-					       ul.users_nickname
-					from course_list cl
-					left join users_list ul on cl.users_no = ul.users_no
-					left join course_point cp on cp.course_no = cl.course_no
-				where cl.users_no = #{users_no}
-				]]>
-
-
-			</when>
+			
 
 
 
@@ -55,48 +55,77 @@
 
 			<otherwise></otherwise>
 		</choose>
+		
+		
 	</select>
 	<!-- 즐겨찾기리스트 -->
 	<select id="coursefList" parameterType="String"
 		resultType="YysVo">
 
-		<choose>
-			<when test="users_no != null">
 				<![CDATA[
-				select cl.course_no,
-					   cl.users_no,
-					   cl.course_name,
-					   cl.course_difficulty,
-					   cl.course_length,
-					   cl.course_time,
-					   cl.course_hit,
-					   cl.course_region,
-					   cl.course_date,
-					   cl.course_open,
-					   cl.course_introduce,
-					   ul.users_nickname
-				from course_favorites cf
-				left join course_list cl on cf.course_no = cl.course_no
-				left join users_list ul on cf.users_no = ul.users_no
-				where cf.users_no = #{users_no}
+				SELECT 
+				    cl.course_no,
+				    cl.users_no AS write_users_no,
+				    cl.course_name,
+				    cl.course_difficulty,
+				    cl.course_length,
+				    cl.course_time,
+				    cl.course_hit,
+				    cl.course_region,
+				    cl.course_date,
+				    cl.course_open,
+				    cl.course_introduce,
+				    clike.course_like_no,
+				    clike.login_users_no,
+				    CASE 
+				        WHEN clike.login_users_no IS NOT NULL THEN 1 
+				        ELSE 0 
+				    END AS is_liked
+				FROM 
+				    course_favorites cf
+				JOIN 
+				    course_list cl ON cf.course_no = cl.course_no
+				LEFT JOIN (
+				    SELECT 
+				        course_like_no,
+				        course_no,
+				        users_no AS login_users_no
+				    FROM 
+				        course_like
+				    WHERE 
+				        users_no = #{users_no}
+				) clike ON cl.course_no = clike.course_no
+				WHERE 
+				    cf.users_no = #{users_no}
 				]]>
 
-			</when>
-
-
-			<otherwise></otherwise>
-		</choose>
 	</select>
 	
 	
 	
 	<!-- 좋아요 리스트 -->
-   <select id="selectLikeList" resultType="YysVo">
+   <select id="selectLikeList" parameterType="int" resultType="YysVo">
       <![CDATA[ 
-        select course_like_no,
-			   users_no,
-		       course_no
-		from course_like
+        select cl.course_no,
+				   cl.users_no,
+				   cl.course_name,
+				   cl.course_difficulty,
+				   cl.course_length,
+				   cl.course_time,
+				   cl.course_hit,
+				   cl.course_region,
+				   cl.course_date,
+				   cl.course_open,
+				   cl.course_introduce,
+			       clike.course_like_no,
+			       clike.course_no,
+			       clike.users_no
+			from course_list cl
+			left join (select course_like_no,
+							  course_no,
+							  users_no
+					   from course_like
+		   where users_no = #{users_no}) clike on clike.course_no = cl.course_no
       ]]>
    </select>
 

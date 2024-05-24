@@ -15,10 +15,10 @@ public class YysService {
 	private YysDao yysDao;
 
 	// 리스트 가져오기
-	public List<YysVo> exeCourseList(String users_no) {
+	public List<YysVo> exeCourseList(YysVo yysVo) {
 		System.out.println("YysService.exeCourseList()");
 
-		List<YysVo> coursebookList = yysDao.coursebookList(users_no);
+		List<YysVo> coursebookList = yysDao.coursebookList(yysVo);
 
 		return coursebookList;
 	}
@@ -33,15 +33,30 @@ public class YysService {
 	}
 
 	// 좋아요 리스트
-	public List<YysVo> exelikeList() {
+	public List<YysVo> exelikeList(int users_no) {
 		System.out.println("YysService.exelikeList()");
 
-		List<YysVo> lList = yysDao.selectLike();
+		List<YysVo> lList = yysDao.selectLike(users_no);
 
 		System.out.println("======================================");
-		System.out.println(lList);
+		//System.out.println(lList);
+		
+		/*
+		for (int i = 0; i < lList.size(); i++) {
+			//System.out.println(lList.get(i).getCourse_like_no());
+			if(lList.get(i).getCourse_like_no() == 0) {
+				System.out.println(lList.get(i));
+				
+				
+				
+			}else if(lList.get(i).getCourse_like_no() != 0) {
+				
+			}
+		}
+		*/
+		
 		System.out.println("======================================");
-
+		
 		return lList;
 	}
 

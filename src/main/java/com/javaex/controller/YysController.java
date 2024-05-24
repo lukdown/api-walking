@@ -21,12 +21,12 @@ public class YysController {
 	private YysService yysService;
 
 	// 전체 리스트
-	@GetMapping(value = "/api/walking/coursebooklist/{users_no}")
-	public List<YysVo> list(@PathVariable("users_no") String users_no) {
+	@PostMapping(value = "/api/walking/coursebooklist")
+	public List<YysVo> list(@RequestBody YysVo yysVo) {
 		System.out.println("YysController.list()");
-		// System.out.println(users_no);
+		System.out.println(yysVo);
 
-		List<YysVo> coursebookList = yysService.exeCourseList(users_no);
+		List<YysVo> coursebookList = yysService.exeCourseList(yysVo);
 
 		// System.out.println(coursebookList);
 		return coursebookList;
@@ -34,24 +34,25 @@ public class YysController {
 	}
 
 	// 즐겨찾기 리스트
-	@GetMapping(value = "/api/walking/coursebookflist/{users_no}")
-	public List<YysVo> favoritlist(@PathVariable("users_no") String users_no) {
+	@PostMapping(value = "/api/walking/coursebookflist")
+	public List<YysVo> favoritlist(@RequestBody String users_no) {
 		System.out.println("YysController.favoritlist()");
-		// System.out.println(users_no);
+		//System.out.println(users_no);
 
 		List<YysVo> coursebookfList = yysService.exeCoursefList(users_no);
 
 		// System.out.println(coursebookfList);
 		return coursebookfList;
-		// return null;
+		//return null;
 	}
 
 	// 좋아요 리스트
-	@GetMapping("/api/walking/courselikelist")
-	public JsonResult likeList() {
+	@PostMapping("/api/walking/courselikelist")
+	public JsonResult likeList(@RequestBody YysVo yysVo) {
 		System.out.println("YysController.likeList()");
 
-		List<YysVo> lList = yysService.exelikeList();
+		System.out.println(yysVo);
+		List<YysVo> lList = yysService.exelikeList(yysVo.getUsers_no());
 
 		return JsonResult.success(lList);
 		//return JsonResult.success(null);
