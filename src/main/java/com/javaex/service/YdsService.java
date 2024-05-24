@@ -1,7 +1,6 @@
 package com.javaex.service;
 
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -40,41 +39,18 @@ public class YdsService {
         return userCourses;
 	}
 	// 로그인한 회원의 특정 코스 소개 등록(저장)
-    public void saveCourseIntroduction(YdsVo ydsVo) {
-        ydsDao.insertCourseIntroduction(ydsVo);
-        System.out.println(ydsVo);
-    }
-	
-	// 선택한 코스의 상세 정보 조회
-	public YdsVo exefindCourseInfo(String courseName) {
-        System.out.println("YdsService.exefindCourseInfo()");
+    public void saveCourseIntroduction(MultipartFile galleryfile, YdsVo ydsVo) {
         
-        YdsVo courseInfo = ydsDao.selectCourseDetailsByName(courseName);
-        System.out.println("YdsService.exefindCourseInfo().courseINfo"+courseInfo);
-        return courseInfo;
-    }
-	
-	
-	// 이미지 등록 서비스
-	/*public String exeSaveGalleryFile(MultipartFile galleryfile) {
-		System.out.println("YdsService.exeUpload()");
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+    	//텍스트를 저장한다(사진을 제외한 나머지를 저장한ㄷ)///////////////////////
+    	ydsDao.insertCourseIntroduction(ydsVo);
+        System.out.println(ydsVo);
+  
+        //파일테이타 db저장+서버에 복사///////////////////////////////////
 		
 		// 파일저장디렉토리
 		String saveDir = "C:\\JavaStudy\\workspace-vue\\vue-walking\\src\\assets\\upload";
 
-		// (1)파일관련 정보 추출///////////////////////////////////////////////////
-
+		// (1)파일관련 정보 추출//////////////
 		// 오리지널 파일명
 		String orgName = galleryfile.getOriginalFilename();
 		System.out.println(orgName);
@@ -103,6 +79,7 @@ public class YdsService {
 		System.out.println(galleryVo);
 
 		// Dao만들기 --> DB저장 과제
+		// (3)DB저장 /////////////////////////////////////////////////////
 		System.out.println(galleryVo + "DB저장");
 		ydsDao.galleryInsert(galleryVo);
 
@@ -122,10 +99,27 @@ public class YdsService {
 			e.printStackTrace();
 		}
 
-		// (3)DB저장 /////////////////////////////////////////////////////
+		
 		int count = 1;
-		return saveName;
-	}
-	 */
+		
+        
+    }
+    
+    
+    
+    
+    
+    
+	
+	// 선택한 코스의 상세 정보 조회
+	public YdsVo exefindCourseInfo(String courseName) {
+        System.out.println("YdsService.exefindCourseInfo()");
+        
+        YdsVo courseInfo = ydsDao.selectCourseDetailsByName(courseName);
+        System.out.println("YdsService.exefindCourseInfo().courseINfo"+courseInfo);
+        return courseInfo;
+    }
+	
+
 	// 다솜이꺼
 }
