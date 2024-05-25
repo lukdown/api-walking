@@ -51,11 +51,11 @@
 
 
 
-
-
 			<otherwise></otherwise>
 		</choose>
-		
+		<![CDATA[
+			order by cl.course_no desc
+		]]>
 		
 	</select>
 	
@@ -113,6 +113,7 @@
 				) clike ON cl.course_no = clike.course_no
 				WHERE 
 				    cf.users_no = #{users_no}
+				order by cl.course_no desc
 				]]>
 
 	</select>
