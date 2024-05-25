@@ -33,4 +33,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/upload/**")
 				.addResourceLocations("file:D:\\javaStudy\\upload\\");
 	}
+	
+
 }

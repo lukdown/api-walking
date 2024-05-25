@@ -77,9 +77,9 @@
 	
 	<insert id="saveFileInfo" parameterType="com.javaex.vo.YdsAttachVo">
 		<![CDATA[
-		    INSERT into gallery_photo (gallery_filePath, gallery_orgName, gallery_saveName, gallery_fileSize)
-		    VALUES (#{gallery_filePath}, #{gallery_orgName}, #{gallery_saveName}, #{gallery_fileSize})
-		    SELECT LAST_INSERT_ID() AS new_gallery_no
+		    INSERT into gallery_photo (gallery_no, gallery_filePath, gallery_orgName, gallery_saveName, gallery_fileSize)
+		    VALUES (#{gallery_no}, #{gallery_filePath}, #{gallery_orgName}, #{gallery_saveName}, #{gallery_fileSize})
+		    
 	    ]]>
 	</insert>
 

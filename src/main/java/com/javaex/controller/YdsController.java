@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.YdsService;
 import com.javaex.util.JsonResult;
+import com.javaex.vo.YdsAttachListVo;
 import com.javaex.vo.YdsVo;
 
 @RestController
@@ -43,28 +45,30 @@ public class YdsController {
 
 	// 로그인한 회원의 특정 코스 (소개 + 사진) 등록
 	@PostMapping("/gallery/{userNo}/course/{courseNo}")
-	public JsonResult introduceCourse(@RequestParam MultipartFile galleryfile, @ModelAttribute YdsVo ydsVo) {
+	public JsonResult introduceCourse(@RequestParam MultipartFile galleryfile, @ModelAttribute YdsVo ydsVo,
+			@RequestBody YdsAttachListVo attachListVo) {
 		System.out.println("YdsController.introduceCourse()");
 
-		ydsService.saveCourseIntroduction(galleryfile, ydsVo);// 저장 서비스 호출
-		
+		// ydsService.saveCourseIntroduction(galleryfile, ydsVo, attachListVo);// 저장 서비스
+		// 호출
+
 		return JsonResult.success("");// return
 	}
 
 	// 이미지 첨부
 	/*
-	@PostMapping("/galleryupload")
-	public JsonResult galleryUpload(@RequestParam MultipartFile galleryfile) {
-
-		System.out.println("YdsController.galleryUpload()");
-
-		System.out.println(galleryfile.getOriginalFilename());
-		String gallerySaveName = ydsService.exeSaveGalleryFile(galleryfile);
-
-		return JsonResult.success(gallerySaveName); // return
-		
-	}
-	*/
+	 * @PostMapping("/galleryupload") public JsonResult galleryUpload(@RequestParam
+	 * MultipartFile galleryfile) {
+	 * 
+	 * System.out.println("YdsController.galleryUpload()");
+	 * 
+	 * System.out.println(galleryfile.getOriginalFilename()); String gallerySaveName
+	 * = ydsService.exeSaveGalleryFile(galleryfile);
+	 * 
+	 * return JsonResult.success(gallerySaveName); // return
+	 * 
+	 * }
+	 */
 	// 선택한 코스의 상세 정보 조회
 	@GetMapping("/gallery/course/{courseName}")
 	public JsonResult getCourseDetails(@PathVariable(value = "courseName") String courseName) {

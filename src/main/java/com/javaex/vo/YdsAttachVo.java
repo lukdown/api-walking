@@ -3,6 +3,7 @@ package com.javaex.vo;
 public class YdsAttachVo {
 	
 	//필드
+	private int gallery_no;
     private String gallery_orgName;
     private String gallery_saveName;
     private String gallery_filePath;
@@ -17,9 +18,10 @@ public class YdsAttachVo {
 
 
 
-	public YdsAttachVo(String gallery_orgName, String gallery_saveName, String gallery_filePath,
+	public YdsAttachVo(int gallery_no, String gallery_orgName, String gallery_saveName, String gallery_filePath,
 			long gallery_fileSize) {
 		
+		this.gallery_no = gallery_no;
 		this.gallery_orgName = gallery_orgName;
 		this.gallery_saveName = gallery_saveName;
 		this.gallery_filePath = gallery_filePath;
@@ -27,7 +29,20 @@ public class YdsAttachVo {
 	}
 
 
+
 	// g/s
+	public int getGallery_no() {
+		return gallery_no;
+	}
+
+
+
+	public void setGallery_no(int gallery_no) {
+		this.gallery_no = gallery_no;
+	}
+
+
+
 	public String getGallery_orgName() {
 		return gallery_orgName;
 	}
@@ -74,14 +89,18 @@ public class YdsAttachVo {
 		this.gallery_fileSize = gallery_fileSize;
 	}
 
-	
+
 	//일반
 
 	@Override
 	public String toString() {
-		return "YdsAttachVo [gallery_orgName=" + gallery_orgName + ", gallery_saveName=" + gallery_saveName
-				+ ", gallery_filePath=" + gallery_filePath + ", gallery_fileSize=" + gallery_fileSize + "]";
+		return "YdsAttachVo [gallery_no=" + gallery_no + ", gallery_orgName=" + gallery_orgName + ", gallery_saveName="
+				+ gallery_saveName + ", gallery_filePath=" + gallery_filePath + ", gallery_fileSize=" + gallery_fileSize
+				+ "]";
 	}
+
+
+    
 	
 
 }
