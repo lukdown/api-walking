@@ -58,6 +58,22 @@
 		
 		
 	</select>
+	
+	
+	<!-- 해당 코스 좋아요 카운터 확인 -->
+   <select id="like_count" parameterType = "int" resultType="int">
+		<![CDATA[
+			select count(*)
+			from course_like
+			where course_no= #{course_no}
+		]]>
+	</select>
+	
+	
+	
+	
+	
+	
 	<!-- 즐겨찾기리스트 -->
 	<select id="coursefList" parameterType="String"
 		resultType="YysVo">
@@ -179,15 +195,7 @@
 		]]>
 	</delete>
 	
-	<!-- 해당 유저 좋아요 데이터 여부 확인 -->
-   <select id="likeOne" parameterType = "YysVo" resultType="YysVo">
-		<![CDATA[
-			select *
-			from course_like
-			where users_no = #{users_no} and course_no = #{course_no}
-		]]>
-	</select>
-
+	
 	<!-- 좋아요 등록 -->
    <insert id="likeinsert" parameterType="YysVo">
       <![CDATA[   
@@ -203,6 +211,15 @@
 			where users_no = #{users_no} and course_no = #{course_no}
 		]]>
 	</delete>
+	
+	<!-- 좋아요 등록 -->
+   <update id="viewmodify" parameterType="YysVo">
+      <![CDATA[   
+          	update course_list
+			set course_hit = course_hit + 1
+			where course_no = #{course_no}
+       ]]>
+   </update>
 
 
 </mapper>

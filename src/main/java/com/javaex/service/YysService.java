@@ -20,6 +20,18 @@ public class YysService {
 
 		List<YysVo> coursebookList = yysDao.coursebookList(yysVo);
 
+		// System.out.println(coursebookList);
+
+		for (int i = 0; i < coursebookList.size(); i++) {
+			// System.out.println(coursebookList.get(i).getCourse_no());
+			int like_count = yysDao.like_count(coursebookList.get(i).getCourse_no());
+
+			YysVo yVo = coursebookList.get(i);
+			yVo.setLike_count(like_count);
+
+		}
+		// System.out.println(coursebookList);
+
 		return coursebookList;
 	}
 
@@ -39,24 +51,22 @@ public class YysService {
 		List<YysVo> lList = yysDao.selectLike(users_no);
 
 		System.out.println("======================================");
-		//System.out.println(lList);
-		
+		// System.out.println(lList);
+
 		/*
-		for (int i = 0; i < lList.size(); i++) {
-			//System.out.println(lList.get(i).getCourse_like_no());
-			if(lList.get(i).getCourse_like_no() == 0) {
-				System.out.println(lList.get(i));
-				
-				
-				
-			}else if(lList.get(i).getCourse_like_no() != 0) {
-				
-			}
-		}
-		*/
-		
+		 * for (int i = 0; i < lList.size(); i++) {
+		 * //System.out.println(lList.get(i).getCourse_like_no());
+		 * if(lList.get(i).getCourse_like_no() == 0) { System.out.println(lList.get(i));
+		 * 
+		 * 
+		 * 
+		 * }else if(lList.get(i).getCourse_like_no() != 0) {
+		 * 
+		 * } }
+		 */
+
 		System.out.println("======================================");
-		
+
 		return lList;
 	}
 
@@ -107,15 +117,6 @@ public class YysService {
 		return count;
 	}
 
-	// 좋아요 해당 정보 가져오기
-	public YysVo exeonelikeinfo(YysVo yVo) {
-		System.out.println("YysService.exeonelikeinfo()");
-
-		YysVo yysVo = yysDao.likeOne(yVo);
-
-		return yysVo;
-	}
-
 	// 좋아요 저장
 	public int exelikeupdate(YysVo yysVo) {
 		System.out.println("YysService.exelikeupdate()");
@@ -131,6 +132,15 @@ public class YysService {
 
 		// 등록
 		int count = yysDao.likedelete(yysVo);
+
+		return count;
+	}
+
+	// 리스트 조회수 수정
+	public int exeViewmodify(YysVo yysVo) {
+		System.out.println("YysService.exeViewmodify()");
+
+		int count = yysDao.viewmodify(yysVo);
 
 		return count;
 	}

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class YysController {
 	@PostMapping(value = "/api/walking/coursebooklist")
 	public List<YysVo> list(@RequestBody YysVo yysVo) {
 		System.out.println("YysController.list()");
-		System.out.println(yysVo);
+		// System.out.println(yysVo);
 
 		List<YysVo> coursebookList = yysService.exeCourseList(yysVo);
 
@@ -37,13 +38,13 @@ public class YysController {
 	@PostMapping(value = "/api/walking/coursebookflist")
 	public List<YysVo> favoritlist(@RequestBody String users_no) {
 		System.out.println("YysController.favoritlist()");
-		//System.out.println(users_no);
+		// System.out.println(users_no);
 
 		List<YysVo> coursebookfList = yysService.exeCoursefList(users_no);
 
 		// System.out.println(coursebookfList);
 		return coursebookfList;
-		//return null;
+		// return null;
 	}
 
 	// 좋아요 리스트
@@ -55,7 +56,7 @@ public class YysController {
 		List<YysVo> lList = yysService.exelikeList(yysVo.getUsers_no());
 
 		return JsonResult.success(lList);
-		//return JsonResult.success(null);
+		// return JsonResult.success(null);
 	}
 
 	// 리뷰 리스트
@@ -96,7 +97,7 @@ public class YysController {
 		// System.out.println(yVo);
 
 		YysVo yysVo = yysService.exeonefavoritesinfo(yVo);
-		System.out.println(yysVo);
+		//System.out.println(yysVo);
 		// System.out.println(franchiseeName);
 		return JsonResult.success(yysVo);
 		// return null;
@@ -128,22 +129,6 @@ public class YysController {
 		// return 0;
 	}
 
-	// 좋아요 상세정보
-	@GetMapping(value = "/api/walking/onelikeinfo/{users_no}/{course_no}")
-	public JsonResult onelikeinfo(@PathVariable("users_no") int users_no, @PathVariable("course_no") int course_no) {
-		System.out.println("YysController.onelikeinfo()");
-
-		YysVo yVo = new YysVo();
-		yVo.setUsers_no(users_no);
-		yVo.setCourse_no(course_no);
-		System.out.println(yVo);
-
-		YysVo yysVo = yysService.exeonelikeinfo(yVo);
-		// System.out.println(franchiseeName);
-		return JsonResult.success(yysVo);
-		// return null;
-	}
-
 	// 좋아요 등록
 	@PostMapping(value = "/api/walking/likeupdatedelete")
 	public int likeupdate(@RequestBody YysVo yysVo) {
@@ -168,6 +153,19 @@ public class YysController {
 
 		return count;
 		// return 0;
+	}
+
+	// 리스트 조회수 수정
+	@PutMapping(value = "/api/walking/coursebook_list_view_modify")
+	public int viewmodify(@RequestBody YysVo yysVo) {
+		System.out.println("YysController.viewmodify()");
+		//System.out.println(yysVo);
+
+		int count = yysService.exeViewmodify(yysVo);
+		// System.out.println(guestVo);
+
+		return count;
+		//return 0;
 	}
 
 }

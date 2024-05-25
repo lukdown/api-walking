@@ -19,10 +19,10 @@ public class YysVo {
 	private String course_date;
 	private boolean course_open;
 	private String course_introduce;
+	private int like_count;
 	
 	private int write_users_no;
 	private int login_users_no;
-	
 	
 	
 	// 리뷰리스트
@@ -44,9 +44,9 @@ public class YysVo {
 
 	public YysVo(int course_no, int users_no, int course_favorites_no, int course_like_no, String course_name,
 			String course_difficulty, int course_length, String course_time, int course_hit, String course_region,
-			String course_date, boolean course_open, String course_introduce, int write_users_no, int login_users_no,
-			int review_no, String review_content, String review_date, String users_name, String users_id,
-			String users_nickname, String users_hp, String users_residence) {
+			String course_date, boolean course_open, String course_introduce, int like_count, int write_users_no,
+			int login_users_no, int review_no, String review_content, String review_date, String users_name,
+			String users_id, String users_nickname, String users_hp, String users_residence) {
 		super();
 		this.course_no = course_no;
 		this.users_no = users_no;
@@ -61,6 +61,7 @@ public class YysVo {
 		this.course_date = course_date;
 		this.course_open = course_open;
 		this.course_introduce = course_introduce;
+		this.like_count = like_count;
 		this.write_users_no = write_users_no;
 		this.login_users_no = login_users_no;
 		this.review_no = review_no;
@@ -71,6 +72,14 @@ public class YysVo {
 		this.users_nickname = users_nickname;
 		this.users_hp = users_hp;
 		this.users_residence = users_residence;
+	}
+
+	public int getLike_count() {
+		return like_count;
+	}
+
+	public void setLike_count(int like_count) {
+		this.like_count = like_count;
 	}
 
 	public int getCourse_no() {
@@ -264,13 +273,11 @@ public class YysVo {
 				+ ", course_difficulty=" + course_difficulty + ", course_length=" + course_length + ", course_time="
 				+ course_time + ", course_hit=" + course_hit + ", course_region=" + course_region + ", course_date="
 				+ course_date + ", course_open=" + course_open + ", course_introduce=" + course_introduce
-				+ ", write_users_no=" + write_users_no + ", login_users_no=" + login_users_no + ", review_no="
-				+ review_no + ", review_content=" + review_content + ", review_date=" + review_date + ", users_name="
-				+ users_name + ", users_id=" + users_id + ", users_nickname=" + users_nickname + ", users_hp="
-				+ users_hp + ", users_residence=" + users_residence + "]";
+				+ ", like_count=" + like_count + ", write_users_no=" + write_users_no + ", login_users_no="
+				+ login_users_no + ", review_no=" + review_no + ", review_content=" + review_content + ", review_date="
+				+ review_date + ", users_name=" + users_name + ", users_id=" + users_id + ", users_nickname="
+				+ users_nickname + ", users_hp=" + users_hp + ", users_residence=" + users_residence + "]";
 	}
-
-	
 
 	
 

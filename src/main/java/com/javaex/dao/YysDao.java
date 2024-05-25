@@ -17,12 +17,21 @@ public class YysDao {
 	// 리스트 가져오기
 	public List<YysVo> coursebookList(YysVo yysVo) {
 		System.out.println("YysDao.coursebookList()");
-		System.out.println(yysVo);
-		System.out.println("fewfwegegegwegwegerjighserilhgseroghsergohejo");
+		// System.out.println(yysVo);
 		List<YysVo> coursebookList = sqlSession.selectList("yys.courseList", yysVo);
 
 		// System.out.println(coursebookList);
 		return coursebookList;
+	}
+
+	// 좋아요 코스별 카운트 가져오기
+	public int like_count(int course_no) {
+		System.out.println("YysDao.like_count()");
+		// System.out.println(course_no);
+		int like_count = sqlSession.selectOne("yys.like_count", course_no);
+
+		// System.out.println(like_count);
+		return like_count;
 	}
 
 	// 즐겨찾기 리스트 가져오기
@@ -35,7 +44,6 @@ public class YysDao {
 		return coursebookfList;
 	}
 
-
 	// 좋아요 리스트
 	public List<YysVo> selectLike(int users_no) {
 		System.out.println("YysDao.selectLike()");
@@ -43,7 +51,7 @@ public class YysDao {
 		List<YysVo> lList = sqlSession.selectList("yys.selectLikeList", users_no);
 		return lList;
 	}
-	
+
 	// 후기 리스트 가져오기
 	public List<YysVo> coursereviewList(int course_no) {
 		System.out.println("YysDao.coursereviewList()");
@@ -88,16 +96,6 @@ public class YysDao {
 		return count;
 	}
 
-	// 좋아요 해당 정보 가져오기
-	public YysVo likeOne(YysVo yVo) {
-		System.out.println("YysDao.likeOne()");
-		// System.out.println(course_no);
-		YysVo yysVo = sqlSession.selectOne("yys.likeOne", yVo);
-
-		// System.out.println(coursereviewList);
-		return yysVo;
-	}
-
 	// 좋아요 저장
 	public int likeinsert(YysVo yysVo) {
 		System.out.println("YysDao.likeinsert()");
@@ -113,4 +111,13 @@ public class YysDao {
 		int count = sqlSession.delete("yys.likedelete", yysVo);
 		return count;
 	}
+
+	// 리스트 조회수 수정
+	public int viewmodify(YysVo yysVo) {
+		System.out.println("YysDao.viewmodify()");
+
+		int count = sqlSession.insert("yys.viewmodify", yysVo);
+		return count;
+	}
+
 }
