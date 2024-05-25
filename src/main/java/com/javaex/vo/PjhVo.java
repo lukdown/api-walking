@@ -17,6 +17,12 @@ public class PjhVo {
 	private String users_saveName;
 	private String users_fileSize;
 	private int users_login_type;
+	private int facilities_no;
+	private int convenient_facilities_type_no;
+	private String facilities_name;
+	private double facilities_latitude;
+	private double facilities_longitude;
+	private String facilities_memo;
 
 	// 생성자
 	public PjhVo() {
@@ -26,7 +32,8 @@ public class PjhVo {
 	public PjhVo(int users_no, String users_id, String users_pw, String users_name, String users_nickname,
 			String users_hp, String users_birth_date, String users_gender, String users_residence,
 			String users_filePath, String users_orgName, String users_saveName, String users_fileSize,
-			int users_login_type) {
+			int users_login_type, int facilities_no, int convenient_facilities_type_no, String facilities_name,
+			double facilities_latitude, double facilities_longitude, String facilities_memo) {
 		super();
 		this.users_no = users_no;
 		this.users_id = users_id;
@@ -42,6 +49,12 @@ public class PjhVo {
 		this.users_saveName = users_saveName;
 		this.users_fileSize = users_fileSize;
 		this.users_login_type = users_login_type;
+		this.facilities_no = facilities_no;
+		this.convenient_facilities_type_no = convenient_facilities_type_no;
+		this.facilities_name = facilities_name;
+		this.facilities_latitude = facilities_latitude;
+		this.facilities_longitude = facilities_longitude;
+		this.facilities_memo = facilities_memo;
 	}
 
 	// 메소드 - g/s
@@ -157,6 +170,54 @@ public class PjhVo {
 		this.users_login_type = users_login_type;
 	}
 
+	public int getFacilities_no() {
+		return facilities_no;
+	}
+
+	public void setFacilities_no(int facilities_no) {
+		this.facilities_no = facilities_no;
+	}
+
+	public int getConvenient_facilities_type_no() {
+		return convenient_facilities_type_no;
+	}
+
+	public void setConvenient_facilities_type_no(int convenient_facilities_type_no) {
+		this.convenient_facilities_type_no = convenient_facilities_type_no;
+	}
+
+	public String getFacilities_name() {
+		return facilities_name;
+	}
+
+	public void setFacilities_name(String facilities_name) {
+		this.facilities_name = facilities_name;
+	}
+
+	public double getFacilities_latitude() {
+		return facilities_latitude;
+	}
+
+	public void setFacilities_latitude(double facilities_latitude) {
+		this.facilities_latitude = facilities_latitude;
+	}
+
+	public double getFacilities_longitude() {
+		return facilities_longitude;
+	}
+
+	public void setFacilities_longitude(double facilities_longitude) {
+		this.facilities_longitude = facilities_longitude;
+	}
+
+	public String getFacilities_memo() {
+		return facilities_memo;
+	}
+
+	public void setFacilities_memo(String facilities_memo) {
+		this.facilities_memo = facilities_memo;
+	}
+
 	// 메소드 - 일반
 	@Override
 	public String toString() {
@@ -165,7 +226,10 @@ public class PjhVo {
 				+ users_birth_date + ", users_gender=" + users_gender + ", users_residence=" + users_residence
 				+ ", users_filePath=" + users_filePath + ", users_orgName=" + users_orgName + ", users_saveName="
 				+ users_saveName + ", users_fileSize=" + users_fileSize + ", users_login_type=" + users_login_type
-				+ "]";
+				+ ", facilities_no=" + facilities_no + ", convenient_facilities_type_no="
+				+ convenient_facilities_type_no + ", facilities_name=" + facilities_name + ", facilities_latitude="
+				+ facilities_latitude + ", facilities_longitude=" + facilities_longitude + ", facilities_memo="
+				+ facilities_memo + "]";
 	}
 
 }

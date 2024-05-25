@@ -218,5 +218,7 @@ public class PjhController {
 		return JsonResult.success(convenient_facilities_list);
 	}
 	
+	//편의시설 장애시설 api 데이터 불러오기
+	
 	
 }
