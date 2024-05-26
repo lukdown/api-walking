@@ -14,6 +14,19 @@ public class LebService {
 	@Autowired
 	private LebDao lebDao;
 
+	public int exeCourseDraw(LebVo courseVo) {
+		System.out.println("lebService.exeCourseDraw()");
+		int result = lebDao.courseDraw(courseVo);
+		return result;
+	}
+	
+	public int exeCoursePointDraw(List<LebVo> pointList) {
+		System.out.println("lebService.exeCoursePointDraw()");
+		for(int i=0; i<pointList.size(); i++) {
+			lebDao.coursePointDraw(pointList.get(i));
+		}
+		return 0;
+	}
 	
 
 }
