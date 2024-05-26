@@ -3,4 +3,89 @@
 
 <mapper namespace="pjh">
 	
+	<!-- 회원가입 -->
+	<select id ="join" resultType="PjhVo" parameterType="PjhVo">
+		<![CDATA[
+			insert into users_list
+			values(null, #{users_id}, #{users_pw}, #{users_name}, #{users_nickname}, #{users_hp},#{users_birth_date}, #{users_gender}, #{users_residence}, #{users_filePath}, #{users_orgName}, #{users_fileSize}, #{users_filePath}, #{users_login_type});
+		]]>
+	</select>
+	
+	<!-- id 중복체크 -->
+	<select id="idCheck" resultType="int" parameterType="String">
+		<![CDATA[
+			select count(users_id) from users_list
+			where users_id = #{users_id}
+		]]>
+	
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="selectByIdPw" parameterType="PjhVo" resultType="PjhVo">
+		<![CDATA[
+			select  users_no,
+					users_nickname,
+					users_login_type
+			from users_list
+			where users_id= #{users_id}
+			and users_pw= #{users_pw}
+		]]>
+	</select>
+	
+	<!-- 회원정보 수정폼 1개 데이터 가져오기 -->
+	<select id="selectOneByNo" parameterType="int" resultType="PjhVo">
+		<![CDATA[ 
+			select 	users_id, 
+					users_pw,
+					users_name,
+					users_nickname,
+					users_hp,
+					users_birth_date,
+					users_gender,
+					users_residence
+			from users_list
+			where users_no = #{no}
+		]]>
+	</select>
+	
+	<!-- 회원정보수정 -->
+	<update id="update" parameterType="PjhVo">
+		<![CDATA[ 
+			update users_list
+			set users_pw = #{users_pw},
+				users_name = #{users_name},
+				users_nickname = #{users_nickname},
+				users_hp = #{users_hp},
+				users_birth_date = #{users_birth_date},
+				users_gender = #{users_gender},
+				users_residence = #{users_residence}
+			where users_no = #{users_no}
+		]]>
+	</update>
+	
+	<!--카카오 로그인 -->
+	<select id="selectBykakakoId" parameterType="PjhVo" resultType="PjhVo">
+		<![CDATA[
+			select  users_no,
+					users_nickname,
+					users_login_type
+			from users_list
+			where users_id= #{users_id}
+		]]>
+	</select>
+	
+	
+	<!-- 편의시설 리스트불러오기 -->
+	<select id="ConvenientFacilitieslist" resultType="PjhVo" parameterType="PjhVo">
+		<![CDATA[		
+			select cl.facilities_no,
+				   cl.convenient_facilities_type_no,
+			       cl.facilities_name,
+			       cl.facilities_latitude,
+			       cl.facilities_longitude,
+			       cl.facilities_memo
+			from convenient_facilities_list cl,convenient_facilities_type ct
+			where cl.convenient_facilities_type_no = ct.convenient_facilities_type_no
+		]]>
+	</select>
 </mapper>

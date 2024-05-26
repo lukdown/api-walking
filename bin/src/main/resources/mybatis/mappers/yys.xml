@@ -2,10 +2,225 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="yys">
+	<!-- 전체리스트/내코스리스트 -->
+	<select id="courseList" parameterType="YysVo"
+		resultType="YysVo">
+		<![CDATA[
+					SELECT 
+					    cl.course_no,
+					    cl.users_no AS 'write_users_no',
+					    cl.course_name,
+					    cl.course_difficulty,
+					    cl.course_length,
+					    cl.course_time,
+					    cl.course_hit,
+					    cl.course_region,
+					    cl.course_date,
+					    cl.course_open,
+					    cl.course_introduce,
+					    clike.course_like_no,
+					    clike.login_users_no,
+					    CASE 
+					        WHEN clike.login_users_no IS NOT NULL THEN 1 
+					        ELSE 0 
+					    END AS is_liked
+					FROM 
+					    course_list cl
+					LEFT JOIN (
+					    SELECT 
+					        course_like_no,
+					        course_no,
+					        users_no AS 'login_users_no'
+					    FROM 
+					        course_like
+					    WHERE 
+					        users_no = #{login_users_no}
+					) clike 
+					ON 
+					    clike.course_no = cl.course_no
+				]]>
 
-	
-	
-	
 
+		<choose>
+			<when test="write_users_no != 0">
+				<![CDATA[
+					where cl.users_no = #{ write_users_no }
+				]]>
+			</when>
+			
+
+
+
+			<otherwise></otherwise>
+		</choose>
+		<![CDATA[
+			order by cl.course_no desc
+		]]>
+		
+	</select>
 	
+	
+	<!-- 해당 코스 좋아요 카운터 확인 -->
+   <select id="like_count" parameterType = "int" resultType="int">
+		<![CDATA[
+			select count(*)
+			from course_like
+			where course_no= #{course_no}
+		]]>
+	</select>
+	
+	
+	
+	
+	
+	
+	<!-- 즐겨찾기리스트 -->
+	<select id="coursefList" parameterType="String"
+		resultType="YysVo">
+
+				<![CDATA[
+				SELECT 
+				    cl.course_no,
+				    cl.users_no AS write_users_no,
+				    cl.course_name,
+				    cl.course_difficulty,
+				    cl.course_length,
+				    cl.course_time,
+				    cl.course_hit,
+				    cl.course_region,
+				    cl.course_date,
+				    cl.course_open,
+				    cl.course_introduce,
+				    clike.course_like_no,
+				    clike.login_users_no,
+				    CASE 
+				        WHEN clike.login_users_no IS NOT NULL THEN 1 
+				        ELSE 0 
+				    END AS is_liked
+				FROM 
+				    course_favorites cf
+				JOIN 
+				    course_list cl ON cf.course_no = cl.course_no
+				LEFT JOIN (
+				    SELECT 
+				        course_like_no,
+				        course_no,
+				        users_no AS login_users_no
+				    FROM 
+				        course_like
+				    WHERE 
+				        users_no = #{users_no}
+				) clike ON cl.course_no = clike.course_no
+				WHERE 
+				    cf.users_no = #{users_no}
+				order by cl.course_no desc
+				]]>
+
+	</select>
+	
+	
+	
+	<!-- 좋아요 리스트 -->
+   <select id="selectLikeList" parameterType="int" resultType="YysVo">
+      <![CDATA[ 
+        select cl.course_no,
+				   cl.users_no,
+				   cl.course_name,
+				   cl.course_difficulty,
+				   cl.course_length,
+				   cl.course_time,
+				   cl.course_hit,
+				   cl.course_region,
+				   cl.course_date,
+				   cl.course_open,
+				   cl.course_introduce,
+			       clike.course_like_no,
+			       clike.course_no,
+			       clike.users_no
+			from course_list cl
+			left join (select course_like_no,
+							  course_no,
+							  users_no
+					   from course_like
+		   where users_no = #{users_no}) clike on clike.course_no = cl.course_no
+      ]]>
+   </select>
+
+	<!-- 리뷰리스트 -->
+	<select id="coursereviewList" parameterType="int" resultType="YysVo">
+		<![CDATA[
+			select crl.review_no,
+				   crl.course_no,
+			       crl.users_no,
+			       crl.review_content,
+			       crl.review_date,
+			       ul.users_name,
+			       ul.users_nickname
+			from course_review_list crl
+			left join course_list cl on crl.course_no = cl.course_no
+			left join users_list ul on ul.users_no = crl.users_no
+			where crl.course_no = #{course_no}
+		]]>
+	</select>
+	
+	<!-- 후기등록 -->
+   <insert id="reviewinsert" parameterType="YysVo">
+      <![CDATA[   
+          insert into course_review_list
+              values ( null, #{course_no}, #{users_no}, #{review_content}, now() )
+       ]]>
+   </insert>
+   
+   <!-- 해당 유저 즐겨찾기 데이터 여부 확인 -->
+   <select id="favoritesOne" parameterType = "YysVo" resultType="YysVo">
+		<![CDATA[
+			select *
+			from course_favorites
+			where users_no = #{users_no} and course_no = #{course_no}
+		]]>
+	</select>
+	
+	<!-- 즐겨찾기 등록 -->
+   <insert id="favoritesinsert" parameterType="YysVo">
+      <![CDATA[   
+          insert into course_favorites
+              values ( null, #{users_no}, #{course_no} )
+       ]]>
+   </insert>
+   
+   <!-- 즐겨찾기 삭제 -->
+	<delete id="favoritesdelete" parameterType="YysVo">
+		<![CDATA[
+			delete from course_favorites
+			where users_no = #{users_no} and course_no = #{course_no}
+		]]>
+	</delete>
+	
+	
+	<!-- 좋아요 등록 -->
+   <insert id="likeinsert" parameterType="YysVo">
+      <![CDATA[   
+          insert into course_like
+              values ( null, #{users_no}, #{course_no} )
+       ]]>
+   </insert>
+   
+   <!-- 좋아요 삭제 -->
+	<delete id="likedelete" parameterType="YysVo">
+		<![CDATA[
+			delete from course_like
+			where users_no = #{users_no} and course_no = #{course_no}
+		]]>
+	</delete>
+	
+	<!-- 좋아요 등록 -->
+   <update id="viewmodify" parameterType="YysVo">
+      <![CDATA[   
+          	update course_list
+			set course_hit = course_hit + 1
+			where course_no = #{course_no}
+       ]]>
+   </update>
+
+
 </mapper>
