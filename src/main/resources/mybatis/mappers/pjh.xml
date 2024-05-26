@@ -88,4 +88,21 @@
 			where cl.convenient_facilities_type_no = ct.convenient_facilities_type_no
 		]]>
 	</select>
+	
+	<!-- 편의시설 장애시설 api 데이터 있나 비교 -->
+	<select id="facilitieslistcomparison" resultType="int" parameterType="String">
+		<![CDATA[
+			select count(facilities_name) from convenient_facilities_list
+			where facilities_name = #{facilities_name}
+		]]>
+	
+	</select>
+	
+	<!-- 편의시설 장애시설 api 데이터 저장 -->
+	<select id ="facilitieslistinsert" resultType="PjhVo" parameterType="PjhVo">
+		<![CDATA[
+			insert into convenient_facilities_list
+			values(null, #{users_no}, #{convenient_facilities_type_no}, #{facilities_name}, #{facilities_latitude}, #{facilities_longitude},#{facilities_memo});
+		]]>
+	</select>
 </mapper>

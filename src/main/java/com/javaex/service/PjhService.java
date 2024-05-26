@@ -156,96 +156,90 @@ public class PjhService {
 
 	}
 
-	public HashMap<String,String> requestUser(String accessToken) {
-		
-		log.info("유저정보 요청 시작");
-		
-		// request를 보낼 주소
-		String strUrl = "https://kapi.kakao.com/v2/user/me"; 
-		
-		HashMap<String, String> userInfo = new HashMap<>();
-		
-		userInfo.put("accessToken", accessToken);
-		
-		try {
-			
-			URL url = new URL(strUrl);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); //url Http 연결 생성
-			
-			
-			//POST 요청
-			conn.setRequestMethod("POST");
-			conn.setDoOutput(true);//outputStreamm으로 post 데이터를 넘
+	public HashMap<String, String> requestUser(String accessToken) {
 
-			//전송할 header 작성, 인자로 받은 access_token전송
-			conn.setRequestProperty("Authorization","Bearer " + accessToken);
-			
-			//실제 요청을 보내는 부분, 결과 코드가 200이라면 성공
+		log.info("유저정보 요청 시작");
+
+		// request를 보낼 주소
+		String strUrl = "https://kapi.kakao.com/v2/user/me";
+
+		HashMap<String, String> userInfo = new HashMap<>();
+
+		userInfo.put("accessToken", accessToken);
+
+		try {
+
+			URL url = new URL(strUrl);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // url Http 연결 생성
+
+			// POST 요청
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);// outputStreamm으로 post 데이터를 넘
+
+			// 전송할 header 작성, 인자로 받은 access_token전송
+			conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+			// 실제 요청을 보내는 부분, 결과 코드가 200이라면 성공
 			int responseCode = conn.getResponseCode();
-			
-			log.info("requestUser의 responsecode(200이면성공):{}",responseCode);
-			
-			//요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
-			BufferedReader br = new BufferedReader(new InputStreamReader(responseCode == 200 ? conn.getInputStream() : conn.getErrorStream()));
-			
+
+			log.info("requestUser의 responsecode(200이면성공):{}", responseCode);
+
+			// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
+			BufferedReader br = new BufferedReader(
+					new InputStreamReader(responseCode == 200 ? conn.getInputStream() : conn.getErrorStream()));
+
 			String line = "";
-			
+
 			String result = "";
-			
-			
+
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
 			br.close();
-			
-			
-			log.info("response body: {}",result);
-			
 
-			
+			log.info("response body: {}", result);
+
 			if (responseCode == 200) {
-                // Jackson으로 json 파싱
-                ObjectMapper mapper = new ObjectMapper();
-                
-                HashMap<String, Object> resultMap = mapper.readValue(result, HashMap.class);
-                String id = String.valueOf((Long) resultMap.get("id"));
-                
-                HashMap<String, Object> properties = (HashMap<String, Object>) resultMap.get("properties");
-                String nickname = (String) properties.get("nickname");
-                String profile_image = (String) properties.get("profile_image");
-                
-                HashMap<String, Object> kakao_account = (HashMap<String, Object>) resultMap.get("kakao_account");
-                String email = (String) kakao_account.get("email");
-                String birthyear = (String) kakao_account.get("birthyear");
-                String birthday = (String) kakao_account.get("birthday");
-                String gender = (String)kakao_account.get("gender");
-                String name = (String)kakao_account.get("name");
-                String phone_number = (String)kakao_account.get("phone_number");
-                if (phone_number != null && phone_number.startsWith("+82 ")) {
-                    phone_number = phone_number.replace("+82 ", "0");
-                }
-                
-                
+				// Jackson으로 json 파싱
+				ObjectMapper mapper = new ObjectMapper();
 
-                userInfo.put("email", email);
-                userInfo.put("id", id);
-                userInfo.put("nickname", nickname);
-                userInfo.put("profile_image", profile_image);
-                userInfo.put("birthyear", birthyear);
-                userInfo.put("birthday", birthday);
-                userInfo.put("gender", gender);
-                userInfo.put("name", name);
-                userInfo.put("phone_number", phone_number);
-            } else {
-                log.error("Failed to get user info: {}", result);
-            }
+				HashMap<String, Object> resultMap = mapper.readValue(result, HashMap.class);
+				String id = String.valueOf((Long) resultMap.get("id"));
+
+				HashMap<String, Object> properties = (HashMap<String, Object>) resultMap.get("properties");
+				String nickname = (String) properties.get("nickname");
+				String profile_image = (String) properties.get("profile_image");
+
+				HashMap<String, Object> kakao_account = (HashMap<String, Object>) resultMap.get("kakao_account");
+				String email = (String) kakao_account.get("email");
+				String birthyear = (String) kakao_account.get("birthyear");
+				String birthday = (String) kakao_account.get("birthday");
+				String gender = (String) kakao_account.get("gender");
+				String name = (String) kakao_account.get("name");
+				String phone_number = (String) kakao_account.get("phone_number");
+				if (phone_number != null && phone_number.startsWith("+82 ")) {
+					phone_number = phone_number.replace("+82 ", "0");
+				}
+
+				userInfo.put("email", email);
+				userInfo.put("id", id);
+				userInfo.put("nickname", nickname);
+				userInfo.put("profile_image", profile_image);
+				userInfo.put("birthyear", birthyear);
+				userInfo.put("birthday", birthday);
+				userInfo.put("gender", gender);
+				userInfo.put("name", name);
+				userInfo.put("phone_number", phone_number);
+			} else {
+				log.error("Failed to get user info: {}", result);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return userInfo;
 	}
-			
-	//카카오 자동 로그인
+
+	// 카카오 자동 로그인
 	public PjhVo exeKakaoLogin(PjhVo users_listVo) {
 		System.out.println("UserService.exeKakaoLogin()");
 
@@ -253,8 +247,8 @@ public class PjhService {
 
 		return authUser;
 	}
-	
-	//편의시설 리스트불러오기
+
+	// 편의시설 리스트불러오기
 	public List<PjhVo> exeConvenientlist() {
 		System.out.println("PjhService.exeConvenientlist()");
 
@@ -262,5 +256,22 @@ public class PjhService {
 
 		return convenient_facilities_list;
 	}
-	
+
+	// 편의시설 장애시설 api 데이터 있나 비교
+	public int exefacilitieslistcomparison(String facilities_name) {
+		System.out.println("PjhService.exefacilitieslistcomparison");
+
+		int count = pjhDao.facilitieslistdatacomparison(facilities_name);
+
+		return count;
+	}
+
+	// 편의시설 장애시설 api 데이터 저장
+	public int exefacilitieslistcomparisoninsert(PjhVo convenient_facilities_list) {
+		System.out.println("PjhService.exefacilitieslistcomparisoninsert()");
+		int count = pjhDao.facilitieslistinsert(convenient_facilities_list);
+		System.out.println(count);
+
+		return count;
+	}
 }
