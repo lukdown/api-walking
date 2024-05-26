@@ -45,14 +45,18 @@ public class YdsController {
 
 	// 로그인한 회원의 특정 코스 (소개 + 사진) 등록
 	@PostMapping("/gallery/{userNo}/course/{courseNo}")
-	public JsonResult introduceCourse(@RequestParam MultipartFile galleryfile, @ModelAttribute YdsVo ydsVo,
+	public JsonResult introduceCourse(@RequestParam MultipartFile[] galleryfile, @ModelAttribute YdsVo ydsVo,
 			@RequestBody YdsAttachListVo attachListVo) {
 		System.out.println("YdsController.introduceCourse()");
+		
+		if (galleryfile.length > 3) {
+	        return JsonResult.fail("최대 3개의 파일만 업로드 할 수 있습니다.");
+	    }
 
-		// ydsService.saveCourseIntroduction(galleryfile, ydsVo, attachListVo);// 저장 서비스
+		 ydsService.saveCourseIntroduction(galleryfile, ydsVo, attachListVo);// 저장 서비스
 		// 호출
 
-		return JsonResult.success("");// return
+		return JsonResult.success("파일 업로드 성공");// return
 	}
 
 	// 이미지 첨부

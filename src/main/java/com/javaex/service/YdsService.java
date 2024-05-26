@@ -41,7 +41,7 @@ public class YdsService {
 	}
 	
 	// 로그인한 회원의 특정 코스 소개 등록(저장)
-    public void saveCourseIntroduction(MultipartFile galleryfile, YdsVo ydsVo, YdsAttachListVo attachListVo) {
+    public void saveCourseIntroduction(MultipartFile[] galleryfile, YdsVo ydsVo, YdsAttachListVo attachListVo) {
         
     	//텍스트를 저장한다(사진을 제외한 나머지를 저장)///////////////////////
     	ydsDao.insertCourseIntroduction(ydsVo);
@@ -49,7 +49,7 @@ public class YdsService {
         
         //묶은이미지 저장
         List<YdsAttachVo> attachVoList = attachListVo.getAttachVoList();
-        for (YdsAttachVo attachVo : attachVoList) {
+        for (int i = 0; i < galleryfile.length; i++) {
         	// 갤러리 번호 추출
 	        int galleryNo = ydsVo.getGallery_no(); // 삽입된 갤러리 번호 가져오기
 	  
@@ -60,7 +60,7 @@ public class YdsService {
 	
 			// (1)파일관련 정보 추출//////////////
 			// 오리지널 파일명
-			String orgName = galleryfile.getOriginalFilename();
+			String orgName = galleryfile[i].getOriginalFilename();
 			System.out.println(orgName);
 	
 			// 확장자
@@ -72,7 +72,7 @@ public class YdsService {
 			System.out.println(saveName);
 	
 			// 파일사이즈
-			long fileSize = galleryfile.getSize();
+			long fileSize = galleryfile[i].getSize();
 			System.out.println(fileSize);
 	
 			// 파일전체경로
@@ -95,7 +95,7 @@ public class YdsService {
 			// (2)파일저장(서버쪽 하드디스크에 저장)///////////////////////////////////////////////////
 			try {
 				byte[] fileData;
-				fileData = galleryfile.getBytes();
+				fileData = galleryfile[i].getBytes();
 	
 				OutputStream os = new FileOutputStream(filePath);
 				BufferedOutputStream bos = new BufferedOutputStream(os);
