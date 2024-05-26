@@ -15,6 +15,27 @@ public class YysService {
 	private YysDao yysDao;
 
 	// 리스트 가져오기
+	public List<YysVo> exeCoursetotalList() {
+		System.out.println("YysService.exeCoursetotalList()");
+
+		List<YysVo> coursebookList = yysDao.coursebooktotalList();
+
+		// System.out.println(coursebookList);
+
+		for (int i = 0; i < coursebookList.size(); i++) {
+			// System.out.println(coursebookList.get(i).getCourse_no());
+			int like_count = yysDao.like_count(coursebookList.get(i).getCourse_no());
+
+			YysVo yVo = coursebookList.get(i);
+			yVo.setLike_count(like_count);
+
+		}
+		// System.out.println(coursebookList);
+
+		return coursebookList;
+	}
+
+	// 리스트 가져오기
 	public List<YysVo> exeCourseList(YysVo yysVo) {
 		System.out.println("YysService.exeCourseList()");
 

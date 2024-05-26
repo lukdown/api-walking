@@ -15,6 +15,16 @@ public class YysDao {
 	private SqlSession sqlSession;
 
 	// 리스트 가져오기
+	public List<YysVo> coursebooktotalList() {
+		System.out.println("YysDao.coursebooktotalList()");
+		// System.out.println(yysVo);
+		List<YysVo> coursebookList = sqlSession.selectList("yys.coursetotalList");
+
+		// System.out.println(coursebookList);
+		return coursebookList;
+	}
+
+	// 리스트 가져오기
 	public List<YysVo> coursebookList(YysVo yysVo) {
 		System.out.println("YysDao.coursebookList()");
 		// System.out.println(yysVo);

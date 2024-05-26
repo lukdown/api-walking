@@ -21,7 +21,20 @@ public class YysController {
 	@Autowired
 	private YysService yysService;
 
-	// 전체 리스트
+	// 내 리스트(로그인 전)
+	@GetMapping(value = "/api/walking/coursebooktotallist")
+	public List<YysVo> totallist() {
+		System.out.println("YysController.totallist()");
+		// System.out.println(yysVo);
+
+		List<YysVo> coursebookList = yysService.exeCoursetotalList();
+
+		// System.out.println(coursebookList);
+		return coursebookList;
+		// return null;
+	}
+
+	// 전체리스트 or 내 리스트- (로그인 이후)
 	@PostMapping(value = "/api/walking/coursebooklist")
 	public List<YysVo> list(@RequestBody YysVo yysVo) {
 		System.out.println("YysController.list()");
@@ -97,7 +110,7 @@ public class YysController {
 		// System.out.println(yVo);
 
 		YysVo yysVo = yysService.exeonefavoritesinfo(yVo);
-		//System.out.println(yysVo);
+		// System.out.println(yysVo);
 		// System.out.println(franchiseeName);
 		return JsonResult.success(yysVo);
 		// return null;
@@ -159,13 +172,13 @@ public class YysController {
 	@PutMapping(value = "/api/walking/coursebook_list_view_modify")
 	public int viewmodify(@RequestBody YysVo yysVo) {
 		System.out.println("YysController.viewmodify()");
-		//System.out.println(yysVo);
+		// System.out.println(yysVo);
 
 		int count = yysService.exeViewmodify(yysVo);
 		// System.out.println(guestVo);
 
 		return count;
-		//return 0;
+		// return 0;
 	}
 
 }
