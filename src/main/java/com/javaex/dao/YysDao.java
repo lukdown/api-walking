@@ -14,6 +14,17 @@ public class YysDao {
 	@Autowired
 	private SqlSession sqlSession;
 
+	// 코스 포인트리스트 가져오기
+	public List<YysVo> coursepointList(YysVo yysVo) {
+		System.out.println("YysDao.coursepointList()");
+		
+		//System.out.println(yysVo);
+		List<YysVo> coursepointList = sqlSession.selectList("yys.coursepointList", yysVo);
+
+		// System.out.println(coursebookList);
+		return coursepointList;
+	}
+
 	// 리스트 가져오기
 	public List<YysVo> coursebooktotalList() {
 		System.out.println("YysDao.coursebooktotalList()");
@@ -36,7 +47,7 @@ public class YysDao {
 
 	// 좋아요 코스별 카운트 가져오기
 	public int like_count(int course_no) {
-		System.out.println("YysDao.like_count()");
+		// System.out.println("YysDao.like_count()");
 		// System.out.println(course_no);
 		int like_count = sqlSession.selectOne("yys.like_count", course_no);
 
