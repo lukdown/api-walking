@@ -15,6 +15,7 @@ public class LebDao {
 	public int courseDraw(LebVo courseVo) {
 		System.out.println("LebDao.courseDraw()");
 		int count = sqlSession.insert("leb.courseDraw", courseVo);
+		System.out.println(count);
 		return count;
 	}
 	

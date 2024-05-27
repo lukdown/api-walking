@@ -17,6 +17,7 @@ public class LebService {
 	public int exeCourseDraw(LebVo courseVo) {
 		System.out.println("lebService.exeCourseDraw()");
 		int result = lebDao.courseDraw(courseVo);
+		System.out.println(result);
 		return result;
 	}
 	

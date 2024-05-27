@@ -24,13 +24,14 @@ public class LebController {
 	@PostMapping("/api/walking/coursedraw")
 	public JsonResult courseDraw(@RequestBody LebVo courseVo, HttpServletRequest request) {
 		System.out.println("LebController.courseDraw()");
+		System.out.println(courseVo.getCourse_region());
 		System.out.println(courseVo);
 		int no = JwtUtil.getNoFromHeader(request);
 
 		if (no != -1) {
 			courseVo.setUsers_no(no);
 			int courseNo = lebService.exeCourseDraw(courseVo);
-
+			System.out.println("courseNo"+courseNo);
 			return JsonResult.success(courseNo);
 		} else {
 			// 토큰이 없거나(로그인상태아님), 변조된 경우
@@ -49,7 +50,7 @@ public class LebController {
 		if (no != -1) {
 			int result = lebService.exeCoursePointDraw(pointList);
 
-			return JsonResult.success(1);
+			return JsonResult.success(result);
 		} else {
 			// 토큰이 없거나(로그인상태아님), 변조된 경우
 
