@@ -23,14 +23,14 @@ public class YysController {
 
 	// 코스포인트 리스트
 	@PostMapping(value = "/api/walking/coursebook_map_info")
-	public List<YysVo> mappointlist(@RequestBody YysVo yysVo) {
+	public JsonResult mappointlist(@RequestBody YysVo yysVo) {
 		System.out.println("YysController.mappointlist()");
 		//System.out.println(yysVo);
 
 		List<YysVo> coursepointList = yysService.exeCoursePointList(yysVo);
 
 		System.out.println(coursepointList);
-		return coursepointList;
+		return JsonResult.success(coursepointList);
 		// return null;
 	}
 
