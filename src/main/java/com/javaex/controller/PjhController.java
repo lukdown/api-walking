@@ -262,4 +262,48 @@ public class PjhController {
 		return JsonResult.success("");
 	}
 	
+	//편의시설 야외운동시설 api 데이터 있나 비교
+	@GetMapping("/api/walking/facilitieslistoutdoorexercise/{facilities_name}")
+	public JsonResult facilitieslistoutdoorexercise(@PathVariable("facilities_name") String facilities_name) {
+		System.out.println("PjhController.joinpageidcheck()");
+		System.out.println(facilities_name);
+
+		int count = pjhService.exefacilitieslistcomparison(facilities_name);
+		
+		boolean exejoinidcheck;
+
+		if (count == 0) {
+			exejoinidcheck = false;
+		} else {
+			exejoinidcheck = true;
+		}
+		
+		
+		return JsonResult.success(exejoinidcheck);
+	}
+	
+	
+	//편의시설 야외운동시설 api 데이터 저장
+	@PostMapping("/api/walking/facilitieslistoutdoorexerciseinsert/{facilities_name}/{facilities_latitude}/{facilities_longitude}/{facilities_memo}")
+	public JsonResult facilitieslistoutdoorexerciseinsert(@PathVariable("facilities_name") String facilities_name,
+													 @PathVariable("facilities_latitude") double facilities_latitude,
+													 @PathVariable("facilities_longitude") double facilities_longitude,
+													 @PathVariable("facilities_memo") String facilities_memo) {
+		System.out.println("PjhController.joinpage()");
+
+		PjhVo convenient_facilities_list = new PjhVo();
+		
+		convenient_facilities_list.setFacilities_name(facilities_name);
+		convenient_facilities_list.setFacilities_latitude(facilities_latitude);
+		convenient_facilities_list.setFacilities_longitude(facilities_longitude);
+		convenient_facilities_list.setFacilities_memo(facilities_memo);
+		convenient_facilities_list.setUsers_no(1);
+		convenient_facilities_list.setConvenient_facilities_type_no(3);
+		System.out.println(convenient_facilities_list);
+
+		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
+		System.out.println(count);
+
+		return JsonResult.success("");
+	}
 }

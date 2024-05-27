@@ -257,7 +257,7 @@ public class PjhService {
 		return convenient_facilities_list;
 	}
 
-	// 편의시설 장애시설 api 데이터 있나 비교
+	// 편의시설 api 데이터 있나 비교
 	public int exefacilitieslistcomparison(String facilities_name) {
 		System.out.println("PjhService.exefacilitieslistcomparison");
 
@@ -266,7 +266,7 @@ public class PjhService {
 		return count;
 	}
 
-	// 편의시설 장애시설 api 데이터 저장
+	// 편의시설 api 데이터 저장
 	public int exefacilitieslistcomparisoninsert(PjhVo convenient_facilities_list) {
 		System.out.println("PjhService.exefacilitieslistcomparisoninsert()");
 		int count = pjhDao.facilitieslistinsert(convenient_facilities_list);

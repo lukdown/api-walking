@@ -80,7 +80,7 @@ public class PjhDao {
 		return convenient_facilities_list;
 	}
 	
-	//편의시설 장애시설 api 데이터 있나 비교
+	//편의시설 api 데이터 있나 비교
 	public int facilitieslistdatacomparison(String facilities_name) {
 		System.out.println("PjhDao.facilitieslist()");
 		System.out.println(facilities_name);
@@ -90,7 +90,7 @@ public class PjhDao {
 		return count;
 	}
 	
-	// 편의시설 장애시설 api 데이터 저장
+	// 편의시설 api 데이터 저장
 	public int facilitieslistinsert(PjhVo convenient_facilities_list) {
 		System.out.println("PjhDao.facilitieslistinsert()");
 		int count = sqlSession.insert("pjh.facilitieslistinsert", convenient_facilities_list);

@@ -25,7 +25,8 @@
 		<![CDATA[
 			select  users_no,
 					users_nickname,
-					users_login_type
+					users_login_type,
+					users_saveName
 			from users_list
 			where users_id= #{users_id}
 			and users_pw= #{users_pw}
@@ -89,7 +90,7 @@
 		]]>
 	</select>
 	
-	<!-- 편의시설 장애시설 api 데이터 있나 비교 -->
+	<!-- 편의시설 api 데이터 있나 비교 -->
 	<select id="facilitieslistcomparison" resultType="int" parameterType="String">
 		<![CDATA[
 			select count(facilities_name) from convenient_facilities_list
@@ -98,7 +99,7 @@
 	
 	</select>
 	
-	<!-- 편의시설 장애시설 api 데이터 저장 -->
+	<!-- 편의시설 api 데이터 저장 -->
 	<select id ="facilitieslistinsert" resultType="PjhVo" parameterType="PjhVo">
 		<![CDATA[
 			insert into convenient_facilities_list
