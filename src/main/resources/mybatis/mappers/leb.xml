@@ -20,11 +20,11 @@
 			              #{course_introduce}  
 	         )
        ]]>
-       <selectKey keyProperty="course_no" resultType="int" order="AFTER">
-         <![CDATA[
-            select last_insert_id()
-         ]]>
-      	</selectKey>
+      	<selectKey keyProperty="course_no" resultType="int" order="AFTER">
+	        <![CDATA[
+	            select last_insert_id()
+	        ]]>
+    	</selectKey>
    </insert>
     <!-- course_point 등록 -->
    <insert id="coursePointDraw" parameterType="LebVo">

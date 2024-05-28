@@ -30,9 +30,9 @@ public class LebController {
 
 		if (no != -1) {
 			courseVo.setUsers_no(no);
-			int courseNo = lebService.exeCourseDraw(courseVo);
-			System.out.println("courseNo"+courseNo);
-			return JsonResult.success(courseNo);
+			lebService.exeCourseDraw(courseVo);
+			System.out.println(courseVo.getCourse_no());
+			return JsonResult.success(courseVo.getCourse_no());
 		} else {
 			// 토큰이 없거나(로그인상태아님), 변조된 경우
 
