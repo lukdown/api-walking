@@ -44,20 +44,30 @@ public class YysVo {
 	private int course_order;
 	private String course_division;
 	
-	
 	private int group_num;
+	
+	private int facilities_no;
+	private int convenient_facilities_type_no;
+	private String facilities_name;
+	private double facilities_latitude;
+	private double facilities_longitude;
+	private String facilities_memo;
+	
 
 	// 생성자
 	public YysVo() {
 		super();
 	}
 
+
 	public YysVo(int course_no, int users_no, int course_favorites_no, int course_like_no, String course_name,
 			String course_difficulty, int course_length, String course_time, int course_hit, String course_region,
 			String course_date, boolean course_open, String course_introduce, int like_count, int write_users_no,
 			int login_users_no, int review_no, String review_content, String review_date, String users_name,
 			String users_id, String users_nickname, String users_hp, String users_residence, int course_point_no,
-			double course_latitude, double course_longitude, int course_order, String course_division, int group_num) {
+			double course_latitude, double course_longitude, int course_order, String course_division, int group_num,
+			int facilities_no, int convenient_facilities_type_no, String facilities_name, double facilities_latitude,
+			double facilities_longitude, String facilities_memo) {
 		super();
 		this.course_no = course_no;
 		this.users_no = users_no;
@@ -89,6 +99,72 @@ public class YysVo {
 		this.course_order = course_order;
 		this.course_division = course_division;
 		this.group_num = group_num;
+		this.facilities_no = facilities_no;
+		this.convenient_facilities_type_no = convenient_facilities_type_no;
+		this.facilities_name = facilities_name;
+		this.facilities_latitude = facilities_latitude;
+		this.facilities_longitude = facilities_longitude;
+		this.facilities_memo = facilities_memo;
+	}
+
+
+	public int getFacilities_no() {
+		return facilities_no;
+	}
+
+
+	public void setFacilities_no(int facilities_no) {
+		this.facilities_no = facilities_no;
+	}
+
+
+	public int getConvenient_facilities_type_no() {
+		return convenient_facilities_type_no;
+	}
+
+
+	public void setConvenient_facilities_type_no(int convenient_facilities_type_no) {
+		this.convenient_facilities_type_no = convenient_facilities_type_no;
+	}
+
+
+	public String getFacilities_name() {
+		return facilities_name;
+	}
+
+
+	public void setFacilities_name(String facilities_name) {
+		this.facilities_name = facilities_name;
+	}
+
+
+	public double getFacilities_latitude() {
+		return facilities_latitude;
+	}
+
+
+	public void setFacilities_latitude(double facilities_latitude) {
+		this.facilities_latitude = facilities_latitude;
+	}
+
+
+	public double getFacilities_longitude() {
+		return facilities_longitude;
+	}
+
+
+	public void setFacilities_longitude(double facilities_longitude) {
+		this.facilities_longitude = facilities_longitude;
+	}
+
+
+	public String getFacilities_memo() {
+		return facilities_memo;
+	}
+
+
+	public void setFacilities_memo(String facilities_memo) {
+		this.facilities_memo = facilities_memo;
 	}
 
 
@@ -352,6 +428,7 @@ public class YysVo {
 		this.users_residence = users_residence;
 	}
 
+
 	@Override
 	public String toString() {
 		return "YysVo [course_no=" + course_no + ", users_no=" + users_no + ", course_favorites_no="
@@ -365,8 +442,13 @@ public class YysVo {
 				+ users_nickname + ", users_hp=" + users_hp + ", users_residence=" + users_residence
 				+ ", course_point_no=" + course_point_no + ", course_latitude=" + course_latitude
 				+ ", course_longitude=" + course_longitude + ", course_order=" + course_order + ", course_division="
-				+ course_division + ", group_num=" + group_num + "]";
+				+ course_division + ", group_num=" + group_num + ", facilities_no=" + facilities_no
+				+ ", convenient_facilities_type_no=" + convenient_facilities_type_no + ", facilities_name="
+				+ facilities_name + ", facilities_latitude=" + facilities_latitude + ", facilities_longitude="
+				+ facilities_longitude + ", facilities_memo=" + facilities_memo + "]";
 	}
+
+	
 
 
 

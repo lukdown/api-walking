@@ -3,6 +3,24 @@
 
 <mapper namespace="yys">
 
+	<!-- 편의시설(화장실) 리스트 -->
+	<select id="facilitiesList" resultType="YysVo">
+		<![CDATA[
+			select facilities_no,
+				   users_no,
+				   convenient_facilities_type_no,
+				   facilities_name,
+				   facilities_latitude,
+				   facilities_longitude,
+				   facilities_memo
+			from convenient_facilities_list
+			
+		]]>
+
+
+		
+	</select>
+	
 	<!-- 코스포인트 리스트 -->
 	<select id="coursepointList" parameterType="YysVo"
 		resultType="YysVo">
