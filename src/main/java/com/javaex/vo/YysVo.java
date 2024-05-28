@@ -43,20 +43,21 @@ public class YysVo {
 	private double course_longitude;
 	private int course_order;
 	private String course_division;
+	
+	
+	private int group_num;
 
 	// 생성자
 	public YysVo() {
 		super();
 	}
 
-	
-
 	public YysVo(int course_no, int users_no, int course_favorites_no, int course_like_no, String course_name,
 			String course_difficulty, int course_length, String course_time, int course_hit, String course_region,
 			String course_date, boolean course_open, String course_introduce, int like_count, int write_users_no,
 			int login_users_no, int review_no, String review_content, String review_date, String users_name,
 			String users_id, String users_nickname, String users_hp, String users_residence, int course_point_no,
-			double course_latitude, double course_longitude, int course_order, String course_division) {
+			double course_latitude, double course_longitude, int course_order, String course_division, int group_num) {
 		super();
 		this.course_no = course_no;
 		this.users_no = users_no;
@@ -87,9 +88,17 @@ public class YysVo {
 		this.course_longitude = course_longitude;
 		this.course_order = course_order;
 		this.course_division = course_division;
+		this.group_num = group_num;
 	}
 
 
+	public int getGroup_num() {
+		return group_num;
+	}
+
+	public void setGroup_num(int group_num) {
+		this.group_num = group_num;
+	}
 
 	public int getCourse_point_no() {
 		return course_point_no;
@@ -343,8 +352,6 @@ public class YysVo {
 		this.users_residence = users_residence;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "YysVo [course_no=" + course_no + ", users_no=" + users_no + ", course_favorites_no="
@@ -358,11 +365,9 @@ public class YysVo {
 				+ users_nickname + ", users_hp=" + users_hp + ", users_residence=" + users_residence
 				+ ", course_point_no=" + course_point_no + ", course_latitude=" + course_latitude
 				+ ", course_longitude=" + course_longitude + ", course_order=" + course_order + ", course_division="
-				+ course_division + "]";
+				+ course_division + ", group_num=" + group_num + "]";
 	}
 
-	
 
-	
 
 }

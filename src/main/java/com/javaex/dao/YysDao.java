@@ -21,7 +21,7 @@ public class YysDao {
 		//System.out.println(yysVo);
 		List<YysVo> coursepointList = sqlSession.selectList("yys.coursepointList", yysVo);
 
-		// System.out.println(coursebookList);
+		System.out.println(coursepointList);
 		return coursepointList;
 	}
 

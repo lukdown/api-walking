@@ -7,15 +7,18 @@
 	<select id="coursepointList" parameterType="YysVo"
 		resultType="YysVo">
 		<![CDATA[
-			select course_point_no,
-				   course_no,
-			       course_latitude,
-			       course_longitude,
-			       course_order,
-			       course_division
-			from course_point
+			
+			
+			SELECT course_point_no, course_no, course_latitude, course_longitude, course_order, course_division,
+			       @group_num := IF(@last_val = 0 AND course_order != 0, @group_num + 1, @group_num) AS group_num,
+			       @last_val := course_order
+			FROM (
+			    SELECT course_point_no, course_no, course_latitude, course_longitude, course_order, course_division
+			    FROM course_point
+			    ORDER BY course_point_no
+			) AS sorted_numbers
 			where course_no = #{course_no}
-				]]>
+		]]>
 
 
 		
