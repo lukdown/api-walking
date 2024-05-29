@@ -266,7 +266,7 @@ public class PjhService {
 		return count;
 	}
 
-	// 편의시설 api 데이터 저장
+	// 편의시설 api/유저입력 데이터 저장
 	public int exefacilitieslistcomparisoninsert(PjhVo convenient_facilities_list) {
 		System.out.println("PjhService.exefacilitieslistcomparisoninsert()");
 		int count = pjhDao.facilitieslistinsert(convenient_facilities_list);

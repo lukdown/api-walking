@@ -205,8 +205,8 @@ public class PjhController {
 		System.out.println("logout 컨트롤러 접근");
 		return url;
 	}
-	
-	//편의시설 리스트불러오기
+
+	// 편의시설 리스트불러오기
 	@GetMapping("/api/walking/convenientlist")
 	public JsonResult convenientlist(HttpServletRequest request) {
 		System.out.println("PjhController.convenientlist()");
@@ -217,15 +217,15 @@ public class PjhController {
 
 		return JsonResult.success(convenient_facilities_list);
 	}
-	
-	//편의시설 장애시설 api 데이터 있나 비교
+
+	// 편의시설 장애시설 api 데이터 있나 비교
 	@GetMapping("/api/walking/facilitieslistcomparison/{facilities_name}")
 	public JsonResult facilitieslistcomparison(@PathVariable("facilities_name") String facilities_name) {
-		System.out.println("PjhController.joinpageidcheck()");
+		System.out.println("PjhController.facilitieslistcomparison()");
 		System.out.println(facilities_name);
 
 		int count = pjhService.exefacilitieslistcomparison(facilities_name);
-		
+
 		boolean exejoinidcheck;
 
 		if (count == 0) {
@@ -233,21 +233,20 @@ public class PjhController {
 		} else {
 			exejoinidcheck = true;
 		}
-		
-		
+
 		return JsonResult.success(exejoinidcheck);
 	}
-	
-	//편의시설 장애시설 api 데이터 저장
+
+	// 편의시설 장애시설 api 데이터 저장
 	@PostMapping("/api/walking/facilitieslistcomparisoninsert/{facilities_name}/{facilities_latitude}/{facilities_longitude}/{facilities_memo}")
 	public JsonResult facilitieslistcomparisoninsert(@PathVariable("facilities_name") String facilities_name,
-													 @PathVariable("facilities_latitude") double facilities_latitude,
-													 @PathVariable("facilities_longitude") double facilities_longitude,
-													 @PathVariable("facilities_memo") String facilities_memo) {
-		System.out.println("PjhController.joinpage()");
+			@PathVariable("facilities_latitude") double facilities_latitude,
+			@PathVariable("facilities_longitude") double facilities_longitude,
+			@PathVariable("facilities_memo") String facilities_memo) {
+		System.out.println("PjhController.facilitieslistcomparisoninsert()");
 
 		PjhVo convenient_facilities_list = new PjhVo();
-		
+
 		convenient_facilities_list.setFacilities_name(facilities_name);
 		convenient_facilities_list.setFacilities_latitude(facilities_latitude);
 		convenient_facilities_list.setFacilities_longitude(facilities_longitude);
@@ -261,15 +260,15 @@ public class PjhController {
 
 		return JsonResult.success("");
 	}
-	
-	//편의시설 야외운동시설 api 데이터 있나 비교
+
+	// 편의시설 야외운동시설 api 데이터 있나 비교
 	@GetMapping("/api/walking/facilitieslistoutdoorexercise/{facilities_name}")
 	public JsonResult facilitieslistoutdoorexercise(@PathVariable("facilities_name") String facilities_name) {
-		System.out.println("PjhController.joinpageidcheck()");
+		System.out.println("PjhController.facilitieslistoutdoorexercise()");
 		System.out.println(facilities_name);
 
 		int count = pjhService.exefacilitieslistcomparison(facilities_name);
-		
+
 		boolean exejoinidcheck;
 
 		if (count == 0) {
@@ -277,22 +276,20 @@ public class PjhController {
 		} else {
 			exejoinidcheck = true;
 		}
-		
-		
+
 		return JsonResult.success(exejoinidcheck);
 	}
-	
-	
-	//편의시설 야외운동시설 api 데이터 저장
+
+	// 편의시설 야외운동시설 api 데이터 저장
 	@PostMapping("/api/walking/facilitieslistoutdoorexerciseinsert/{facilities_name}/{facilities_latitude}/{facilities_longitude}/{facilities_memo}")
 	public JsonResult facilitieslistoutdoorexerciseinsert(@PathVariable("facilities_name") String facilities_name,
-													 @PathVariable("facilities_latitude") double facilities_latitude,
-													 @PathVariable("facilities_longitude") double facilities_longitude,
-													 @PathVariable("facilities_memo") String facilities_memo) {
+			@PathVariable("facilities_latitude") double facilities_latitude,
+			@PathVariable("facilities_longitude") double facilities_longitude,
+			@PathVariable("facilities_memo") String facilities_memo) {
 		System.out.println("PjhController.joinpage()");
 
 		PjhVo convenient_facilities_list = new PjhVo();
-		
+
 		convenient_facilities_list.setFacilities_name(facilities_name);
 		convenient_facilities_list.setFacilities_latitude(facilities_latitude);
 		convenient_facilities_list.setFacilities_longitude(facilities_longitude);
@@ -305,5 +302,50 @@ public class PjhController {
 		System.out.println(count);
 
 		return JsonResult.success("");
+	}
+
+	// 편의시설 유저가 화장실 등록
+	@PostMapping("/api/walking/toiletinsert")
+	public JsonResult facilitieslistoutdoorexerciseinsert(@RequestBody PjhVo convenient_facilities_list) {
+		System.out.println("PjhController.facilitieslistoutdoorexerciseinsert()");
+
+		convenient_facilities_list.setUsers_no(1);
+		convenient_facilities_list.setConvenient_facilities_type_no(1);
+		System.out.println(convenient_facilities_list);
+
+		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
+		System.out.println(count);
+
+		return JsonResult.success("화장실 등록완료");
+	}
+
+	// 편의시설 유저가 장애복지관 등록
+	@PostMapping("/api/walking/DisabledWelfareCenterinsert")
+	public JsonResult DisabledWelfareCenterinsert(@RequestBody PjhVo convenient_facilities_list) {
+		System.out.println("PjhController.DisabledWelfareCenterinsert()");
+
+		convenient_facilities_list.setUsers_no(1);
+		convenient_facilities_list.setConvenient_facilities_type_no(2);
+		System.out.println(convenient_facilities_list);
+
+		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
+		System.out.println(count);
+
+		return JsonResult.success("장애복지관 등록완료");
+	}
+
+	// 편의시설 유저가 야외운동시설 등록
+	@PostMapping("/api/walking/OutdoorExerciseFacilitiesinsert")
+	public JsonResult OutdoorExerciseFacilitiesinsert(@RequestBody PjhVo convenient_facilities_list) {
+		System.out.println("PjhController.OutdoorExerciseFacilitiesinsert()");
+
+		convenient_facilities_list.setUsers_no(1);
+		convenient_facilities_list.setConvenient_facilities_type_no(3);
+		System.out.println(convenient_facilities_list);
+
+		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
+		System.out.println(count);
+
+		return JsonResult.success(" 등록완료");
 	}
 }
