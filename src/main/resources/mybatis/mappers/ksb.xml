@@ -2,16 +2,77 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ksb">
+
+	
+	<!-- 회원 정보 가져오기 -->
 	<select id="selectMemberInfo" resultType="KsbVo" parameterType="int">
 		<![CDATA[
 			select  users_no,
 					users_id,
-			        users_pw,
-			        users_name,
-			        users_nickname
+					users_pw,
+					users_name,
+					users_nickname,
+					users_hp,
+					users_birth_date,
+					users_gender,
+					users_residence,
+					users_filePath as 'filePath',
+					users_orgName as 'orgName',
+					users_saveName as 'saveName',
+					users_fileSize as 'fileSize',
+					users_login_type
 			from users_list
 			where users_no = #{no}
 		]]>
+	</select>
+	
+	<!-- 프로필 사진 업데이트 -->
+	<update id="profileUpdate" parameterType="ksbVo">
+		<![CDATA[
+			update users_list
+			set users_saveName = #{saveName},
+				users_orgName = #{orgName},
+			    users_fileSize = #{fileSize},
+			    users_filePath = #{filePath}
+			where users_no = #{users_no}
+		]]>
+	</update>
+	
+	
+	<!-- 기록 리스트 가져오기 -->
+	<select id="recordList" parameterType="int" resultType="KsbVo">
+		<![CDATA[
+			select  record_no,
+					users_no,
+			        course_no,
+			        record_date,
+			        record_time,
+			        record_length,
+			        record_kcal,
+			        record_vibe,
+			        record_memo
+			from record
+			where users_no = #{no}
+		]]>
+	
+	</select>
+	
+	<!-- 달력 리스트 가져오기 -->
+	<select id="calendarList" parameterType="int" resultType="KsbVo">
+		<![CDATA[
+			select  record_no,
+					users_no,
+			        course_no,
+			        record_date,
+			        record_time,
+			        record_length,
+			        record_kcal,
+			        record_vibe,
+			        record_memo
+			from record
+			where users_no = #{no}
+		]]>
+	
 	</select>
 	
 </mapper>

@@ -3,6 +3,8 @@ package com.javaex.vo;
 public class KsbVo {
 
 	//필드
+	
+	//유저 정보
 	private int users_no;
 	private String users_id;
 	private String users_pw;
@@ -16,6 +18,16 @@ public class KsbVo {
 	private String orgName;
 	private String saveName;
 	private long fileSize;
+	
+	//산책기록
+	private int record_no;
+	private int course_no;
+	private String record_date;
+	private String record_time;
+	private double record_length;
+	private int record_kcal;
+	private String record_vibe;
+	private String record_memo;
 	
 	//생성자
 	public KsbVo(){
@@ -41,6 +53,29 @@ public class KsbVo {
 		this.fileSize = fileSize;
 	}
 	
+	public KsbVo(int users_no, String saveName, String orgName, long fileSize, String filePath) {
+		super();
+		this.users_no = users_no;
+		this.saveName = saveName;
+		this.orgName = orgName;
+		this.fileSize = fileSize;
+		this.filePath = filePath;
+	}
+	
+	public KsbVo(int users_no, int record_no, int course_no, String record_date, String record_time,
+			double record_length, int record_kcal, String record_vibe, String record_memo) {
+		super();
+		this.users_no = users_no;
+		this.record_no = record_no;
+		this.course_no = course_no;
+		this.record_date = record_date;
+		this.record_time = record_time;
+		this.record_length = record_length;
+		this.record_kcal = record_kcal;
+		this.record_vibe = record_vibe;
+		this.record_memo = record_memo;
+	}
+
 	//메소드  - g/s
 	
 	public int getUsers_no() {
@@ -147,6 +182,71 @@ public class KsbVo {
 		this.fileSize = fileSize;
 	}
 
+	public int getRecord_no() {
+		return record_no;
+	}
+
+	public void setRecord_no(int record_no) {
+		this.record_no = record_no;
+	}
+
+	public int getCourse_no() {
+		return course_no;
+	}
+
+	public void setCourse_no(int course_no) {
+		this.course_no = course_no;
+	}
+
+	public String getRecord_date() {
+		return record_date;
+	}
+
+	public void setRecord_date(String record_date) {
+		this.record_date = record_date;
+	}
+
+	public String getRecord_time() {
+		return record_time;
+	}
+
+	public void setRecord_time(String record_time) {
+		this.record_time = record_time;
+	}
+
+	public double getRecord_length() {
+		return record_length;
+	}
+
+	public void setRecord_length(double record_length) {
+		this.record_length = record_length;
+	}
+
+	public int getRecord_kcal() {
+		return record_kcal;
+	}
+
+	public void setRecord_kcal(int record_kcal) {
+		this.record_kcal = record_kcal;
+	}
+
+	public String getRecord_vibe() {
+		return record_vibe;
+	}
+
+	public void setRecord_vibe(String record_vibe) {
+		this.record_vibe = record_vibe;
+	}
+
+	public String getRecord_memo() {
+		return record_memo;
+	}
+
+	public void setRecord_memo(String record_memo) {
+		this.record_memo = record_memo;
+	}
+
+	
 	//메소드 - 일반
 	@Override
 	public String toString() {
@@ -154,8 +254,13 @@ public class KsbVo {
 				+ users_name + ", users_nickname=" + users_nickname + ", users_hp=" + users_hp + ", users_birth_date="
 				+ users_birth_date + ", users_gender=" + users_gender + ", users_residence=" + users_residence
 				+ ", filePath=" + filePath + ", orgName=" + orgName + ", saveName=" + saveName + ", fileSize="
-				+ fileSize + "]";
+				+ fileSize + ", record_no=" + record_no + ", course_no=" + course_no + ", record_date=" + record_date
+				+ ", record_time=" + record_time + ", record_length=" + record_length + ", record_kcal=" + record_kcal
+				+ ", record_vibe=" + record_vibe + ", record_memo=" + record_memo + "]";
 	}
+
+	
+	
 	
 	
 	
