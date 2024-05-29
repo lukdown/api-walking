@@ -17,6 +17,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	}
 	*/
 	
+	
 	// vue(html포함) 용
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
