@@ -2,9 +2,9 @@ package com.javaex.vo;
 
 public class KsbVo {
 
-	//필드
-	
-	//유저 정보
+	// 필드
+
+	// 유저 정보
 	private int users_no;
 	private String users_id;
 	private String users_pw;
@@ -18,8 +18,8 @@ public class KsbVo {
 	private String orgName;
 	private String saveName;
 	private long fileSize;
-	
-	//산책기록
+
+	// 산책기록
 	private int record_no;
 	private int course_no;
 	private String record_date;
@@ -28,10 +28,52 @@ public class KsbVo {
 	private int record_kcal;
 	private String record_vibe;
 	private String record_memo;
-	
-	//생성자
-	public KsbVo(){
+
+	// 산책기록 좌표
+	private int record_point_no;
+	private double record_latitude;
+	private double record_longitude;
+	private String record_division;
+	private String record_order;
+
+	// 생성자
+	public KsbVo() {
 		super();
+	}
+
+	public KsbVo(int users_no, String users_id, String users_pw, String users_name, String users_nickname,
+			String users_hp, String users_birth_date, String users_gender, String users_residence, String filePath,
+			String orgName, String saveName, long fileSize, int record_no, int course_no, String record_date,
+			String record_time, double record_length, int record_kcal, String record_vibe, String record_memo,
+			int record_point_no, double record_latitude, double record_longitude, String record_division,
+			String record_order) {
+		super();
+		this.users_no = users_no;
+		this.users_id = users_id;
+		this.users_pw = users_pw;
+		this.users_name = users_name;
+		this.users_nickname = users_nickname;
+		this.users_hp = users_hp;
+		this.users_birth_date = users_birth_date;
+		this.users_gender = users_gender;
+		this.users_residence = users_residence;
+		this.filePath = filePath;
+		this.orgName = orgName;
+		this.saveName = saveName;
+		this.fileSize = fileSize;
+		this.record_no = record_no;
+		this.course_no = course_no;
+		this.record_date = record_date;
+		this.record_time = record_time;
+		this.record_length = record_length;
+		this.record_kcal = record_kcal;
+		this.record_vibe = record_vibe;
+		this.record_memo = record_memo;
+		this.record_point_no = record_point_no;
+		this.record_latitude = record_latitude;
+		this.record_longitude = record_longitude;
+		this.record_division = record_division;
+		this.record_order = record_order;
 	}
 
 	public KsbVo(int users_no, String users_id, String users_pw, String users_name, String users_nickname,
@@ -52,7 +94,7 @@ public class KsbVo {
 		this.saveName = saveName;
 		this.fileSize = fileSize;
 	}
-	
+
 	public KsbVo(int users_no, String saveName, String orgName, long fileSize, String filePath) {
 		super();
 		this.users_no = users_no;
@@ -61,7 +103,7 @@ public class KsbVo {
 		this.fileSize = fileSize;
 		this.filePath = filePath;
 	}
-	
+
 	public KsbVo(int users_no, int record_no, int course_no, String record_date, String record_time,
 			double record_length, int record_kcal, String record_vibe, String record_memo) {
 		super();
@@ -76,8 +118,8 @@ public class KsbVo {
 		this.record_memo = record_memo;
 	}
 
-	//메소드  - g/s
-	
+	// 메소드 - g/s
+
 	public int getUsers_no() {
 		return users_no;
 	}
@@ -246,8 +288,48 @@ public class KsbVo {
 		this.record_memo = record_memo;
 	}
 
-	
-	//메소드 - 일반
+	public int getRecord_point_no() {
+		return record_point_no;
+	}
+
+	public void setRecord_point_no(int record_point_no) {
+		this.record_point_no = record_point_no;
+	}
+
+	public double getRecord_latitude() {
+		return record_latitude;
+	}
+
+	public void setRecord_latitude(double record_latitude) {
+		this.record_latitude = record_latitude;
+	}
+
+	public double getRecord_longitude() {
+		return record_longitude;
+	}
+
+	public void setRecord_longitude(double record_longitude) {
+		this.record_longitude = record_longitude;
+	}
+
+	public String getRecord_division() {
+		return record_division;
+	}
+
+	public void setRecord_division(String record_division) {
+		this.record_division = record_division;
+	}
+
+	public String getRecord_order() {
+		return record_order;
+	}
+
+	public void setRecord_order(String record_order) {
+		this.record_order = record_order;
+	}
+
+	// 메소드 - 일반
+
 	@Override
 	public String toString() {
 		return "KsbVo [users_no=" + users_no + ", users_id=" + users_id + ", users_pw=" + users_pw + ", users_name="
@@ -256,13 +338,23 @@ public class KsbVo {
 				+ ", filePath=" + filePath + ", orgName=" + orgName + ", saveName=" + saveName + ", fileSize="
 				+ fileSize + ", record_no=" + record_no + ", course_no=" + course_no + ", record_date=" + record_date
 				+ ", record_time=" + record_time + ", record_length=" + record_length + ", record_kcal=" + record_kcal
-				+ ", record_vibe=" + record_vibe + ", record_memo=" + record_memo + "]";
+				+ ", record_vibe=" + record_vibe + ", record_memo=" + record_memo + ", record_point_no="
+				+ record_point_no + ", record_latitude=" + record_latitude + ", record_longitude=" + record_longitude
+				+ ", record_division=" + record_division + ", record_order=" + record_order + ", getUsers_no()="
+				+ getUsers_no() + ", getUsers_id()=" + getUsers_id() + ", getUsers_pw()=" + getUsers_pw()
+				+ ", getUsers_name()=" + getUsers_name() + ", getUsers_nickname()=" + getUsers_nickname()
+				+ ", getUsers_hp()=" + getUsers_hp() + ", getUsers_birth_date()=" + getUsers_birth_date()
+				+ ", getUsers_gender()=" + getUsers_gender() + ", getUsers_residence()=" + getUsers_residence()
+				+ ", getFilePath()=" + getFilePath() + ", getOrgName()=" + getOrgName() + ", getSaveName()="
+				+ getSaveName() + ", getFileSize()=" + getFileSize() + ", getRecord_no()=" + getRecord_no()
+				+ ", getCourse_no()=" + getCourse_no() + ", getRecord_date()=" + getRecord_date()
+				+ ", getRecord_time()=" + getRecord_time() + ", getRecord_length()=" + getRecord_length()
+				+ ", getRecord_kcal()=" + getRecord_kcal() + ", getRecord_vibe()=" + getRecord_vibe()
+				+ ", getRecord_memo()=" + getRecord_memo() + ", getRecord_point_no()=" + getRecord_point_no()
+				+ ", getRecord_latitude()=" + getRecord_latitude() + ", getRecord_longitude()=" + getRecord_longitude()
+				+ ", getRecord_division()=" + getRecord_division() + ", getRecord_order()=" + getRecord_order()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
 
-	
-	
-	
-	
-	
-	
 }
