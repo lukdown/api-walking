@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javaex.dao.LebDao;
+import com.javaex.vo.KsbVo;
 import com.javaex.vo.LebVo;
 
 @Service
@@ -25,6 +26,21 @@ public class LebService {
 		System.out.println("lebService.exeCoursePointDraw()");
 		for(int i=0; i<pointList.size(); i++) {
 			lebDao.coursePointDraw(pointList.get(i));
+		}
+		return 0;
+	}
+	
+	public int exeRecordeDraw(KsbVo courseVo) {
+		System.out.println("lebService.exeCourseDraw()");
+		int result = lebDao.recordDraw(courseVo);
+		System.out.println(result);
+		return result;
+	}
+	
+	public int exeRecordPointDraw(List<KsbVo> pointList) {
+		System.out.println("lebService.exeCoursePointDraw()");
+		for(int i=0; i<pointList.size(); i++) {
+			lebDao.recordPointDraw(pointList.get(i));
 		}
 		return 0;
 	}

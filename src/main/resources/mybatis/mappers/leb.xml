@@ -40,4 +40,41 @@
 	         )
        ]]>
    </insert>
+   
+    <!-- record 등록 -->
+   <insert id="recordDraw" parameterType="KsbVo">
+      <![CDATA[   
+          insert into record
+              values ( 
+			              null, 
+			              #{users_no}, 
+			              #{course_no}, 
+			              date(),
+			              #{record_time},
+			              #{record_length},
+			              #{record_kcal},   
+			              #{record_vibe},     
+			              #{record_memo}  
+	         )
+       ]]>
+      	<selectKey keyProperty="record_no" resultType="int" order="AFTER">
+	        <![CDATA[
+	            select last_insert_id()
+	        ]]>
+    	</selectKey>
+   </insert>
+    <!-- record_point 등록 -->
+   <insert id="recordPointDraw" parameterType="KsbVo">
+      <![CDATA[   
+          insert into record
+              values ( 
+              			  null,
+			              #{record_no}, 
+			              #{record_latitude},
+			              #{record_longitude},
+			              0
+			              #{record_order},
+	         )
+       ]]>
+   </insert>
 </mapper>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.javaex.service.LebService;
 import com.javaex.util.JsonResult;
 import com.javaex.util.JwtUtil;
+import com.javaex.vo.KsbVo;
 import com.javaex.vo.LebVo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -57,4 +58,41 @@ public class LebController {
 			return JsonResult.fail("로그인상태아님");
 		}
 	}
+	
+	//RecordDraw: 코스 데이터 넣기(좌표 제외)
+		@PostMapping("/api/walking/recorddraw")
+		public JsonResult recordDraw(@RequestBody KsbVo recordVo, HttpServletRequest request) {
+			System.out.println("LebController.recordDraw()");
+			System.out.println(recordVo);
+			int no = JwtUtil.getNoFromHeader(request);
+
+			if (no != -1) {
+				recordVo.setUsers_no(no);
+				lebService.exeRecordeDraw(recordVo);
+				System.out.println(recordVo.getCourse_no());
+				return JsonResult.success(recordVo.getCourse_no());
+			} else {
+				// 토큰이 없거나(로그인상태아님), 변조된 경우
+
+				return JsonResult.fail("로그인상태아님");
+			}
+		}
+		
+		//RecordPointDraw: 코스 좌표 넣기
+		@PostMapping("/api/walking/recordpointdraw")
+		public JsonResult recordPointDraw(@RequestBody List<KsbVo> pointList, HttpServletRequest request) {
+			System.out.println("LebController.recordPointDraw()");
+			System.out.println(pointList);
+			int no = JwtUtil.getNoFromHeader(request);
+
+			if (no != -1) {
+				int result = lebService.exeRecordPointDraw(pointList);
+
+				return JsonResult.success(result);
+			} else {
+				// 토큰이 없거나(로그인상태아님), 변조된 경우
+
+				return JsonResult.fail("로그인상태아님");
+			}
+		}
 }
