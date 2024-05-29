@@ -33,7 +33,7 @@ public class PjhController {
 		users_listVo.setUsers_login_type(0);
 
 		int count = pjhService.exejoinpage(users_listVo);
-		System.out.println(count);
+		//System.out.println(count);
 
 		return JsonResult.success("");
 	}
@@ -213,7 +213,7 @@ public class PjhController {
 
 		List<PjhVo> convenient_facilities_list = pjhService.exeConvenientlist();
 
-		System.out.println(convenient_facilities_list);
+		//System.out.println(convenient_facilities_list);
 
 		return JsonResult.success(convenient_facilities_list);
 	}
@@ -222,7 +222,7 @@ public class PjhController {
 	@GetMapping("/api/walking/facilitieslistcomparison/{facilities_name}")
 	public JsonResult facilitieslistcomparison(@PathVariable("facilities_name") String facilities_name) {
 		System.out.println("PjhController.facilitieslistcomparison()");
-		System.out.println(facilities_name);
+		//System.out.println(facilities_name);
 
 		int count = pjhService.exefacilitieslistcomparison(facilities_name);
 
@@ -253,10 +253,10 @@ public class PjhController {
 		convenient_facilities_list.setFacilities_memo(facilities_memo);
 		convenient_facilities_list.setUsers_no(1);
 		convenient_facilities_list.setConvenient_facilities_type_no(2);
-		System.out.println(convenient_facilities_list);
+		//System.out.println(convenient_facilities_list);
 
 		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
-		System.out.println(count);
+		//System.out.println(count);
 
 		return JsonResult.success("");
 	}
@@ -265,7 +265,7 @@ public class PjhController {
 	@GetMapping("/api/walking/facilitieslistoutdoorexercise/{facilities_name}")
 	public JsonResult facilitieslistoutdoorexercise(@PathVariable("facilities_name") String facilities_name) {
 		System.out.println("PjhController.facilitieslistoutdoorexercise()");
-		System.out.println(facilities_name);
+		//System.out.println(facilities_name);
 
 		int count = pjhService.exefacilitieslistcomparison(facilities_name);
 
@@ -296,25 +296,25 @@ public class PjhController {
 		convenient_facilities_list.setFacilities_memo(facilities_memo);
 		convenient_facilities_list.setUsers_no(1);
 		convenient_facilities_list.setConvenient_facilities_type_no(3);
-		System.out.println(convenient_facilities_list);
+		//System.out.println(convenient_facilities_list);
 
 		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
-		System.out.println(count);
+		//System.out.println(count);
 
 		return JsonResult.success("");
 	}
 
 	// 편의시설 유저가 화장실 등록
 	@PostMapping("/api/walking/toiletinsert")
-	public JsonResult facilitieslistoutdoorexerciseinsert(@RequestBody PjhVo convenient_facilities_list) {
-		System.out.println("PjhController.facilitieslistoutdoorexerciseinsert()");
+	public JsonResult toiletinsert(@RequestBody PjhVo convenient_facilities_list) {
+		System.out.println("PjhController.toiletinsert()");
 
 		convenient_facilities_list.setUsers_no(1);
 		convenient_facilities_list.setConvenient_facilities_type_no(1);
-		System.out.println(convenient_facilities_list);
+		//System.out.println(convenient_facilities_list);
 
 		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
-		System.out.println(count);
+		//System.out.println(count);
 
 		return JsonResult.success("화장실 등록완료");
 	}
@@ -326,10 +326,10 @@ public class PjhController {
 
 		convenient_facilities_list.setUsers_no(1);
 		convenient_facilities_list.setConvenient_facilities_type_no(2);
-		System.out.println(convenient_facilities_list);
+		//System.out.println(convenient_facilities_list);
 
 		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
-		System.out.println(count);
+		//System.out.println(count);
 
 		return JsonResult.success("장애복지관 등록완료");
 	}
@@ -341,11 +341,18 @@ public class PjhController {
 
 		convenient_facilities_list.setUsers_no(1);
 		convenient_facilities_list.setConvenient_facilities_type_no(3);
-		System.out.println(convenient_facilities_list);
+		//System.out.println(convenient_facilities_list);
 
 		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
-		System.out.println(count);
+		//System.out.println(count);
 
 		return JsonResult.success(" 등록완료");
+	}
+	
+	@GetMapping("/api/walking/googlelogin")
+	public String Googlemain() {
+		String url = "https://accounts.google.com/o/oauth2/v2/auth?client_id=17637626061-ss04i67obe0couopq08tu72i1efjil82.apps.googleusercontent.com&redirect_uri=http://localhost:8080/walking/googlejoinpage&response_type=code&scope=email profile";
+		System.out.println("googlelogin 컨트롤러 접근");
+		return url;
 	}
 }

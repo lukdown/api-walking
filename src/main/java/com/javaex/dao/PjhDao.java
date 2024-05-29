@@ -83,9 +83,9 @@ public class PjhDao {
 	//편의시설 api 데이터 있나 비교
 	public int facilitieslistdatacomparison(String facilities_name) {
 		System.out.println("PjhDao.facilitieslist()");
-		System.out.println(facilities_name);
+		//ystem.out.println(facilities_name);
 		int count = sqlSession.selectOne("pjh.facilitieslistcomparison", facilities_name);
-		System.out.println(count);
+		//System.out.println(count);
 
 		return count;
 	}
@@ -94,7 +94,7 @@ public class PjhDao {
 	public int facilitieslistinsert(PjhVo convenient_facilities_list) {
 		System.out.println("PjhDao.facilitieslistinsert()");
 		int count = sqlSession.insert("pjh.facilitieslistinsert", convenient_facilities_list);
-		System.out.println(count);
+		//System.out.println(count);
 
 		return count;
 	}

@@ -270,7 +270,7 @@ public class PjhService {
 	public int exefacilitieslistcomparisoninsert(PjhVo convenient_facilities_list) {
 		System.out.println("PjhService.exefacilitieslistcomparisoninsert()");
 		int count = pjhDao.facilitieslistinsert(convenient_facilities_list);
-		System.out.println(count);
+		//System.out.println(count);
 
 		return count;
 	}
