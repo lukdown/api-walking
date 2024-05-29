@@ -53,6 +53,7 @@
 			        record_memo
 			from record
 			where users_no = #{no}
+			order by record_date
 		]]>
 	
 	</select>
