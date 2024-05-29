@@ -8,6 +8,7 @@
      	<typeAlias alias="PjhVo" type="com.javaex.vo.PjhVo" />
     	<typeAlias alias="YysVo" type="com.javaex.vo.YysVo" />
     	<typeAlias alias="YysVo2" type="com.javaex.vo.YysVo2" />
+    	<typeAlias alias="YdsAttachVo" type="com.javaex.vo.YdsAttachVo" />
     </typeAliases>
     
     <mappers>

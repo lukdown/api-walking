@@ -1,6 +1,8 @@
 package com.javaex.dao;
 
+
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,24 @@ public class YdsDao {
 		System.out.println("코스소개글저장");
 
 	}
+	
+	// 최신 포스팅의 gallery_no 가져오기
+	public List<YdsAttachVo> selectLatestGalleryNo(int gallery_no) {
+	    System.out.println("YdsDao.selectLatestGalleryNo()");
+	    List<YdsAttachVo> gpList = sqlSession.selectList("yds.selectLatestGalleryNo", gallery_no);
+	    //System.out.println(gpList);
+	    
+	    //return null;
+	    return gpList;
+	}
+	
+	// 저장된 이미지리스트 불러오기
+	public List<YdsAttachVo> selectPicList(int galleryNo) {
+	    System.out.println("YdsDao.selectPicList()");
+	    return sqlSession.selectList("yds.selectPicListByGalleryNo", galleryNo);
+	}
+
+
 
 	// 선택한 코스의 상세 정보 조회
 	public YdsVo selectCourseDetailsByName(String courseName) {

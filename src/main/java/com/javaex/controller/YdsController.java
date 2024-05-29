@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.YdsService;
 import com.javaex.util.JsonResult;
-import com.javaex.vo.YdsAttachListVo;
+import com.javaex.vo.YdsAttachVo;
 import com.javaex.vo.YdsVo;
 
 @RestController
@@ -30,7 +30,7 @@ public class YdsController {
 	public JsonResult list() {
 		System.out.println("YdsController.list()");
 		List<YdsVo> gList = ydsService.exeAllList();
-		System.out.println(gList);
+		//System.out.println(gList);
 		return JsonResult.success(gList);
 	}
 
@@ -39,25 +39,42 @@ public class YdsController {
 	public JsonResult listUserCourses(@PathVariable(value = "userNo") int userNo) {
 		System.out.println("YdsController.listUserCourses()");
 		List<YdsVo> userCourses = ydsService.exefindCoursesByUserNo(userNo);
-		System.out.println(userCourses);
+		//System.out.println(userCourses);
 		return JsonResult.success(userCourses);
 	}
 
 	// 로그인한 회원의 특정 코스 (소개 + 사진) 등록
 	@PostMapping("/gallery/{userNo}/course/{courseNo}")
-	public JsonResult introduceCourse(@RequestParam MultipartFile[] galleryfile, @ModelAttribute YdsVo ydsVo,
-			@RequestBody YdsAttachListVo attachListVo) {
+	public JsonResult introduceCourse(@RequestParam MultipartFile[] galleryfile, @ModelAttribute YdsVo ydsVo) {
 		System.out.println("YdsController.introduceCourse()");
-		
-		if (galleryfile.length > 3) {
-	        return JsonResult.fail("최대 3개의 파일만 업로드 할 수 있습니다.");
-	    }
+		//System.out.println(galleryfile.length);
+		for (int i = 0; i < galleryfile.length; i++) {
 
-		 ydsService.saveCourseIntroduction(galleryfile, ydsVo, attachListVo);// 저장 서비스
+			System.out.println(galleryfile[i].getOriginalFilename());
+
+		}
+
+		//System.out.println(ydsVo);
+		ydsService.saveCourseIntroduction(galleryfile, ydsVo);// 저장 서비스
 		// 호출
 
 		return JsonResult.success("파일 업로드 성공");// return
 	}
+
+	
+//	@PostMapping("/gallery/gallery_img")
+//	public JsonResult getGalleryPicList(@RequestBody YdsVo ydsVo) {
+//	    System.out.println("YdsController.getGalleryPicList()");
+//
+//	    //System.out.println(ydsVo);
+//	    // 서비스 호출하여 이미지 리스트 가져오기
+//	    List<YdsVo> gpList = ydsService.exeGetGalleryPicList(ydsVo);
+//	    //System.out.println(gpList);
+//
+//	    //return JsonResult.success(null);
+//	    return JsonResult.success(gpList);
+//	}
+
 
 	// 이미지 첨부
 	/*
