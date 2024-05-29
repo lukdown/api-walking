@@ -7,12 +7,14 @@
     	<typeAlias alias="YdsVo" type="com.javaex.vo.YdsVo" />
      	<typeAlias alias="PjhVo" type="com.javaex.vo.PjhVo" />
     	<typeAlias alias="YysVo" type="com.javaex.vo.YysVo" />
+    	<typeAlias alias="YysVo2" type="com.javaex.vo.YysVo2" />
     </typeAliases>
     
     <mappers>
         <mapper resource="mybatis/mappers/leb.xml" />
         <mapper resource="mybatis/mappers/ksb.xml" />
         <mapper resource="mybatis/mappers/yys.xml" />
+        <mapper resource="mybatis/mappers/yys2.xml" />
         <mapper resource="mybatis/mappers/pjh.xml" />
         <mapper resource="mybatis/mappers/yds.xml" />
     </mappers>
