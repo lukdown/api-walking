@@ -84,6 +84,15 @@ public class YysService {
 
 		List<YysVo> coursebookfList = yysDao.coursebookfList(users_no);
 
+		for (int i = 0; i < coursebookfList.size(); i++) {
+			// System.out.println(coursebookList.get(i).getCourse_no());
+			int like_count = yysDao.like_count(coursebookfList.get(i).getCourse_no());
+
+			YysVo yVo = coursebookfList.get(i);
+			yVo.setLike_count(like_count);
+
+		}
+
 		return coursebookfList;
 	}
 
