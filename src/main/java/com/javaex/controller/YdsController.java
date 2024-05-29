@@ -90,6 +90,7 @@ public class YdsController {
 	 * 
 	 * }
 	 */
+	
 	// 선택한 코스의 상세 정보 조회
 	@GetMapping("/gallery/course/{courseName}")
 	public JsonResult getCourseDetails(@PathVariable(value = "courseName") String courseName) {
