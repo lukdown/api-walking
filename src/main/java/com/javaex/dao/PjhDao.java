@@ -90,7 +90,7 @@ public class PjhDao {
 		return count;
 	}
 	
-	// 편의시설 api 데이터 저장
+	// 편의시설 api/유저입력 데이터 저장
 	public int facilitieslistinsert(PjhVo convenient_facilities_list) {
 		System.out.println("PjhDao.facilitieslistinsert()");
 		int count = sqlSession.insert("pjh.facilitieslistinsert", convenient_facilities_list);

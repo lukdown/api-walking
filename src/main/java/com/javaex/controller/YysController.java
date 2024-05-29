@@ -21,11 +21,23 @@ public class YysController {
 	@Autowired
 	private YysService yysService;
 
+	// 편의시설(화장실) 리스트
+	@GetMapping(value = "/api/walking/course_facilities_map")
+	public List<YysVo> facilitieslist() {
+		System.out.println("YysController.facilitieslist()");
+		// System.out.println(yysVo);
+
+		List<YysVo> facilitiesList = yysService.exefacilitiesList();
+
+		//return JsonResult.success(facilitiesList);
+		return facilitiesList;
+	}
+
 	// 코스포인트 리스트
 	@PostMapping(value = "/api/walking/coursebook_map_info")
 	public JsonResult mappointlist(@RequestBody YysVo yysVo) {
 		System.out.println("YysController.mappointlist()");
-		//System.out.println(yysVo);
+		// System.out.println(yysVo);
 
 		List<YysVo> coursepointList = yysService.exeCoursePointList(yysVo);
 

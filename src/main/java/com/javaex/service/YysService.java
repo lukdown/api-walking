@@ -14,6 +14,17 @@ public class YysService {
 	@Autowired
 	private YysDao yysDao;
 
+	// 편의시설(화장실) 리스트 가져오기
+	public List<YysVo> exefacilitiesList() {
+		System.out.println("YysService.exefacilitiesList()");
+
+		List<YysVo> facilitiesList = yysDao.facilitiesList();
+
+		// System.out.println(coursebookList);
+
+		return facilitiesList;
+	}
+
 	// 코스 포인트 리스트 가져오기
 	public List<YysVo> exeCoursePointList(YysVo yysVo) {
 		System.out.println("YysService.exeCoursePointList()");
@@ -21,7 +32,6 @@ public class YysService {
 		List<YysVo> coursepointList = yysDao.coursepointList(yysVo);
 
 		// System.out.println(coursebookList);
-
 
 		return coursepointList;
 	}
@@ -73,6 +83,15 @@ public class YysService {
 		System.out.println("YysService.exeCoursefList()");
 
 		List<YysVo> coursebookfList = yysDao.coursebookfList(users_no);
+
+		for (int i = 0; i < coursebookfList.size(); i++) {
+			// System.out.println(coursebookList.get(i).getCourse_no());
+			int like_count = yysDao.like_count(coursebookfList.get(i).getCourse_no());
+
+			YysVo yVo = coursebookfList.get(i);
+			yVo.setLike_count(like_count);
+
+		}
 
 		return coursebookfList;
 	}

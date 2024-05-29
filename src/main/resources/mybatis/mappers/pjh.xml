@@ -99,7 +99,7 @@
 	
 	</select>
 	
-	<!-- 편의시설 api 데이터 저장 -->
+	<!-- 편의시설 api/유저입력 데이터 저장 -->
 	<select id ="facilitieslistinsert" resultType="PjhVo" parameterType="PjhVo">
 		<![CDATA[
 			insert into convenient_facilities_list

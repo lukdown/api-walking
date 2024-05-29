@@ -14,11 +14,22 @@ public class YysDao {
 	@Autowired
 	private SqlSession sqlSession;
 
+	// 편의시설(화장실)리스트 가져오기
+	public List<YysVo> facilitiesList() {
+		System.out.println("YysDao.facilitiesList()");
+
+		// System.out.println(yysVo);
+		List<YysVo> facilitiesList = sqlSession.selectList("yys.facilitiesList");
+
+		//System.out.println(facilitiesList);
+		return facilitiesList;
+	}
+
 	// 코스 포인트리스트 가져오기
 	public List<YysVo> coursepointList(YysVo yysVo) {
 		System.out.println("YysDao.coursepointList()");
-		
-		//System.out.println(yysVo);
+
+		// System.out.println(yysVo);
 		List<YysVo> coursepointList = sqlSession.selectList("yys.coursepointList", yysVo);
 
 		System.out.println(coursepointList);
