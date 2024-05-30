@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -351,15 +352,17 @@ public class PjhController {
 	
 	
 	//구글 로그인 시작
+	/*
 	@GetMapping("/api/walking/googlelogin")
 	public String Googlemain() {
 		String url = "https://accounts.google.com/o/oauth2/v2/auth?client_id=17637626061-ss04i67obe0couopq08tu72i1efjil82.apps.googleusercontent.com&redirect_uri=http://localhost:8080/walking/googlejoinpage&response_type=code&scope=email profile";
 		System.out.println("googlelogin 컨트롤러 접근");
 		return url;
 	}
+	*/
 	
 	//(인증코드)
-	@GetMapping("/api/walking/googlejoinpage/{code}")
+	@PostMapping("/api/walking/googlejoinpage/{code}")
     public HashMap<String, String> googleLogin(@PathVariable("code") String code) {
 
         System.out.println(code);
