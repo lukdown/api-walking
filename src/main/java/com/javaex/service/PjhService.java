@@ -15,8 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javaex.dao.PjhDao;
+import com.javaex.vo.GoogleToken;
 import com.javaex.vo.KakaoToken;
 import com.javaex.vo.PjhVo;
 
@@ -274,4 +276,107 @@ public class PjhService {
 
 		return count;
 	}
+	
+	//구글 토큰(인증코드)
+	public String googleRequestToken(String code) {
+        String accessToken = "";
+        String clientId = "YOUR_GOOGLE_CLIENT_ID";
+        String clientSecret = "YOUR_GOOGLE_CLIENT_SECRET";
+        String redirectUri = "http://localhost:8080/api/walking/googlejoinpage";
+        String grantType = "authorization_code";
+
+        try {
+            URL url = new URL("https://oauth2.googleapis.com/token");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+            StringBuilder sb = new StringBuilder();
+
+            sb.append("code=").append(code)
+              .append("&client_id=").append(clientId)
+              .append("&client_secret=").append(clientSecret)
+              .append("&redirect_uri=").append(redirectUri)
+              .append("&grant_type=").append(grantType);
+
+            bw.write(sb.toString());
+            bw.flush();
+
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode: " + responseCode);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            StringBuilder result = new StringBuilder();
+
+            while ((line = br.readLine()) != null) {
+                result.append(line);
+            }
+            br.close();
+            bw.close();
+
+            ObjectMapper mapper = new ObjectMapper();
+            GoogleToken googleToken = mapper.readValue(result.toString(), GoogleToken.class);
+            accessToken = googleToken.getAccess_token();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return accessToken;
+    }
+	
+	//구글 사용자 정보(인증코드)
+	public HashMap<String, String> googleRequestUser(String accessToken) {
+        HashMap<String, String> userInfo = new HashMap<>();
+        String url = "https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses,genders,phoneNumbers&access_token=" + accessToken;
+
+        try {
+            URL obj = new URL(url);
+            HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
+            conn.setRequestMethod("GET");
+
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode: " + responseCode);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            StringBuilder result = new StringBuilder();
+
+            while ((line = br.readLine()) != null) {
+                result.append(line);
+            }
+            br.close();
+
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readTree(result.toString());
+
+            JsonNode namesNode = jsonNode.path("names").get(0);
+            userInfo.put("name", namesNode.path("displayName").asText());
+
+            JsonNode emailNode = jsonNode.path("emailAddresses").get(0);
+            userInfo.put("email", emailNode.path("value").asText());
+
+            JsonNode genderNode = jsonNode.path("genders").get(0);
+            userInfo.put("gender", genderNode.path("value").asText());
+
+            JsonNode phoneNode = jsonNode.path("phoneNumbers").get(0);
+            userInfo.put("phone_number", phoneNode.path("value").asText());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return userInfo;
+    }
+	
+	public static void main(String[] args) {
+        PjhService example = new PjhService();
+        String accessToken = "YOUR_ACCESS_TOKEN"; // This should be dynamically obtained after OAuth flow
+        HashMap<String, String> userInfo = example.requestUser(accessToken);
+        System.out.println(userInfo);
+    }
+	
 }

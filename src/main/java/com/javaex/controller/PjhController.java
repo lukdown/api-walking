@@ -112,7 +112,7 @@ public class PjhController {
 		}
 	}
 
-	// 카카오로그인
+	// 카카오로그인 시작
 	@GetMapping("/api/walking/kakaologin")
 	public String Kakaomain() {
 		String url = "https://kauth.kakao.com/oauth/authorize?client_id=10058c98eea1a5e753d74e9e41744dbd&redirect_uri=http://localhost:8080/walking/kakaojoinpage&response_type=code";
@@ -349,10 +349,29 @@ public class PjhController {
 		return JsonResult.success(" 등록완료");
 	}
 	
+	
+	//구글 로그인 시작
 	@GetMapping("/api/walking/googlelogin")
 	public String Googlemain() {
 		String url = "https://accounts.google.com/o/oauth2/v2/auth?client_id=17637626061-ss04i67obe0couopq08tu72i1efjil82.apps.googleusercontent.com&redirect_uri=http://localhost:8080/walking/googlejoinpage&response_type=code&scope=email profile";
 		System.out.println("googlelogin 컨트롤러 접근");
 		return url;
 	}
+	
+	//(인증코드)
+	@GetMapping("/api/walking/googlejoinpage/{code}")
+    public HashMap<String, String> googleLogin(@PathVariable("code") String code) {
+
+        System.out.println(code);
+
+        // 토큰을 요청하여 얻음
+        String googleToken = pjhService.googleRequestToken(code);
+        System.out.println("구글토큰: " + googleToken);
+
+        // 사용자 정보를 요청하여 얻음
+        HashMap<String, String> userInfo = pjhService.googleRequestUser(googleToken);
+        System.out.println("userInfo: " + userInfo);
+
+        return userInfo;
+    }
 }
