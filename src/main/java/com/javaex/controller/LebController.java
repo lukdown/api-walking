@@ -68,9 +68,10 @@ public class LebController {
 
 			if (no != -1) {
 				recordVo.setUsers_no(no);
+				System.out.println(recordVo.getUsers_no());
 				lebService.exeRecordeDraw(recordVo);
-				System.out.println(recordVo.getCourse_no());
-				return JsonResult.success(recordVo.getCourse_no());
+				
+				return JsonResult.success(recordVo.getRecord_no());
 			} else {
 				// 토큰이 없거나(로그인상태아님), 변조된 경우
 
@@ -82,10 +83,11 @@ public class LebController {
 		@PostMapping("/api/walking/recordpointdraw")
 		public JsonResult recordPointDraw(@RequestBody List<KsbVo> pointList, HttpServletRequest request) {
 			System.out.println("LebController.recordPointDraw()");
-			System.out.println(pointList);
+			
 			int no = JwtUtil.getNoFromHeader(request);
 
 			if (no != -1) {
+				System.out.println(pointList);
 				int result = lebService.exeRecordPointDraw(pointList);
 
 				return JsonResult.success(result);
