@@ -29,7 +29,7 @@ public class YysController2 {
 
 		List<YysVo2> challengeList = yysService2.exeChallengeList();
 
-		// System.out.println(coursebookList);
+		System.out.println(challengeList);
 		return JsonResult.success(challengeList);
 	}
 

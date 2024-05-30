@@ -21,7 +21,7 @@ public class YysDao2 {
 		// System.out.println(yysVo);
 		List<YysVo2> challengeList = sqlSession.selectList("yys2.challengeList");
 
-		//System.out.println(facilitiesList);
+		//System.out.println(challengeList);
 		return challengeList;
 	}
 
