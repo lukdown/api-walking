@@ -14,6 +14,11 @@ public class LebService {
 
 	@Autowired
 	private LebDao lebDao;
+	
+	
+			
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public int exeCourseDraw(LebVo courseVo) {
 		System.out.println("lebService.exeCourseDraw()");
