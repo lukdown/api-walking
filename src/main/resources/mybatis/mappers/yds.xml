@@ -12,16 +12,25 @@
 		       gl.gallery_introduce,
 		       ul.users_nickname,
 		       ul.users_saveName,
+		       ch.challenge_name,
 		       re.record_date,
 		       cl.course_no,
+		       cl.course_name,
 		       cl.course_region,
 		       cl.course_length,
 		       cl.course_time,
-		       cl.course_difficulty
+		       cl.course_difficulty,
+		       COALESCE(like_counts.like_count, 0) AS gallery_likeCount  -- 좋아요 수를 포함
 		from gallery_list gl
 		left join users_list ul on gl.users_no = ul.users_no
 		left join (select record_date, course_no from record) re on re.course_no = gl.course_no
-		left join (select course_no, course_region, course_length, course_time, course_difficulty from course_list) cl on cl.course_no = gl.course_no
+		left join (select course_no, course_name, course_region, course_length, course_time, course_difficulty from course_list) cl on cl.course_no = gl.course_no
+		left join (select cp.users_no, ch.challenge_name FROM challenge_person cp 
+     				left join challenge ch ON cp.challenge_no = ch.challenge_no) ch ON ch.users_no = gl.users_no
+     	left join (select gallery_no, COUNT(*) AS like_count FROM gallery_like 
+        			GROUP BY gallery_no
+    				) like_counts ON like_counts.gallery_no = gl.gallery_no
+    	group by gl.gallery_no
 	]]>
 
 	</select>
@@ -45,6 +54,43 @@
 			WHERE users_no = #{usersNo}
         ]]>
 	</select>
+	
+	<!-- 특정리스트 좋아요 조회 -->
+	<select id="selectGalleryLikes" parameterType="int" resultType="int">
+        <![CDATA[
+	        SELECT COUNT(*) 
+        	
+        	FROM gallery_like 
+        	WHERE gallery_no = #{galleryNo}
+        ]]>	
+    </select>
+    
+     <!-- 특정 사용자가 해당 갤러리에 좋아요를 눌렀는지 확인 -->
+    <select id="checkLikeExists" parameterType="map" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*) 
+        
+        FROM gallery_like 
+        WHERE users_no = #{userNo} and gallery_no = #{galleryNo}
+    	]]>
+    </select>
+    
+    <!-- 좋아요 등록 -->
+   <insert id="glikeinsert" parameterType="map">
+      <![CDATA[   
+          insert into gallery_like
+              values ( null, #{userNo}, #{galleryNo} )
+       ]]>
+   </insert>
+   
+   <!-- 좋아요 삭제 -->
+	<delete id="glikedelete" parameterType="map">
+		<![CDATA[
+			delete from gallery_like
+			where users_no = #{userNo} and gallery_no = #{galleryNo}
+		]]>
+	</delete>
+	
 
 	<!-- 로그인한 회원의 특정 코스 소개 등록(저장) -->
 

@@ -46,6 +46,25 @@ public class YdsService {
 		//System.out.println(userCourses);
 		return userCourses;
 	}
+	
+	//특정리스트 좋아요 조회
+	public int getGalleryLikes(int galleryNo) {
+		System.out.println("YdsService.getGalleryLikes()");
+		int count = ydsDao.selectGalleryLikes(galleryNo);
+		
+        return count;
+    }
+
+	// 좋아요 추가 및 삭제
+    public int likeGallery(int userNo, int galleryNo) {
+        int likeExists = ydsDao.checkLikeExists(userNo, galleryNo);
+        if (likeExists > 0) {
+        	ydsDao.gdeleteLike(userNo, galleryNo);
+        } else {
+        	ydsDao.ginsertLike(userNo, galleryNo);
+        }
+        return ydsDao.selectGalleryLikes(galleryNo);
+    }
 
 	// 로그인한 회원의 특정 코스 소개 등록(저장)
 	public void saveCourseIntroduction(MultipartFile[] galleryfile, YdsVo ydsVo) {

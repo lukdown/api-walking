@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.YdsService;
 import com.javaex.util.JsonResult;
-import com.javaex.vo.YdsAttachVo;
 import com.javaex.vo.YdsVo;
 
 @RestController
@@ -30,7 +30,7 @@ public class YdsController {
 	public JsonResult list() {
 		System.out.println("YdsController.list()");
 		List<YdsVo> gList = ydsService.exeAllList();
-		//System.out.println(gList);
+		// System.out.println(gList);
 		return JsonResult.success(gList);
 	}
 
@@ -39,7 +39,7 @@ public class YdsController {
 	public JsonResult listUserCourses(@PathVariable(value = "userNo") int userNo) {
 		System.out.println("YdsController.listUserCourses()");
 		List<YdsVo> userCourses = ydsService.exefindCoursesByUserNo(userNo);
-		//System.out.println(userCourses);
+		// System.out.println(userCourses);
 		return JsonResult.success(userCourses);
 	}
 
@@ -47,50 +47,20 @@ public class YdsController {
 	@PostMapping("/gallery/{userNo}/course/{courseNo}")
 	public JsonResult introduceCourse(@RequestParam MultipartFile[] galleryfile, @ModelAttribute YdsVo ydsVo) {
 		System.out.println("YdsController.introduceCourse()");
-		//System.out.println(galleryfile.length);
+		// System.out.println(galleryfile.length);
 		for (int i = 0; i < galleryfile.length; i++) {
 
 			System.out.println(galleryfile[i].getOriginalFilename());
 
 		}
 
-		//System.out.println(ydsVo);
+		// System.out.println(ydsVo);
 		ydsService.saveCourseIntroduction(galleryfile, ydsVo);// 저장 서비스
 		// 호출
 
 		return JsonResult.success("파일 업로드 성공");// return
 	}
 
-	
-//	@PostMapping("/gallery/gallery_img")
-//	public JsonResult getGalleryPicList(@RequestBody YdsVo ydsVo) {
-//	    System.out.println("YdsController.getGalleryPicList()");
-//
-//	    //System.out.println(ydsVo);
-//	    // 서비스 호출하여 이미지 리스트 가져오기
-//	    List<YdsVo> gpList = ydsService.exeGetGalleryPicList(ydsVo);
-//	    //System.out.println(gpList);
-//
-//	    //return JsonResult.success(null);
-//	    return JsonResult.success(gpList);
-//	}
-
-
-	// 이미지 첨부
-	/*
-	 * @PostMapping("/galleryupload") public JsonResult galleryUpload(@RequestParam
-	 * MultipartFile galleryfile) {
-	 * 
-	 * System.out.println("YdsController.galleryUpload()");
-	 * 
-	 * System.out.println(galleryfile.getOriginalFilename()); String gallerySaveName
-	 * = ydsService.exeSaveGalleryFile(galleryfile);
-	 * 
-	 * return JsonResult.success(gallerySaveName); // return
-	 * 
-	 * }
-	 */
-	
 	// 선택한 코스의 상세 정보 조회
 	@GetMapping("/gallery/course/{courseName}")
 	public JsonResult getCourseDetails(@PathVariable(value = "courseName") String courseName) {
@@ -98,6 +68,21 @@ public class YdsController {
 		YdsVo courseInfo = ydsService.exefindCourseInfo(courseName);
 		System.out.println("courseInfo      " + courseInfo);
 		return JsonResult.success(courseInfo);
+	}
+
+	// 특정 포스팅의 좋아요 수 조회
+	@GetMapping("/gallery/{galleryNo}/likes")
+	public JsonResult getGalleryLikes(@PathVariable int galleryNo) {
+		int likeCount = ydsService.getGalleryLikes(galleryNo);
+		return JsonResult.success(likeCount);
+	}
+
+	// 좋아요 추가 및 삭제
+	@PostMapping("/gallery/{galleryNo}/like")
+	public JsonResult likeGallery(@PathVariable int galleryNo,  @RequestBody Map<String, Integer> request) {
+		 int userNo = request.get("userNo");
+	     int updatedLikeCount = ydsService.likeGallery(userNo, galleryNo);
+	     return JsonResult.success(updatedLikeCount);
 	}
 
 }

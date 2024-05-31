@@ -4,8 +4,21 @@ import java.util.List;
 public class YdsVo {
 
 	// 필드
+	// 갤러리필드
 	private int gallery_no;
+	private String gallery_introduce;
+	private String gallery_filePath;
+	private String gallery_orgName;
+	private String gallery_saveName;
+	private long gallery_fileSize;
+	
 	private int course_no;
+	private String course_name;
+	private String course_region;
+	private int course_length;
+	private String course_time;
+	private int course_hit;
+	private String course_difficulty;
 	private int users_no;
 	private String users_nickname;
 	private String users_orgName;
@@ -13,22 +26,15 @@ public class YdsVo {
 	private String users_filePath;
 	private long users_fileSize;
 	private YdsAttachVo gallery_attach;
-	private String course_name;
-	private String course_region;
-	private int course_length;
-	private String course_time;
-	private int course_hit;
-	private String course_difficulty;
-	private String gallery_introduce;
+	
+	
 	private String record_date;
 	private String challenge_name;
-
-	private String gallery_filePath;
-	private String gallery_orgName;
-	private String gallery_saveName;
-	private long gallery_fileSize;
+	
 	
 	private List<YdsAttachVo> tList;
+	
+	private int gallery_likeCount;
 	
 
 	// 생성자
@@ -42,7 +48,7 @@ public class YdsVo {
 			String course_name, String course_region, int course_length, String course_time, int course_hit,
 			String course_difficulty, String gallery_introduce, String record_date, String challenge_name,
 			String gallery_filePath, String gallery_orgName, String gallery_saveName, long gallery_fileSize,
-			List<YdsAttachVo> tList) {
+			List<YdsAttachVo> tList, int gallery_likeCount) {
 		super();
 		this.gallery_no = gallery_no;
 		this.course_no = course_no;
@@ -67,6 +73,18 @@ public class YdsVo {
 		this.gallery_saveName = gallery_saveName;
 		this.gallery_fileSize = gallery_fileSize;
 		this.tList = tList;
+		this.gallery_likeCount = gallery_likeCount;
+	}
+
+
+
+	public int getGallery_likeCount() {
+		return gallery_likeCount;
+	}
+
+
+	public void setGallery_likeCount(int gallery_likeCount) {
+		this.gallery_likeCount = gallery_likeCount;
 	}
 
 
@@ -260,17 +278,20 @@ public class YdsVo {
 
 	@Override
 	public String toString() {
-		return "YdsVo [gallery_no=" + gallery_no + ", course_no=" + course_no + ", users_no=" + users_no
-				+ ", users_nickname=" + users_nickname + ", users_orgName=" + users_orgName + ", users_saveName="
-				+ users_saveName + ", users_filePath=" + users_filePath + ", users_fileSize=" + users_fileSize
-				+ ", gallery_attach=" + gallery_attach + ", course_name=" + course_name + ", course_region="
-				+ course_region + ", course_length=" + course_length + ", course_time=" + course_time + ", course_hit="
-				+ course_hit + ", course_difficulty=" + course_difficulty + ", gallery_introduce=" + gallery_introduce
-				+ ", record_date=" + record_date + ", challenge_name=" + challenge_name + ", gallery_filePath="
+		return "YdsVo [gallery_no=" + gallery_no + ", gallery_introduce=" + gallery_introduce + ", gallery_filePath="
 				+ gallery_filePath + ", gallery_orgName=" + gallery_orgName + ", gallery_saveName=" + gallery_saveName
-				+ ", gallery_fileSize=" + gallery_fileSize + ", tList=" + tList + "]";
+				+ ", gallery_fileSize=" + gallery_fileSize + ", course_no=" + course_no + ", course_name=" + course_name
+				+ ", course_region=" + course_region + ", course_length=" + course_length + ", course_time="
+				+ course_time + ", course_hit=" + course_hit + ", course_difficulty=" + course_difficulty
+				+ ", users_no=" + users_no + ", users_nickname=" + users_nickname + ", users_orgName=" + users_orgName
+				+ ", users_saveName=" + users_saveName + ", users_filePath=" + users_filePath + ", users_fileSize="
+				+ users_fileSize + ", gallery_attach=" + gallery_attach + ", record_date=" + record_date
+				+ ", challenge_name=" + challenge_name + ", tList=" + tList + ", gallery_likeCount=" + gallery_likeCount
+				+ "]";
 	}
 
+
+	
 
 	
 
