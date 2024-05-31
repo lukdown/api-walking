@@ -35,18 +35,29 @@ public class KsbVo {
 	private double record_longitude;
 	private String record_division;
 	private String record_order;
+	
+	//코스포인트
+	
+	private int course_point_no;
+	private double course_latitude;
+	private double course_longitude;
+	private int course_order;
+	private String course_division;
+	
 
 	// 생성자
 	public KsbVo() {
 		super();
 	}
 
+
 	public KsbVo(int users_no, String users_id, String users_pw, String users_name, String users_nickname,
 			String users_hp, String users_birth_date, String users_gender, String users_residence, String filePath,
 			String orgName, String saveName, long fileSize, int record_no, int course_no, String record_date,
 			String record_time, double record_length, int record_kcal, String record_vibe, String record_memo,
 			int record_point_no, double record_latitude, double record_longitude, String record_division,
-			String record_order) {
+			String record_order, int course_point_no, double course_latitude, double course_longitude, int course_order,
+			String course_division) {
 		super();
 		this.users_no = users_no;
 		this.users_id = users_id;
@@ -74,7 +85,13 @@ public class KsbVo {
 		this.record_longitude = record_longitude;
 		this.record_division = record_division;
 		this.record_order = record_order;
+		this.course_point_no = course_point_no;
+		this.course_latitude = course_latitude;
+		this.course_longitude = course_longitude;
+		this.course_order = course_order;
+		this.course_division = course_division;
 	}
+
 
 	public KsbVo(int users_no, String users_id, String users_pw, String users_name, String users_nickname,
 			String users_hp, String users_birth_date, String users_gender, String users_residence, String filePath,
@@ -327,34 +344,74 @@ public class KsbVo {
 	public void setRecord_order(String record_order) {
 		this.record_order = record_order;
 	}
+	
+	public int getCourse_point_no() {
+		return course_point_no;
+	}
 
-	// 메소드 - 일반
+
+	public void setCourse_point_no(int course_point_no) {
+		this.course_point_no = course_point_no;
+	}
+
+
+	public double getCourse_latitude() {
+		return course_latitude;
+	}
+
+
+	public void setCourse_latitude(double course_latitude) {
+		this.course_latitude = course_latitude;
+	}
+
+
+	public double getCourse_longitude() {
+		return course_longitude;
+	}
+
+
+	public void setCourse_longitude(double course_longitude) {
+		this.course_longitude = course_longitude;
+	}
+
+
+	public int getCourse_order() {
+		return course_order;
+	}
+
+
+	public void setCourse_order(int course_order) {
+		this.course_order = course_order;
+	}
+
+
+	public String getCourse_division() {
+		return course_division;
+	}
+
+
+	public void setCourse_division(String course_division) {
+		this.course_division = course_division;
+	}
+
 
 	@Override
 	public String toString() {
-		return "KsbVo [users_no=" + users_no + ", users_id=" + users_id + ", users_pw=" + users_pw + ", users_name="
-				+ users_name + ", users_nickname=" + users_nickname + ", users_hp=" + users_hp + ", users_birth_date="
-				+ users_birth_date + ", users_gender=" + users_gender + ", users_residence=" + users_residence
-				+ ", filePath=" + filePath + ", orgName=" + orgName + ", saveName=" + saveName + ", fileSize="
-				+ fileSize + ", record_no=" + record_no + ", course_no=" + course_no + ", record_date=" + record_date
-				+ ", record_time=" + record_time + ", record_length=" + record_length + ", record_kcal=" + record_kcal
-				+ ", record_vibe=" + record_vibe + ", record_memo=" + record_memo + ", record_point_no="
-				+ record_point_no + ", record_latitude=" + record_latitude + ", record_longitude=" + record_longitude
-				+ ", record_division=" + record_division + ", record_order=" + record_order + ", getUsers_no()="
-				+ getUsers_no() + ", getUsers_id()=" + getUsers_id() + ", getUsers_pw()=" + getUsers_pw()
-				+ ", getUsers_name()=" + getUsers_name() + ", getUsers_nickname()=" + getUsers_nickname()
-				+ ", getUsers_hp()=" + getUsers_hp() + ", getUsers_birth_date()=" + getUsers_birth_date()
-				+ ", getUsers_gender()=" + getUsers_gender() + ", getUsers_residence()=" + getUsers_residence()
-				+ ", getFilePath()=" + getFilePath() + ", getOrgName()=" + getOrgName() + ", getSaveName()="
-				+ getSaveName() + ", getFileSize()=" + getFileSize() + ", getRecord_no()=" + getRecord_no()
-				+ ", getCourse_no()=" + getCourse_no() + ", getRecord_date()=" + getRecord_date()
-				+ ", getRecord_time()=" + getRecord_time() + ", getRecord_length()=" + getRecord_length()
-				+ ", getRecord_kcal()=" + getRecord_kcal() + ", getRecord_vibe()=" + getRecord_vibe()
-				+ ", getRecord_memo()=" + getRecord_memo() + ", getRecord_point_no()=" + getRecord_point_no()
-				+ ", getRecord_latitude()=" + getRecord_latitude() + ", getRecord_longitude()=" + getRecord_longitude()
-				+ ", getRecord_division()=" + getRecord_division() + ", getRecord_order()=" + getRecord_order()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+		return "KsbVo [users_no=" + users_no + ", users_nickname=" + users_nickname + ", filePath=" + filePath
+				+ ", orgName=" + orgName + ", saveName=" + saveName + ", fileSize=" + fileSize + ", record_no="
+				+ record_no + ", course_no=" + course_no + ", record_date=" + record_date + ", record_time="
+				+ record_time + ", record_length=" + record_length + ", record_kcal=" + record_kcal + ", record_vibe="
+				+ record_vibe + ", record_memo=" + record_memo + ", record_point_no=" + record_point_no
+				+ ", record_latitude=" + record_latitude + ", record_longitude=" + record_longitude
+				+ ", record_division=" + record_division + ", record_order=" + record_order + ", course_point_no="
+				+ course_point_no + ", course_latitude=" + course_latitude + ", course_longitude=" + course_longitude
+				+ ", course_order=" + course_order + "]";
 	}
+
+
+
+
+	
+	
 
 }

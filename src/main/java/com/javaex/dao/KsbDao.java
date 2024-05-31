@@ -18,7 +18,7 @@ public class KsbDao {
 	//달력 리스트 가져오기
 	public List<KsbVo> calendarList(int no){
 		System.out.println("ksbDao.calendarList()");
-		System.out.println(no);
+		//System.out.println(no);
 		List<KsbVo> calendarList = sqlSession.selectList("ksb.calendarList", no);
 		
 		return calendarList;
@@ -30,8 +30,30 @@ public class KsbDao {
 		System.out.println("ksbDao.recordList");
 		System.out.println(no);
 		List<KsbVo> recordList = sqlSession.selectList("ksb.recordList", no);
-		System.out.println(recordList);
+		//System.out.println(recordList);
 		return recordList;
+	}
+	
+	//코스 포인트 가져오기
+	public List<KsbVo> coursepointList(KsbVo ksbVo){
+		System.out.println("ksbDao.coursepointList()");
+		
+		//System.out.println(ksbVo);
+		List<KsbVo> coursepointList = sqlSession.selectList("ksb.coursepointList", ksbVo);
+		
+		System.out.println(coursepointList);
+		return coursepointList;
+	}
+	
+	//기록 포인트 가져오기
+	public List<KsbVo> recordpointList(KsbVo ksbVo){
+		System.out.println("ksbDao.recordpointList()");
+		
+		System.out.println(ksbVo);
+		List<KsbVo> recordpointList = sqlSession.selectList("ksb.recordpointList", ksbVo);
+		
+		System.out.println(recordpointList);
+		return recordpointList;
 	}
 	
 	

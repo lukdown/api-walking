@@ -72,8 +72,42 @@
 			        record_memo
 			from record
 			where users_no = #{no}
-		]]>
+		]]>	
+	</select>
 	
+	
+	<!-- 코스 포인트 가져오기 -->
+	<select id="coursepointList" parameterType="ksbVo" resultType="KsbVo">
+		<![CDATA[
+			SELECT course_point_no, course_no, course_latitude, course_longitude, course_order, course_division,
+			       @group_num := IF(@last_val = 0 AND course_order != 0, @group_num + 1, @group_num) AS group_num,
+			       @last_val := course_order
+			FROM (
+			    SELECT course_point_no, course_no, course_latitude, course_longitude, course_order, course_division
+			    FROM course_point
+			    ORDER BY course_point_no
+			) AS sorted_numbers
+			where course_no = #{course_no}
+			
+		]]>
+	</select>
+	
+	<!-- 기록 포인트 가져오기 -->
+	<select id="recordpointList" parameterType="ksbVo" resultType="KsbVo">
+		<![CDATA[
+			SELECT record_point_no, record_no, record_latitude, record_longitude, record_order, record_division,
+			       @group_num := IF(@last_val = 0 AND record_order != 0, @group_num + 1, @group_num) AS group_num,
+			       @last_val := record_order
+			FROM (
+			    SELECT record_point_no, record_no, record_latitude, record_longitude, record_order, record_division
+			    FROM record_point
+			    ORDER BY record_point_no
+			) AS sorted_numbers
+			where record_no = #{record_no}  
+		
+		
+		]]>
+		
 	</select>
 	
 </mapper>

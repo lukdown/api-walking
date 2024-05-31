@@ -41,6 +41,27 @@ public class KsbService {
 		return recordList;
 	}
 	
+	//코스 포인트 가져오기
+	public List<KsbVo> exeCoursePointList(KsbVo ksbVo){
+		System.out.println("KsbService.exeCoursePointList()");
+		
+		List<KsbVo> coursepointList = ksbDao.coursepointList(ksbVo);
+		System.out.println(coursepointList);
+		
+		return coursepointList;
+		
+	}
+	
+	//기록 포인트 가져오기
+	public List<KsbVo> exeRecordPointList(KsbVo ksbVo){
+		System.out.println("KsbService.exeRecordPointList()");
+		
+		List<KsbVo> recordpointList = ksbDao.recordpointList(ksbVo);
+		System.out.println(recordpointList);
+		
+		return recordpointList;
+	}
+	
 	//마이페이지
 	public KsbVo exeSelectMember(int no) {
 		System.out.println("KsbService.exeSelectMember()");
