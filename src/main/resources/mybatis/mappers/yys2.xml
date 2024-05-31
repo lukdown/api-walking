@@ -3,17 +3,94 @@
 
 <mapper namespace="yys2">
 
-	<!-- 편의시설(화장실) 리스트 -->
-	<select id="challengeList" resultType="YysVo2">
+	<!-- 유저 정보 -->
+	<select id="challenge_complete" parameterType="int" resultType="YysVo2">
 		<![CDATA[
-			select challenge_no,
-				   challenge_name,
-			       filePath,
-			       orgName,
-			       saveName,
-			       fileSize,
-			       challenge_explanation
-			from challenge
+			select count(cp.challenge_no) as 'challenge_complete_count',
+					(select count(*)
+					from challenge)  as 'challenge_count'
+			from challenge cg
+			left join challenge_person cp on cp.challenge_no = cg.challenge_no
+			where cp.users_no = #{users_no}
+			
+		]]>
+	</select>
+
+
+	<!-- 개인 도전과제 등록 -->
+   <insert id="challengeinsert" parameterType="YysVo2">
+      <![CDATA[   
+          insert into challenge_person
+              values ( null, #{challenge_no}, #{users_no}, null )
+       ]]>
+   </insert>
+
+	<!-- 유저 정보 -->
+	<select id="users_Info" parameterType="int" resultType="YysVo2">
+		<![CDATA[
+			select ul.users_no,
+				   ul.users_id,
+			       ul.users_name,
+			       ul.users_nickname,
+			       r.users_kcal,
+			       r.users_length,
+			       cl.course_users_count,
+			       sgp.small_group_count,
+			       cl.course_users_sum_hit,
+			       crl.review_users_count,
+			       gl.gallery_users_count
+			from users_list ul
+			left join ( select users_no,
+							   sum(record_kcal) as 'users_kcal',
+			                   sum(record_length) as 'users_length'
+						from record
+						where users_no = #{users_no} ) r on ul.users_no = r.users_no
+			left join (select users_no,
+							  count(*) as 'small_group_count'
+						from small_group_application
+						where users_no = #{users_no} ) sgp on ul.users_no = sgp.users_no
+			left join (select users_no,
+							   count(*) as 'course_users_count',
+			                   sum(course_hit) as 'course_users_sum_hit'
+						from course_list
+						where users_no = #{users_no} ) cl on ul.users_no = cl.users_no
+			left join (select users_no,
+							   count(*) as 'review_users_count'
+						from course_review_list
+						where users_no = #{users_no}) crl on ul.users_no = crl.users_no
+			left join (select users_no,
+							   count(*) as 'gallery_users_count'
+						from gallery_list
+						where users_no = #{users_no}) gl on ul.users_no = gl.users_no
+			where ul.users_no = #{users_no}
+			
+		]]>
+	</select>
+
+	<!-- 도전과제 리스트 -->
+	<select id="challengeList" parameterType="int" resultType="YysVo2">
+		<![CDATA[
+			SELECT cg.challenge_no,
+			       cg.challenge_name,
+			       cg.filePath,
+			       cg.orgName,
+			       cg.saveName,
+			       cg.fileSize,
+			       cg.challenge_explanation,
+				   cp.person_no,
+				   cp.login_users_no,
+				   CASE 
+				       WHEN cp.login_users_no IS NOT NULL THEN 1 
+				       ELSE 0 
+				   END AS is_challenge_t_f
+			FROM challenge cg
+			LEFT JOIN ( SELECT person_no,
+							   challenge_no,
+							   users_no AS 'login_users_no'
+						FROM challenge_person
+						WHERE users_no = #{users_no}
+					   ) cp
+			ON  cp.challenge_no = cg.challenge_no
 			
 		]]>
 	</select>
