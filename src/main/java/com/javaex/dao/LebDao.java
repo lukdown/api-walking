@@ -6,13 +6,29 @@ import org.springframework.stereotype.Repository;
 
 import com.javaex.vo.KsbVo;
 import com.javaex.vo.LebVo;
+import com.javaex.vo.PjhVo;
 
 @Repository
 public class LebDao {
 
 	@Autowired
 	private SqlSession sqlSession;
+	
+	//네이버 로그인
+	public PjhVo userSelscetByNaverId(PjhVo users_listVo) {
+		System.out.println("UserDao.userSelscetByNaverId()");
 
+		System.out.println(users_listVo);
+		PjhVo authUser = sqlSession.selectOne("pjh.selectBykakakoId", users_listVo);
+		System.out.println("qwer"+authUser);
+
+		return authUser;
+	}
+
+		
+		
+		
+	/////////////////////////////////////////////////////////////////////////////////
 	public int courseDraw(LebVo courseVo) {
 		int count = sqlSession.insert("leb.courseDraw", courseVo);
 		System.out.println(count);
