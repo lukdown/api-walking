@@ -41,7 +41,7 @@ public class KsbDao {
 		//System.out.println(ksbVo);
 		List<KsbVo> coursepointList = sqlSession.selectList("ksb.coursepointList", ksbVo);
 		
-		System.out.println(coursepointList);
+		//System.out.println(coursepointList);
 		return coursepointList;
 	}
 	
@@ -52,9 +52,19 @@ public class KsbDao {
 		System.out.println(ksbVo);
 		List<KsbVo> recordpointList = sqlSession.selectList("ksb.recordpointList", ksbVo);
 		
-		System.out.println(recordpointList);
+		//System.out.println(recordpointList);
 		return recordpointList;
 	}
+	
+	//기록 가져오기
+	public KsbVo selectRecord(KsbVo ksbVo) {
+		System.out.println("KsbDao.selectRecord()");
+		//System.out.println(ksbVo + "============================================================================================");
+		KsbVo RecordInfo = sqlSession.selectOne("ksb.selectRecord", ksbVo);
+		//System.out.println(RecordInfo+"__________________________________________________________________");
+		return RecordInfo;
+	}
+	
 	
 	
 	//마이페이지

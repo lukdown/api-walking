@@ -46,7 +46,7 @@ public class KsbService {
 		System.out.println("KsbService.exeCoursePointList()");
 		
 		List<KsbVo> coursepointList = ksbDao.coursepointList(ksbVo);
-		System.out.println(coursepointList);
+		//System.out.println(coursepointList);
 		
 		return coursepointList;
 		
@@ -57,9 +57,18 @@ public class KsbService {
 		System.out.println("KsbService.exeRecordPointList()");
 		
 		List<KsbVo> recordpointList = ksbDao.recordpointList(ksbVo);
-		System.out.println(recordpointList);
+		//System.out.println(recordpointList);
 		
 		return recordpointList;
+	}
+	
+	//기록 1개만 가져오기
+	public KsbVo exeGetSelectedRecord(KsbVo ksbVo) {
+		System.out.println("KsbService.exeGetSelectedRecord()");
+		
+		KsbVo RecordInfo = ksbDao.selectRecord(ksbVo);
+		//System.out.println(RecordInfo);
+		return RecordInfo;
 	}
 	
 	//마이페이지

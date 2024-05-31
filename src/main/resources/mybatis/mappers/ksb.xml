@@ -110,4 +110,23 @@
 		
 	</select>
 	
+	<!-- 기록 1개만 가져오기 -->
+	
+	<select id="selectRecord" parameterType="ksbVo" resultType="KsbVo">
+		<![CDATA[
+			select  record_no,
+					users_no,
+			        course_no,
+			        record_date,
+			        record_time,
+			        record_length,
+			        record_kcal,
+			        record_vibe,
+			        record_memo
+			from record
+			where record_no = #{record_no} and course_no = #{course_no}
+		
+		]]>
+	</select>
+	
 </mapper>

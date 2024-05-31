@@ -38,14 +38,14 @@ public class KsbController {
 	}
 
 	// 기록 리스트
-	@PostMapping("/api/walking/recordlist")
-	public JsonResult recordList(@RequestBody KsbVo ksbVo, HttpServletRequest request) {
+	@GetMapping("/api/walking/recordlist")
+	public JsonResult recordList(HttpServletRequest request) {
 		System.out.println("KsbController.recordList()");
 		
 		int no = JwtUtil.getNoFromHeader(request);
 		
 		List<KsbVo> recordList = ksbService.exeRecordList(no);
-		//System.out.println(recordList);
+		System.out.println(recordList);
 		return JsonResult.success(recordList);
 	}
 	
@@ -53,10 +53,10 @@ public class KsbController {
 	@PostMapping("/api/walking/mapCoursePoint")
 	public JsonResult mapCoursePoint(@RequestBody KsbVo ksbVo) {
 		System.out.println("KsbController.mapCoursePoint()");
-		System.out.println(ksbVo);
+		//System.out.println(ksbVo);
 		
 		List<KsbVo> coursepointList = ksbService.exeCoursePointList(ksbVo);
-		System.out.println(coursepointList);
+		//System.out.println(coursepointList);
 		return JsonResult.success(coursepointList);
 	}
 	
@@ -64,11 +64,23 @@ public class KsbController {
 	@PostMapping("/api/walking/mapRecordPoint")
 	public JsonResult mapRecordPoint(@RequestBody KsbVo ksbVo) {
 		System.out.println("KsbController.mapRecordPoint()");
-		System.out.println(ksbVo);
+		//System.out.println(ksbVo);
 		
 		List<KsbVo> recordpointList = ksbService.exeRecordPointList(ksbVo);
-		System.out.println(recordpointList);
+		//System.out.println(recordpointList);
 		return JsonResult.success(recordpointList);
+	}
+	
+	//기록 리스트 1개만 불러오기
+	@PostMapping("/api/walking/getSelectedRecord")
+	public JsonResult getSelectedRecord(@RequestBody KsbVo ksbVo) {
+		System.out.println("KsbController.getSelectedRecord()");
+		//System.out.println(ksbVo + "======================================================================");
+		
+		KsbVo RecordInfo = ksbService.exeGetSelectedRecord(ksbVo);
+		System.out.println(RecordInfo + "======================================================================");
+		
+		return JsonResult.success(RecordInfo);
 	}
 
 	// 마이페이지
