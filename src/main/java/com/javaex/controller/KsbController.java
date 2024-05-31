@@ -32,7 +32,7 @@ public class KsbController {
 		
 		int no = JwtUtil.getNoFromHeader(request);
 		List<KsbVo> calendarList = ksbService.exeCalendarList(no);
-		System.out.println(calendarList);
+		//System.out.println(calendarList);
 		
 		return JsonResult.success(calendarList);
 	}
@@ -45,8 +45,30 @@ public class KsbController {
 		int no = JwtUtil.getNoFromHeader(request);
 		
 		List<KsbVo> recordList = ksbService.exeRecordList(no);
-		System.out.println(recordList);
+		//System.out.println(recordList);
 		return JsonResult.success(recordList);
+	}
+	
+	//코스 포인트 불러오기
+	@PostMapping("/api/walking/mapCoursePoint")
+	public JsonResult mapCoursePoint(@RequestBody KsbVo ksbVo) {
+		System.out.println("KsbController.mapCoursePoint()");
+		System.out.println(ksbVo);
+		
+		List<KsbVo> coursepointList = ksbService.exeCoursePointList(ksbVo);
+		System.out.println(coursepointList);
+		return JsonResult.success(coursepointList);
+	}
+	
+	//기록 포인트 불러오기
+	@PostMapping("/api/walking/mapRecordPoint")
+	public JsonResult mapRecordPoint(@RequestBody KsbVo ksbVo) {
+		System.out.println("KsbController.mapRecordPoint()");
+		System.out.println(ksbVo);
+		
+		List<KsbVo> recordpointList = ksbService.exeRecordPointList(ksbVo);
+		System.out.println(recordpointList);
+		return JsonResult.success(recordpointList);
 	}
 
 	// 마이페이지
