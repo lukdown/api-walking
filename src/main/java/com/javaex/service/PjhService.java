@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -242,8 +243,8 @@ public class PjhService {
 	}
 
 	// 카카오 자동 로그인
-	public PjhVo exeKakaoLogin(PjhVo users_listVo) {
-		System.out.println("UserService.exeKakaoLogin()");
+	public PjhVo exeApiLogin(PjhVo users_listVo) {
+		System.out.println("UserService.exeApiLogin()");
 
 		PjhVo authUser = pjhDao.userSelscetByKakaoId(users_listVo);
 
@@ -278,31 +279,33 @@ public class PjhService {
 	}
 	
 	//구글 토큰(인증코드)
-	public String googleRequestToken(String code) {
+	public String googleRequestToken(String rawCode) {
         String accessToken = "";
-        String clientId = "YOUR_GOOGLE_CLIENT_ID";
-        String clientSecret = "YOUR_GOOGLE_CLIENT_SECRET";
-        String redirectUri = "http://localhost:8080/api/walking/googlejoinpage";
-        String grantType = "authorization_code";
+        
+        String code = rawCode.replace("\"", "").trim();
 
+        System.out.println(code);
+        
         try {
             URL url = new URL("https://oauth2.googleapis.com/token");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
 
-            sb.append("code=").append(code)
-              .append("&client_id=").append(clientId)
-              .append("&client_secret=").append(clientSecret)
-              .append("&redirect_uri=").append(redirectUri)
-              .append("&grant_type=").append(grantType);
+            sb.append("code="+code);
+            sb.append("&client_id=17637626061-ss04i67obe0couopq08tu72i1efjil82.apps.googleusercontent.com");
+            sb.append("&client_secret=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");
+            sb.append("&redirect_uri=http://localhost:8080/walking/googlejoinpage");
+            sb.append("&grant_type=authorization_code");
 
             bw.write(sb.toString());
             bw.flush();
+            bw.close();
 
             int responseCode = conn.getResponseCode();
             System.out.println("responseCode: " + responseCode);
@@ -331,7 +334,8 @@ public class PjhService {
 	//구글 사용자 정보(인증코드)
 	public HashMap<String, String> googleRequestUser(String accessToken) {
         HashMap<String, String> userInfo = new HashMap<>();
-        String url = "https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses,genders,phoneNumbers&access_token=" + accessToken;
+        userInfo.put("accessToken", accessToken);
+        String url = "https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses,genders,birthdays,nicknames&key=AIzaSyB-m-ixX_wtCttdqmUJKMovzgWiU0lhuBY&access_token=" + accessToken;
 
         try {
             URL obj = new URL(url);
@@ -339,7 +343,7 @@ public class PjhService {
             conn.setRequestMethod("GET");
 
             int responseCode = conn.getResponseCode();
-            System.out.println("responseCode: " + responseCode);
+            System.out.println("응답 코드: " + responseCode);
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
@@ -353,30 +357,51 @@ public class PjhService {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readTree(result.toString());
 
-            JsonNode namesNode = jsonNode.path("names").get(0);
-            userInfo.put("name", namesNode.path("displayName").asText());
+            System.out.println(jsonNode);
+            
+         // ID 가져오기
+            String id = jsonNode.path("resourceName").asText().split("/")[1];
+            userInfo.put("id", id);
 
-            JsonNode emailNode = jsonNode.path("emailAddresses").get(0);
-            userInfo.put("email", emailNode.path("value").asText());
+            // 이름 가져오기
+            JsonNode namesNode = jsonNode.path("names");
+            String displayName = namesNode.get(0).path("displayName").asText();
+            userInfo.put("name", displayName);
 
-            JsonNode genderNode = jsonNode.path("genders").get(0);
-            userInfo.put("gender", genderNode.path("value").asText());
+            // 닉네임 가져오기
+            JsonNode nicknamesNode = jsonNode.path("nicknames");
+            String nickname = nicknamesNode.get(0).path("value").asText();
+            userInfo.put("nickname", nickname);
+            
+            // 이메일 가져오기
+            JsonNode emailNode = jsonNode.path("emailAddresses");
+            String email = emailNode.get(0).path("value").asText();
+            userInfo.put("email", email);
 
-            JsonNode phoneNode = jsonNode.path("phoneNumbers").get(0);
-            userInfo.put("phone_number", phoneNode.path("value").asText());
+            // 성별 가져오기
+            JsonNode gendersNode = jsonNode.path("genders");
+            String gender = "";
+            if (gendersNode.size() > 0) {
+                gender = gendersNode.get(0).path("value").asText();
+            }
+            userInfo.put("gender", gender);
+
+            // 생일 가져오기
+            JsonNode birthdaysNode = jsonNode.path("birthdays");
+            if (birthdaysNode.size() > 0) {
+                JsonNode birthdayNode = birthdaysNode.get(0).path("date");
+                int year = birthdayNode.path("year").asInt();
+                int month = birthdayNode.path("month").asInt();
+                int day = birthdayNode.path("day").asInt();
+                String birthday = year + "-" + month + "-" + day;
+                userInfo.put("birthday", birthday);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return userInfo;
-    }
-	
-	public static void main(String[] args) {
-        PjhService example = new PjhService();
-        String accessToken = "YOUR_ACCESS_TOKEN"; // This should be dynamically obtained after OAuth flow
-        HashMap<String, String> userInfo = example.requestUser(accessToken);
-        System.out.println(userInfo);
     }
 	
 }

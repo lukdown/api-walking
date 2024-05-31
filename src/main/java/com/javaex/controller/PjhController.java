@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.javaex.service.PjhService;
@@ -20,6 +21,7 @@ import com.javaex.vo.PjhVo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 public class PjhController {
 
@@ -57,7 +59,7 @@ public class PjhController {
 	// 로그인
 	@PostMapping("/api/walking/loginpage")
 	public JsonResult login(@RequestBody PjhVo users_listVo, HttpServletResponse response) {
-		System.out.println("UserController.login()");
+		System.out.println("PjhController.login()");
 
 		PjhVo authUser = pjhService.exeLogin(users_listVo);
 
@@ -75,7 +77,7 @@ public class PjhController {
 	// 회원정보 수정폼(1명 데이터 가져오기)
 	@GetMapping("/api/walking/modify")
 	public JsonResult modifyform(HttpServletRequest request) {
-		System.out.println("UserController.modifyform()");
+		System.out.println("PjhController.modifyform()");
 
 		int no = JwtUtil.getNoFromHeader(request);
 
@@ -94,7 +96,7 @@ public class PjhController {
 	// 회원정보수정
 	@PutMapping("/api/walking/modify")
 	public JsonResult modify(@RequestBody PjhVo users_listVo, HttpServletRequest request) {
-		System.out.println("UserController.modify()");
+		System.out.println("PjhController.modify()");
 
 		System.out.println(users_listVo);
 
@@ -161,7 +163,7 @@ public class PjhController {
 	// 카카오로 회원가입하기
 	@PostMapping("/api/walking/Kakaojoinpage")
 	public JsonResult Kakaojoinpage(@RequestBody PjhVo users_listVo) {
-		System.out.println("PjhController.joinpage()");
+		System.out.println("PjhController.Kakaojoinpage()");
 
 		String id = users_listVo.getUsers_id();
 		System.out.println(id);
@@ -186,7 +188,7 @@ public class PjhController {
 
 		users_listVo.setUsers_id("Kakao_" + id);
 
-		PjhVo authUser = pjhService.exeKakaoLogin(users_listVo);
+		PjhVo authUser = pjhService.exeApiLogin(users_listVo);
 
 		if (authUser != null) {
 			// 토큰발급 해더에 실어 보낸다
@@ -352,21 +354,21 @@ public class PjhController {
 	
 	
 	//구글 로그인 시작
-	/*
+	
 	@GetMapping("/api/walking/googlelogin")
 	public String Googlemain() {
-		String url = "https://accounts.google.com/o/oauth2/v2/auth?client_id=17637626061-ss04i67obe0couopq08tu72i1efjil82.apps.googleusercontent.com&redirect_uri=http://localhost:8080/walking/googlejoinpage&response_type=code&scope=email profile";
+		String url = "https://accounts.google.com/o/oauth2/v2/auth?client_id=17637626061-ss04i67obe0couopq08tu72i1efjil82.apps.googleusercontent.com&redirect_uri=http://localhost:8080/walking/googlejoinpage&response_type=code&scope=email profile https://www.googleapis.com/auth/user.gender.read https://www.googleapis.com/auth/user.birthday.read https://www.googleapis.com/auth/userinfo.profile";
 		System.out.println("googlelogin 컨트롤러 접근");
 		return url;
 	}
-	*/
+	
 	
 	//(인증코드)
-	@PostMapping("/api/walking/googlejoinpage/{code}")
-    public HashMap<String, String> googleLogin(@PathVariable("code") String code) {
+	@PostMapping("/api/walking/googlejoinpage")
+    public HashMap<String, String> googleLogin(@RequestBody String code) {
 
         System.out.println(code);
-
+        
         // 토큰을 요청하여 얻음
         String googleToken = pjhService.googleRequestToken(code);
         System.out.println("구글토큰: " + googleToken);
@@ -376,5 +378,67 @@ public class PjhController {
         System.out.println("userInfo: " + userInfo);
 
         return userInfo;
+        
     }
+	
+	//구글 회원비회원 구별
+	@GetMapping("/api/walking/googleBysubscription/{id}")
+	public JsonResult googleBysubscription(@PathVariable("id") String id) {
+		System.out.println("PjhController.googleBysubscription()");
+		
+		String Google = "Google_" + id;
+
+		int count = pjhService.exejoinpageidcheck(Google);
+
+		boolean exejoinidcheck;
+
+		if (count == 0) {
+			exejoinidcheck = false;
+		} else {
+			exejoinidcheck = true;
+		}
+		System.out.println(exejoinidcheck);
+		return JsonResult.success(exejoinidcheck);
+	}
+	
+	// 구글로 회원가입하기
+		@PostMapping("/api/walking/Googlejoinpage")
+		public JsonResult Googlejoinpage(@RequestBody PjhVo users_listVo) {
+			System.out.println("PjhController.Googlejoinpage()");
+
+			String id = users_listVo.getUsers_id();
+			System.out.println(id);
+
+			users_listVo.setUsers_id("Google_" + id);
+			users_listVo.setUsers_login_type(3);
+
+			int count = pjhService.exejoinpage(users_listVo);
+			System.out.println(count);
+
+			return JsonResult.success("");
+		}
+		
+		@PostMapping("/api/walking/Googleloginpage")
+		public JsonResult googleAutoLogin(@RequestBody PjhVo users_listVo, HttpServletResponse response) {
+
+			System.out.println("sssss" + users_listVo);
+
+			String id = users_listVo.getUsers_id();
+			System.out.println(id);
+
+			users_listVo.setUsers_id("Google_" + id);
+
+			PjhVo authUser = pjhService.exeApiLogin(users_listVo);
+
+			if (authUser != null) {
+				// 토큰발급 해더에 실어 보낸다
+				JwtUtil.createTokenAndSetHeader(response, "" + authUser.getUsers_no());
+				return JsonResult.success(authUser);
+			} else {
+
+				return JsonResult.fail("로그인실패");
+			}
+
+		}
+	
 }
