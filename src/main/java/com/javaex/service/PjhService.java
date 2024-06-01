@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -302,6 +301,7 @@ public class PjhService {
             sb.append("&client_secret=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");
             sb.append("&redirect_uri=http://localhost:8080/walking/googlejoinpage");
             sb.append("&grant_type=authorization_code");
+            sb.append("&approval_prompt=auto");
 
             bw.write(sb.toString());
             bw.flush();
