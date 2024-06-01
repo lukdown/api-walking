@@ -127,13 +127,7 @@ public class LebController {
 			}
 
 		}
-	
-		// 네이버로그아웃
-		@GetMapping("/api/walking/naverlogout")
-		public String naverLogout() {
-		    String redirectUrl = "http://localhost:8080/";
-		    return "https://nid.naver.com/nidlogin.logout?redirectUrl=" + redirectUrl;
-		}
+		
 
 	
 	
