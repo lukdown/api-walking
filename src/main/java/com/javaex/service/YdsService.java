@@ -37,6 +37,25 @@ public class YdsService {
 		//System.out.println(gList);
 		return gList;
 	}
+	
+	// 코스별 리스트
+	public List<YdsVo> getCourseList(int courseNo) {
+		
+		System.out.println("YdsService.getCourseList()");
+		List<YdsVo> cList = ydsDao.selectCourseList(courseNo);
+		
+		 // 반복문을 통해 각 갤러리 항목에 대한 이미지 목록을 설정
+        for (int i = 0; i < cList.size(); i++) {
+            List<YdsAttachVo> imageList = ydsDao.selectLatestGalleryNo(cList.get(i).getGallery_no());
+            cList.get(i).settList(imageList);
+            System.out.println(cList.get(i).gettList());
+        }
+
+        return cList;
+		
+	}
+        
+        
 
 	// 로그인한 회원의 코스 목록 조회
 	public List<YdsVo> exefindCoursesByUserNo(int userNo) {

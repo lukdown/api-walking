@@ -52,7 +52,11 @@
 		       cl.course_length,
 		       cl.course_time,
 		       cl.course_difficulty,
-		       COALESCE(like_counts.like_count, 0) AS gallery_likeCount -- 좋아요 수를 포함
+		       gp.gallery_filePath,
+		       gp.gallery_orgName,
+		       gp.gallery_saveName,
+		       gp.gallery_fileSize,
+               COALESCE(like_counts.like_count, 0) AS gallery_likeCount -- 좋아요 수를 포함
 	FROM gallery_list gl
 		LEFT JOIN users_list ul ON gl.users_no = ul.users_no
 		LEFT JOIN (
@@ -73,8 +77,9 @@
 		    FROM gallery_like 
 		    GROUP BY gallery_no
 		) like_counts ON like_counts.gallery_no = gl.gallery_no
+		LEFT JOIN gallery_photo gp ON gp.gallery_no = gl.gallery_no
 	WHERE gl.course_no = #{courseNo} -- 특정 코스를 기준으로 필터링
-	GROUP BY gl.gallery_no;
+	GROUP BY gl.gallery_no
 	]]>
 
 	</select>

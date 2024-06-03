@@ -33,6 +33,16 @@ public class YdsController {
 		// System.out.println(gList);
 		return JsonResult.success(gList);
 	}
+	
+	 // 특정 코스별 갤러리 리스트 조회
+    @GetMapping("/gallery/{courseNo}")
+    public JsonResult getCourseList(@PathVariable int courseNo) {
+        System.out.println("YdsController.getCourseList()");
+        System.out.println(courseNo);
+        List<YdsVo> cList = ydsService.getCourseList(courseNo);
+        System.out.println(cList);
+        return JsonResult.success(cList);
+    }
 
 	// 로그인한 회원의 코스 목록 조회
 	@GetMapping("/gallery/user/{userNo}/courses")

@@ -27,6 +27,16 @@ public class YdsDao {
 		return gList;
 	}
 	
+	// 코스별 리스트
+	public List<YdsVo> selectCourseList(int courseNo) {
+		
+		System.out.println("YdsDao.selectCourseList()");
+		List<YdsVo> cList = sqlSession.selectList("yds.selectCourseList", courseNo);
+		
+		return cList;
+	}
+		
+	
 	// 특정리스트 좋아요 조회
 	public int selectGalleryLikes(int galleryNo) {
         return sqlSession.selectOne("yds.selectGalleryLikes", galleryNo);
