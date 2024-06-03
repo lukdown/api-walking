@@ -20,11 +20,44 @@ public class KsbService {
 	private KsbDao ksbDao;
 
 	//수빈이꺼
+	//총 걸음 구하기
+		public double exeTotalWalk(int no) {
+			System.out.println("ksbService.exeTotalWalk()");
+			
+			double totalLength = ksbDao.totalWalk(no);
+			
+			return totalLength;
+		}
+	
+	//소모임 리스트 가져오기
+	public List<KsbVo> exeGatheringList(){
+		System.out.println("ksbService.exeGatheringList()");
+		
+		List<KsbVo> gatheringList = ksbDao.gatheringList();
+		
+		return gatheringList;
+	}
+	
+	//스티커 바꾸기
+	public int exeChallengeUpdate(int no, KsbVo ksbVo) {
+		System.out.println("ksbDao.exeChallengeUpdate()");
+		
+		return ksbDao.ChallengeUpdate(no, ksbVo);
+	}
+	
+	//스티커 리스트 가져오기
+	public List<KsbVo> exeStickerList(int no){
+		//System.out.println("KsbService.exeStickerList()");
+		
+		List<KsbVo> stickerList = ksbDao.StickerList(no);
+		
+		return stickerList;
+	}
 	
 	//달력 리스트 가져오기
 	
 	public List<KsbVo> exeCalendarList(int no){
-		System.out.println("KsbService.exeCalendarList()");
+		//System.out.println("KsbService.exeCalendarList()");
 		
 		List<KsbVo> calendarList = ksbDao.calendarList(no);
 		
@@ -34,7 +67,7 @@ public class KsbService {
 	
 	//기록 리스트 가져오기
 	public List<KsbVo> exeRecordList(int no){
-		System.out.println("ksbService.exeRecordList()");
+		//System.out.println("ksbService.exeRecordList()");
 		
 		List<KsbVo> recordList = ksbDao.recordList(no);
 		
@@ -43,7 +76,7 @@ public class KsbService {
 	
 	//코스 포인트 가져오기
 	public List<KsbVo> exeCoursePointList(KsbVo ksbVo){
-		System.out.println("KsbService.exeCoursePointList()");
+		//System.out.println("KsbService.exeCoursePointList()");
 		
 		List<KsbVo> coursepointList = ksbDao.coursepointList(ksbVo);
 		//System.out.println(coursepointList);
@@ -54,7 +87,7 @@ public class KsbService {
 	
 	//기록 포인트 가져오기
 	public List<KsbVo> exeRecordPointList(KsbVo ksbVo){
-		System.out.println("KsbService.exeRecordPointList()");
+		//System.out.println("KsbService.exeRecordPointList()");
 		
 		List<KsbVo> recordpointList = ksbDao.recordpointList(ksbVo);
 		//System.out.println(recordpointList);
@@ -64,7 +97,7 @@ public class KsbService {
 	
 	//기록 1개만 가져오기
 	public KsbVo exeGetSelectedRecord(KsbVo ksbVo) {
-		System.out.println("KsbService.exeGetSelectedRecord()");
+		//System.out.println("KsbService.exeGetSelectedRecord()");
 		
 		KsbVo RecordInfo = ksbDao.selectRecord(ksbVo);
 		//System.out.println(RecordInfo);
@@ -73,14 +106,14 @@ public class KsbService {
 	
 	//마이페이지
 	public KsbVo exeSelectMember(int no) {
-		System.out.println("KsbService.exeSelectMember()");
+		//System.out.println("KsbService.exeSelectMember()");
 		KsbVo memberInfo = ksbDao.selectMember(no);
 		return memberInfo;
 	}
 	
 	//프로필 사진 업데이트
 	public void exeProfileUpdate(int users_no, MultipartFile file) {
-		System.out.println("ksbService.exeProfileUpdate");
+		//System.out.println("ksbService.exeProfileUpdate");
 
 		// 파일저장 폴더
 		String saveDir = "C:\\javaStudy\\upload";

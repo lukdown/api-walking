@@ -15,9 +15,43 @@ public class KsbDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//총 걸음 구하기
+		public double totalWalk(int no) {
+			System.out.println("ksbDao.totalWalk()");
+			
+			double totalLength = sqlSession.selectOne("ksb.totalLength", no);
+			System.out.println(totalLength);
+			return totalLength;
+		}
+	
+	//소모임 리스트 가져오기
+	public List<KsbVo> gatheringList(){
+		System.out.println("ksbDao.gatheringList()");
+		List<KsbVo> gatheringList = sqlSession.selectList("ksb.gatheringList");
+		
+		System.out.println(gatheringList);
+		return gatheringList;
+	}
+	
+	//스티커 바꾸기
+	public int ChallengeUpdate(int no, KsbVo ksbVo) {
+		System.out.println("ksbDao.ChallengeUpdate()");
+		
+		return sqlSession.update("ksb.ChallengeUpdate", ksbVo);
+	}
+	
+	//스티커 리스트 가져오기
+	public List<KsbVo> StickerList(int no){
+		//System.out.println("ksbDao.stickerList()");
+		System.out.println(no);
+		List<KsbVo> stickerList = sqlSession.selectList("ksb.stickerList", no);
+		
+		return stickerList;
+	}
+	
 	//달력 리스트 가져오기
 	public List<KsbVo> calendarList(int no){
-		System.out.println("ksbDao.calendarList()");
+		//System.out.println("ksbDao.calendarList()");
 		//System.out.println(no);
 		List<KsbVo> calendarList = sqlSession.selectList("ksb.calendarList", no);
 		
@@ -27,8 +61,8 @@ public class KsbDao {
 	//기록 리스트 가져오기
 	
 	public List<KsbVo> recordList(int no){
-		System.out.println("ksbDao.recordList");
-		System.out.println(no);
+		//System.out.println("ksbDao.recordList");
+		//System.out.println(no);
 		List<KsbVo> recordList = sqlSession.selectList("ksb.recordList", no);
 		//System.out.println(recordList);
 		return recordList;
@@ -36,7 +70,7 @@ public class KsbDao {
 	
 	//코스 포인트 가져오기
 	public List<KsbVo> coursepointList(KsbVo ksbVo){
-		System.out.println("ksbDao.coursepointList()");
+		//System.out.println("ksbDao.coursepointList()");
 		
 		//System.out.println(ksbVo);
 		List<KsbVo> coursepointList = sqlSession.selectList("ksb.coursepointList", ksbVo);
@@ -47,9 +81,9 @@ public class KsbDao {
 	
 	//기록 포인트 가져오기
 	public List<KsbVo> recordpointList(KsbVo ksbVo){
-		System.out.println("ksbDao.recordpointList()");
+		//System.out.println("ksbDao.recordpointList()");
 		
-		System.out.println(ksbVo);
+		//System.out.println(ksbVo);
 		List<KsbVo> recordpointList = sqlSession.selectList("ksb.recordpointList", ksbVo);
 		
 		//System.out.println(recordpointList);
@@ -58,7 +92,7 @@ public class KsbDao {
 	
 	//기록 가져오기
 	public KsbVo selectRecord(KsbVo ksbVo) {
-		System.out.println("KsbDao.selectRecord()");
+		//System.out.println("KsbDao.selectRecord()");
 		//System.out.println(ksbVo + "============================================================================================");
 		KsbVo RecordInfo = sqlSession.selectOne("ksb.selectRecord", ksbVo);
 		//System.out.println(RecordInfo+"__________________________________________________________________");
@@ -69,14 +103,14 @@ public class KsbDao {
 	
 	//마이페이지
 	public KsbVo selectMember(int no) {
-		System.out.println("KsbDao.selectMember()");
+		//System.out.println("KsbDao.selectMember()");
 		KsbVo memberinfo = sqlSession.selectOne("ksb.selectMemberInfo", no);
 		return memberinfo;
 	}
 	
 	//프로필 사진 업데이트
 	public int exeProfileUpdate(KsbVo ksbVo) {
-		System.out.println("ksbDao.exeProfileUpdate()");
+		//System.out.println("ksbDao.exeProfileUpdate()");
 		
 		return sqlSession.update("ksb.profileUpdate", ksbVo);
 	}

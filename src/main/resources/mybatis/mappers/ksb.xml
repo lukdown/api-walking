@@ -3,7 +3,7 @@
 
 <mapper namespace="ksb">
 
-	
+
 	<!-- 회원 정보 가져오기 -->
 	<select id="selectMemberInfo" resultType="KsbVo" parameterType="int">
 		<![CDATA[
@@ -25,7 +25,7 @@
 			where users_no = #{no}
 		]]>
 	</select>
-	
+
 	<!-- 프로필 사진 업데이트 -->
 	<update id="profileUpdate" parameterType="ksbVo">
 		<![CDATA[
@@ -37,8 +37,8 @@
 			where users_no = #{users_no}
 		]]>
 	</update>
-	
-	
+
+
 	<!-- 기록 리스트 가져오기 -->
 	<select id="recordList" parameterType="int" resultType="KsbVo">
 		<![CDATA[
@@ -55,9 +55,9 @@
 			where users_no = #{no}
 			order by record_date
 		]]>
-	
+
 	</select>
-	
+
 	<!-- 달력 리스트 가져오기 -->
 	<select id="calendarList" parameterType="int" resultType="KsbVo">
 		<![CDATA[
@@ -72,10 +72,10 @@
 			        record_memo
 			from record
 			where users_no = #{no}
-		]]>	
+		]]>
 	</select>
-	
-	
+
+
 	<!-- 코스 포인트 가져오기 -->
 	<select id="coursepointList" parameterType="ksbVo" resultType="KsbVo">
 		<![CDATA[
@@ -91,7 +91,7 @@
 			
 		]]>
 	</select>
-	
+
 	<!-- 기록 포인트 가져오기 -->
 	<select id="recordpointList" parameterType="ksbVo" resultType="KsbVo">
 		<![CDATA[
@@ -107,11 +107,11 @@
 		
 		
 		]]>
-		
+
 	</select>
-	
+
 	<!-- 기록 1개만 가져오기 -->
-	
+
 	<select id="selectRecord" parameterType="ksbVo" resultType="KsbVo">
 		<![CDATA[
 			select  record_no,
@@ -128,5 +128,79 @@
 		
 		]]>
 	</select>
+
+	<!-- 스티커 리스트 가져오기 -->
+	<select id="stickerList" parameterType="int" resultType="KsbVo">
+		<![CDATA[
+			SELECT  cg.challenge_no,
+        			cg.challenge_name,
+			        cg.filePath,
+			        cg.orgName,
+			        cg.saveName,
+			        cg.fileSize,
+			        cg.challenge_explanation,
+			        cp.person_no,
+			        cp.login_users_no,
+        			CASE 
+            		WHEN cp.login_users_no IS NOT NULL THEN 1 
+            		ELSE 0 
+        			END AS is_challenge_t_f
+		FROM challenge cg
+		LEFT JOIN (
+    	SELECT  person_no,
+           		challenge_no,
+           		users_no AS 'login_users_no'
+    	FROM challenge_person
+    	WHERE users_no = #{no}
+		) cp 
+		ON cp.challenge_no = cg.challenge_no
+		WHERE cp.login_users_no IS NOT NULL
+		
+		]]>
+	</select>
+	
+	<!-- 스티커 바꾸기 -->
+	<update id="ChallengeUpdate" parameterType="int">
+		<![CDATA[
+			update challenge_person
+			set challenge_daepyo = 1
+			where users_no = #{users_no}
+            and challenge_no = #{challenge_no}
+		]]>
+	</update>
+	
+	<!-- 소모임 리스트 가져오기 -->
+	<select id="gatheringList" resultType="KsbVo">
+		<![CDATA[
+			select  gl.small_gathering_no,
+					gl.users_no,
+			        gl.course_no,
+			        cl.course_no,
+			        cl.course_name,
+			        gl.small_gathering_name,
+			        gl.small_gathering_host_name,
+			        gl.small_gathering_hp,
+			        gl.small_gathering_total_personnel,
+			        gl.small_gathering_date,
+			        gl.small_gathering_deadline,
+			        gl.small_gathering_region,
+			        gl.small_gathering_saveName
+			from small_gathering_list gl
+				LEFT JOIN ( SELECT 	course_no,
+									course_name
+	  				FROM course_list
+                  					) cl
+				ON gl.course_no = cl.course_no
+		]]>
+	</select>
+	
+	<!-- 총 걸음 수 구하기 -->
+	<select id="totalLength" parameterType="int" resultType="double">
+		SELECT SUM(record_length) / 1000 AS total_length_km
+		FROM record
+		WHERE users_no = #{no}
+	
+	</select>
+	
 	
 </mapper>

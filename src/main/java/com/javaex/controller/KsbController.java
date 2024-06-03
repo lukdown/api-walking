@@ -25,10 +25,60 @@ public class KsbController {
 	@Autowired
 	private KsbService ksbService;
 	
+	//총 걸음 수 구하기
+		@GetMapping("/api/walking/totalWalk")
+		public JsonResult totalWalk(HttpServletRequest request) {
+			
+			System.out.println("ksbController.totalWalk()");
+			
+			int no = JwtUtil.getNoFromHeader(request);
+			
+			double totalLength = ksbService.exeTotalWalk(no);
+			
+			return JsonResult.success(totalLength);
+		}
+	
+	
+	//소모임 리스트 불러오기
+	@GetMapping("/api/walking/gatheringlist")
+	public List<KsbVo> gatheringList() {
+		List<KsbVo> gatheringList = ksbService.exeGatheringList();
+		System.out.println(gatheringList);
+		
+		return gatheringList;
+	}
+	
+	//스티커 교환하기
+	@PostMapping("/api/walking/saveChallengeNo")
+	public JsonResult saveChallengeNo(HttpServletRequest request, @RequestBody KsbVo ksbVo) {
+	    System.out.println("ksbController.saveChallengeNo()");
+	    
+	    int no = JwtUtil.getNoFromHeader(request);
+	    System.out.println(no);
+	    System.out.println(ksbVo);
+	    ksbService.exeChallengeUpdate(no, ksbVo);
+	    
+	    return JsonResult.success("성공");
+	}
+
+	
+	//스티커 리스트 불러오기
+	@GetMapping("/api/walking/mypageStickerList")
+	public JsonResult StickerList(HttpServletRequest request) {
+		//System.out.println("KsbController.StickerList()");
+		
+		int no = JwtUtil.getNoFromHeader(request);
+		System.out.println(no);
+		List<KsbVo> stickerList = ksbService.exeStickerList(no);
+		System.out.println(stickerList);
+		
+		return JsonResult.success(stickerList);
+	}
+	
 	//달력 리스트 불러오기
 	@GetMapping("/api/walking/calendarList")
 	public JsonResult calendarList(HttpServletRequest request) {
-		System.out.println("KsbController.calendarList()");
+		//System.out.println("KsbController.calendarList()");
 		
 		int no = JwtUtil.getNoFromHeader(request);
 		List<KsbVo> calendarList = ksbService.exeCalendarList(no);
@@ -40,19 +90,19 @@ public class KsbController {
 	// 기록 리스트
 	@GetMapping("/api/walking/recordlist")
 	public JsonResult recordList(HttpServletRequest request) {
-		System.out.println("KsbController.recordList()");
+		//System.out.println("KsbController.recordList()");
 		
 		int no = JwtUtil.getNoFromHeader(request);
 		
 		List<KsbVo> recordList = ksbService.exeRecordList(no);
-		System.out.println(recordList);
+		//System.out.println(recordList);
 		return JsonResult.success(recordList);
 	}
 	
 	//코스 포인트 불러오기
 	@PostMapping("/api/walking/mapCoursePoint")
 	public JsonResult mapCoursePoint(@RequestBody KsbVo ksbVo) {
-		System.out.println("KsbController.mapCoursePoint()");
+		//System.out.println("KsbController.mapCoursePoint()");
 		//System.out.println(ksbVo);
 		
 		List<KsbVo> coursepointList = ksbService.exeCoursePointList(ksbVo);
@@ -63,7 +113,7 @@ public class KsbController {
 	//기록 포인트 불러오기
 	@PostMapping("/api/walking/mapRecordPoint")
 	public JsonResult mapRecordPoint(@RequestBody KsbVo ksbVo) {
-		System.out.println("KsbController.mapRecordPoint()");
+		//System.out.println("KsbController.mapRecordPoint()");
 		//System.out.println(ksbVo);
 		
 		List<KsbVo> recordpointList = ksbService.exeRecordPointList(ksbVo);
@@ -74,11 +124,11 @@ public class KsbController {
 	//기록 리스트 1개만 불러오기
 	@PostMapping("/api/walking/getSelectedRecord")
 	public JsonResult getSelectedRecord(@RequestBody KsbVo ksbVo) {
-		System.out.println("KsbController.getSelectedRecord()");
+		//System.out.println("KsbController.getSelectedRecord()");
 		//System.out.println(ksbVo + "======================================================================");
 		
 		KsbVo RecordInfo = ksbService.exeGetSelectedRecord(ksbVo);
-		System.out.println(RecordInfo + "======================================================================");
+		//System.out.println(RecordInfo + "======================================================================");
 		
 		return JsonResult.success(RecordInfo);
 	}
@@ -86,7 +136,7 @@ public class KsbController {
 	// 마이페이지
 	@GetMapping("/api/walking/mypage")
 	public JsonResult selectMember(HttpServletRequest request) {
-		System.out.println("KsbController.selectMember()");
+		//System.out.println("KsbController.selectMember()");
 
 		int no = JwtUtil.getNoFromHeader(request);
 		// System.out.println(no);
@@ -103,7 +153,7 @@ public class KsbController {
 	// 프로필 사진 업데이트
 	@PutMapping("/api/walking/mypage")
 	public JsonResult profileUpdate(@RequestParam int users_no, @RequestParam MultipartFile file) {
-		System.out.println("KsbController.profileUpdate()");
+		//System.out.println("KsbController.profileUpdate()");
 
 		ksbService.exeProfileUpdate(users_no, file);
 
