@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import com.javaex.service.KsbService;
 import com.javaex.util.JsonResult;
 import com.javaex.util.JwtUtil;
 import com.javaex.vo.KsbVo;
+import com.javaex.vo.PageVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -24,6 +26,21 @@ public class KsbController {
 	// 김수빈
 	@Autowired
 	private KsbService ksbService;
+	
+	// 리스트 가져오기
+		@PostMapping(value = "/api/gathering/list")
+		public JsonResult productlist(HttpServletRequest request, @RequestBody PageVo pageVo) {
+			System.out.println("KsbController.gatheringList()");
+
+			System.out.println(pageVo);
+ 
+			// int trainer_no = JwtUtil.getNoFromHeader(request);
+
+			Map<String, Object> gMap = ksbService.exeGatheringList(pageVo.getCrtPage(), pageVo.getKeyword());
+
+			// return null;
+			return JsonResult.success(gMap);
+		}
 	
 	//총 걸음 수 구하기
 		@GetMapping("/api/walking/totalWalk")
@@ -37,16 +54,6 @@ public class KsbController {
 			
 			return JsonResult.success(totalLength);
 		}
-	
-	
-	//소모임 리스트 불러오기
-	@GetMapping("/api/walking/gatheringlist")
-	public List<KsbVo> gatheringList() {
-		List<KsbVo> gatheringList = ksbService.exeGatheringList();
-		System.out.println(gatheringList);
-		
-		return gatheringList;
-	}
 	
 	//스티커 교환하기
 	@PostMapping("/api/walking/saveChallengeNo")

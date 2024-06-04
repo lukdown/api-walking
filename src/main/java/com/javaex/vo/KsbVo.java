@@ -22,6 +22,7 @@ public class KsbVo {
 	// 산책기록
 	private int record_no;
 	private int course_no;
+	private String course_name;
 	private String record_date;
 	private String record_time;
 	private double record_length;
@@ -82,22 +83,20 @@ public class KsbVo {
 		super();
 	}
 
-	
-
-
 	public KsbVo(int users_no, String users_id, String users_pw, String users_name, String users_nickname,
 			String users_hp, String users_birth_date, String users_gender, String users_residence, String filePath,
-			String orgName, String saveName, long fileSize, int record_no, int course_no, String record_date,
-			String record_time, double record_length, int record_kcal, String record_vibe, String record_memo,
-			int record_point_no, double record_latitude, double record_longitude, String record_division,
-			String record_order, int course_point_no, double course_latitude, double course_longitude, int course_order,
-			String course_division, int person_no, int challenge_no, String challenge_name, String challenge_filePath,
-			String challenge_orgName, String challenge_saveName, long challenge_fileSize, String challenge_explanation,
-			int small_gathering_no, String small_gathering_name, String small_gathering_host_name,
-			int small_gathering_total_personnel, String small_gathering_date, String small_gathering_deadline,
-			String small_gathering_region, String small_gatheringn_saveName, String small_gathering_information,
-			String small_gathering_gender_limit, String small_gathering_age_limit, String small_gathering_hp,
-			String small_gathering_filePath, String small_gathering_orgName, String small_gathering_listcol) {
+			String orgName, String saveName, long fileSize, int record_no, int course_no, String course_name,
+			String record_date, String record_time, double record_length, int record_kcal, String record_vibe,
+			String record_memo, int record_point_no, double record_latitude, double record_longitude,
+			String record_division, String record_order, int course_point_no, double course_latitude,
+			double course_longitude, int course_order, String course_division, int person_no, int challenge_no,
+			String challenge_name, String challenge_filePath, String challenge_orgName, String challenge_saveName,
+			long challenge_fileSize, String challenge_explanation, int small_gathering_no, String small_gathering_name,
+			String small_gathering_host_name, int small_gathering_total_personnel, String small_gathering_date,
+			String small_gathering_deadline, String small_gathering_region, String small_gatheringn_saveName,
+			String small_gathering_information, String small_gathering_gender_limit, String small_gathering_age_limit,
+			String small_gathering_hp, String small_gathering_filePath, String small_gathering_orgName,
+			String small_gathering_listcol) {
 		super();
 		this.users_no = users_no;
 		this.users_id = users_id;
@@ -114,6 +113,7 @@ public class KsbVo {
 		this.fileSize = fileSize;
 		this.record_no = record_no;
 		this.course_no = course_no;
+		this.course_name = course_name;
 		this.record_date = record_date;
 		this.record_time = record_time;
 		this.record_length = record_length;
@@ -154,8 +154,6 @@ public class KsbVo {
 		this.small_gathering_orgName = small_gathering_orgName;
 		this.small_gathering_listcol = small_gathering_listcol;
 	}
-
-
 
 
 	public KsbVo(int users_no, String users_id, String users_pw, String users_name, String users_nickname,
@@ -784,8 +782,13 @@ public class KsbVo {
 		this.small_gathering_listcol = small_gathering_listcol;
 	}
 
+	public String getCourse_name() {
+		return course_name;
+	}
 
-
+	public void setCourse_name(String course_name) {
+		this.course_name = course_name;
+	}
 
 	@Override
 	public String toString() {
@@ -793,25 +796,28 @@ public class KsbVo {
 				+ users_name + ", users_nickname=" + users_nickname + ", users_hp=" + users_hp + ", users_birth_date="
 				+ users_birth_date + ", users_gender=" + users_gender + ", users_residence=" + users_residence
 				+ ", filePath=" + filePath + ", orgName=" + orgName + ", saveName=" + saveName + ", fileSize="
-				+ fileSize + ", record_no=" + record_no + ", course_no=" + course_no + ", record_date=" + record_date
-				+ ", record_time=" + record_time + ", record_length=" + record_length + ", record_kcal=" + record_kcal
-				+ ", record_vibe=" + record_vibe + ", record_memo=" + record_memo + ", record_point_no="
-				+ record_point_no + ", record_latitude=" + record_latitude + ", record_longitude=" + record_longitude
-				+ ", record_division=" + record_division + ", record_order=" + record_order + ", course_point_no="
-				+ course_point_no + ", course_latitude=" + course_latitude + ", course_longitude=" + course_longitude
-				+ ", course_order=" + course_order + ", course_division=" + course_division + ", person_no=" + person_no
-				+ ", challenge_no=" + challenge_no + ", challenge_name=" + challenge_name + ", challenge_filePath="
-				+ challenge_filePath + ", challenge_orgName=" + challenge_orgName + ", challenge_saveName="
-				+ challenge_saveName + ", challenge_fileSize=" + challenge_fileSize + ", challenge_explanation="
-				+ challenge_explanation + ", small_gathering_no=" + small_gathering_no + ", small_gathering_name="
-				+ small_gathering_name + ", small_gathering_host_name=" + small_gathering_host_name
-				+ ", small_gathering_total_personnel=" + small_gathering_total_personnel + ", small_gathering_date="
-				+ small_gathering_date + ", small_gathering_deadline=" + small_gathering_deadline
-				+ ", small_gathering_region=" + small_gathering_region + ", small_gatheringn_saveName="
-				+ small_gatheringn_saveName + ", small_gathering_information=" + small_gathering_information
-				+ ", small_gathering_gender_limit=" + small_gathering_gender_limit + ", small_gathering_age_limit="
-				+ small_gathering_age_limit + ", small_gathering_hp=" + small_gathering_hp
-				+ ", small_gathering_filePath=" + small_gathering_filePath + ", small_gathering_orgName="
-				+ small_gathering_orgName + ", small_gathering_listcol=" + small_gathering_listcol + "]";
+				+ fileSize + ", record_no=" + record_no + ", course_no=" + course_no + ", course_name=" + course_name
+				+ ", record_date=" + record_date + ", record_time=" + record_time + ", record_length=" + record_length
+				+ ", record_kcal=" + record_kcal + ", record_vibe=" + record_vibe + ", record_memo=" + record_memo
+				+ ", record_point_no=" + record_point_no + ", record_latitude=" + record_latitude
+				+ ", record_longitude=" + record_longitude + ", record_division=" + record_division + ", record_order="
+				+ record_order + ", course_point_no=" + course_point_no + ", course_latitude=" + course_latitude
+				+ ", course_longitude=" + course_longitude + ", course_order=" + course_order + ", course_division="
+				+ course_division + ", person_no=" + person_no + ", challenge_no=" + challenge_no + ", challenge_name="
+				+ challenge_name + ", challenge_filePath=" + challenge_filePath + ", challenge_orgName="
+				+ challenge_orgName + ", challenge_saveName=" + challenge_saveName + ", challenge_fileSize="
+				+ challenge_fileSize + ", challenge_explanation=" + challenge_explanation + ", small_gathering_no="
+				+ small_gathering_no + ", small_gathering_name=" + small_gathering_name + ", small_gathering_host_name="
+				+ small_gathering_host_name + ", small_gathering_total_personnel=" + small_gathering_total_personnel
+				+ ", small_gathering_date=" + small_gathering_date + ", small_gathering_deadline="
+				+ small_gathering_deadline + ", small_gathering_region=" + small_gathering_region
+				+ ", small_gatheringn_saveName=" + small_gatheringn_saveName + ", small_gathering_information="
+				+ small_gathering_information + ", small_gathering_gender_limit=" + small_gathering_gender_limit
+				+ ", small_gathering_age_limit=" + small_gathering_age_limit + ", small_gathering_hp="
+				+ small_gathering_hp + ", small_gathering_filePath=" + small_gathering_filePath
+				+ ", small_gathering_orgName=" + small_gathering_orgName + ", small_gathering_listcol="
+				+ small_gathering_listcol + "]";
 	}
+
+	
 }

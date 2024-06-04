@@ -158,7 +158,7 @@
 		
 		]]>
 	</select>
-	
+
 	<!-- 스티커 바꾸기 -->
 	<update id="ChallengeUpdate" parameterType="int">
 		<![CDATA[
@@ -168,7 +168,7 @@
             and challenge_no = #{challenge_no}
 		]]>
 	</update>
-	
+
 	<!-- 소모임 리스트 가져오기 -->
 	<select id="gatheringList" resultType="KsbVo">
 		<![CDATA[
@@ -193,14 +193,61 @@
 				ON gl.course_no = cl.course_no
 		]]>
 	</select>
-	
+
 	<!-- 총 걸음 수 구하기 -->
 	<select id="totalLength" parameterType="int" resultType="double">
 		SELECT SUM(record_length) / 1000 AS total_length_km
 		FROM record
 		WHERE users_no = #{no}
-	
+
 	</select>
-	
-	
+
+	<!-- 소모임 리스트 가져오기 -->
+	<select id="selectlist" parameterType="map" resultType="KsbVo">
+		<![CDATA[
+			select  gl.small_gathering_no,
+					gl.users_no,
+			        gl.course_no,
+			        cl.course_no,
+			        cl.course_name,
+			        gl.small_gathering_name,
+			        gl.small_gathering_host_name,
+			        gl.small_gathering_hp,
+			        gl.small_gathering_total_personnel,
+			        gl.small_gathering_date,
+			        gl.small_gathering_deadline,
+			        gl.small_gathering_region,
+			        gl.small_gathering_saveName
+			from small_gathering_list gl
+				LEFT JOIN ( SELECT 	course_no,
+									course_name
+	  				FROM course_list
+                  					) cl
+				ON gl.course_no = cl.course_no
+			
+		]]>
+		<if test="keyword != null">
+			<![CDATA[
+				where (small_gathering_region like concat('%',#{keyword},'%'))
+			]]>
+		</if>	
+		<![CDATA[				 
+			limit #{startRowNo}, #{listCnt}
+		]]>
+	</select>
+
+	<!-- 소모임 리스트 전체 글갯수 -->
+	<select id="selectTotalCnt" parameterType="string" resultType="int">
+		<![CDATA[
+			select count(*) as count
+			from small_gathering_list
+		]]>
+		<if test="keyword != null and keyword != ''">
+		<![CDATA[
+			where small_gathering_region like concat('%', #{keyword}, '%')
+		]]>
+		</if>
+	</select>
+
+
 </mapper>

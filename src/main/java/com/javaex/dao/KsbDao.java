@@ -1,6 +1,7 @@
 package com.javaex.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,26 @@ public class KsbDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	// 고객 상품 리스트(검색O,페이징 O)
+		public List<KsbVo> gatheringList(Map<String, Object> limiMap) {
+			System.out.println("KsbDao.productList");
+
+			List<KsbVo> gatheringList = sqlSession.selectList("ksb.selectlist", limiMap);
+
+			System.out.println(gatheringList);
+
+			return gatheringList;
+		}
+
+		// 글 전체 갯수 //리스트(검색O,페이징O)
+		public int selectTotalCnt(String keyword) {
+			System.out.println("YysDao.selectTotalCnt()");
+
+			int totalCount = sqlSession.selectOne("ksb.selectTotalCnt", keyword);
+
+			return totalCount;
+		}
+	
 	//총 걸음 구하기
 		public double totalWalk(int no) {
 			System.out.println("ksbDao.totalWalk()");
@@ -23,15 +44,6 @@ public class KsbDao {
 			System.out.println(totalLength);
 			return totalLength;
 		}
-	
-	//소모임 리스트 가져오기
-	public List<KsbVo> gatheringList(){
-		System.out.println("ksbDao.gatheringList()");
-		List<KsbVo> gatheringList = sqlSession.selectList("ksb.gatheringList");
-		
-		System.out.println(gatheringList);
-		return gatheringList;
-	}
 	
 	//스티커 바꾸기
 	public int ChallengeUpdate(int no, KsbVo ksbVo) {
