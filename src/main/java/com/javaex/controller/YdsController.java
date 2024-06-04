@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,8 +44,40 @@ public class YdsController {
         System.out.println(cList);
         return JsonResult.success(cList);
     }
+    
+     // 나의 코스 갤러리 리스트 조회
+    @GetMapping("/mypage/gallery/{userNo}")
+    public JsonResult getMyCourseList(@PathVariable int userNo) {
+        System.out.println("YdsController.getMyCourseList()");
+        System.out.println(userNo);
+        List<YdsVo> mList = ydsService.getMyCourseList(userNo);
+        System.out.println(mList);
+        return JsonResult.success(mList);
+    }
+    
+	/*
+	 * // 포스팅 삭제
+	 * 
+	 * @DeleteMapping("/mypage/{galleryNo}") public JsonResult
+	 * deleteGallery(@PathVariable int galleryNo, @RequestParam(value="userNo") int
+	 * userNo) { System.out.println("YdsController.deleteGallery()");
+	 * ydsService.deleteGallery(galleryNo); System.out.println("삭제되라고");
+	 * System.out.println(userNo);
+	 * 
+	 * return JsonResult.success(galleryNo); }
+	 */
+    // 포스팅 삭제
+    @DeleteMapping("/mypage/{galleryNo}")
+    public JsonResult deleteGallery(@PathVariable int galleryNo, @RequestParam(value="userNo") int userNo) {
+        System.out.println("YdsController.deleteGallery()");
+        ydsService.deleteGallery(galleryNo, userNo);
+        System.out.println("삭제되노");
+        return JsonResult.success(galleryNo);
+    }
+    
+    
 
-	// 로그인한 회원의 코스 목록 조회
+	 // 로그인한 회원의 코스 목록 조회
 	@GetMapping("/gallery/user/{userNo}/courses")
 	public JsonResult listUserCourses(@PathVariable(value = "userNo") int userNo) {
 		System.out.println("YdsController.listUserCourses()");
@@ -94,6 +127,8 @@ public class YdsController {
 	     int updatedLikeCount = ydsService.likeGallery(userNo, galleryNo);
 	     return JsonResult.success(updatedLikeCount);
 	}
+	
+	
 
 }
 // 다솜이꺼

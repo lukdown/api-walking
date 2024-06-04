@@ -35,6 +35,38 @@ public class YdsDao {
 		
 		return cList;
 	}
+	
+	// 나의 코스 갤러리 리스트
+	public List<YdsVo> selectMyCourseList(int userNo) {
+			
+		System.out.println("YdsDao.selectMyCourseList()");
+		List<YdsVo> mList = sqlSession.selectList("yds.selectMyCourseList", userNo);
+		
+		return mList;
+	}
+	
+	// 리스트 라이크삭제
+	public void deleteLike(int galleryNo) {
+		System.out.println("YdsDao.deleteGallery()");
+		
+		sqlSession.delete("yds.deleteLike", galleryNo);
+	
+	}
+	
+	// 리스트 포토 삭제
+	public void deletePhoto(int galleryNo) {
+		System.out.println("YdsDao.deleteGallery()");
+	
+		sqlSession.delete("yds.deletePhoto", galleryNo);
+		
+	}
+	
+	// 리스트 전체 삭제
+	public void deleteGallery(int galleryNo) {
+		System.out.println("YdsDao.deleteGallery()");
+	
+		sqlSession.delete("yds.deleteGallery", galleryNo);
+	}
 		
 	
 	// 특정리스트 좋아요 조회
