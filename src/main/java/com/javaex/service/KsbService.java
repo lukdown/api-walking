@@ -21,10 +21,79 @@ public class KsbService {
 	@Autowired
 	private KsbDao ksbDao;
 
-	//수빈이꺼
-	
-	//소모임 리스트 구하기
-	
+	// 수빈이꺼
+
+	// 소모임 등록하기
+	public int exeAddGathering(int no, int course_no, String small_gathering_name, String small_gathering_host_name, String small_gathering_hp, 
+								int small_gathering_total_personnel, String small_gathering_date, String small_gathering_deadline, String small_gathering_region, 
+								String small_gathering_gender_limit, String small_gathering_age_limit, MultipartFile file) {
+		System.out.println("KsbService.exeAddGathering()");
+
+		// 파일저장 폴더
+		String saveDir = "C:\\javaStudy\\upload";
+
+		// (0)파일관련 정보수집
+		// 오리지날 파일명
+		String small_gathering_orgName = file.getOriginalFilename();
+		System.out.println("orgName:" + small_gathering_orgName);
+
+		// 확장자
+		String exName = small_gathering_orgName.substring(small_gathering_orgName.lastIndexOf("."));
+		System.out.println("exName:" + exName);
+
+		// 저장 파일명(겹치지 않아야 한다)
+		String small_gathering_saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
+		System.out.println("saveName:" + small_gathering_saveName);
+
+		// 파일 사이즈
+		long small_gathering_listcol = file.getSize();
+		System.out.println("fileSize:" + small_gathering_listcol);
+
+		// 파일 전체 경로(저장파일명 포함)
+		String small_gathering_filePath = saveDir + "\\" + small_gathering_saveName;
+		System.out.println("filePath:" + small_gathering_filePath);
+
+		// (1)파일정보를 DB에 저장
+		// *vo묶어주고
+
+		KsbVo KsbVo = new KsbVo(no, course_no, small_gathering_name, small_gathering_host_name, small_gathering_hp, 
+								small_gathering_total_personnel, small_gathering_date, small_gathering_deadline, small_gathering_region, 
+								small_gathering_gender_limit, small_gathering_age_limit, small_gathering_filePath, small_gathering_orgName, 
+								  small_gathering_saveName, small_gathering_listcol);
+		System.out.println(KsbVo);
+		// *db에 저장
+		System.out.println(".......DB저장롼료");
+		int count = ksbDao.addGathering(no, KsbVo);
+		// (2)파일을 하드디스크에 저장
+
+		// 파일 저장
+		try {
+			byte[] fileData = file.getBytes();
+
+			OutputStream os = new FileOutputStream(small_gathering_filePath);
+			BufferedOutputStream bos = new BufferedOutputStream(os);
+
+			bos.write(fileData);
+			bos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		;
+
+		return count;
+	}
+
+	// 코스 리스트 가져오기
+	public List<KsbVo> exeCourseList() {
+		// System.out.println("ksbService.exeCourseList()");
+
+		List<KsbVo> courseList = ksbDao.courseList();
+
+		return courseList;
+	}
+
+	// 소모임 리스트 구하기
+
 	public Map<String, Object> exeGatheringList(int crtPage, String keyword) {
 		System.out.println("YysService.exeList()");
 
@@ -107,93 +176,91 @@ public class KsbService {
 
 		return gMap;
 	}
-	
-	//총 걸음 구하기
-		public double exeTotalWalk(int no) {
-			System.out.println("ksbService.exeTotalWalk()");
-			
-			double totalLength = ksbDao.totalWalk(no);
-			
-			return totalLength;
-		}
-	
-	
-	//스티커 바꾸기
+
+	// 총 걸음 구하기
+	public double exeTotalWalk(int no) {
+		System.out.println("ksbService.exeTotalWalk()");
+
+		double totalLength = ksbDao.totalWalk(no);
+
+		return totalLength;
+	}
+
+	// 스티커 바꾸기
 	public int exeChallengeUpdate(int no, KsbVo ksbVo) {
 		System.out.println("ksbDao.exeChallengeUpdate()");
-		
+
 		return ksbDao.ChallengeUpdate(no, ksbVo);
 	}
-	
-	//스티커 리스트 가져오기
-	public List<KsbVo> exeStickerList(int no){
-		//System.out.println("KsbService.exeStickerList()");
-		
+
+	// 스티커 리스트 가져오기
+	public List<KsbVo> exeStickerList(int no) {
+		// System.out.println("KsbService.exeStickerList()");
+
 		List<KsbVo> stickerList = ksbDao.StickerList(no);
-		
+
 		return stickerList;
 	}
-	
-	//달력 리스트 가져오기
-	
-	public List<KsbVo> exeCalendarList(int no){
-		//System.out.println("KsbService.exeCalendarList()");
-		
+
+	// 달력 리스트 가져오기
+
+	public List<KsbVo> exeCalendarList(int no) {
+		// System.out.println("KsbService.exeCalendarList()");
+
 		List<KsbVo> calendarList = ksbDao.calendarList(no);
-		
+
 		return calendarList;
 	}
-	
-	
-	//기록 리스트 가져오기
-	public List<KsbVo> exeRecordList(int no){
-		//System.out.println("ksbService.exeRecordList()");
-		
+
+	// 기록 리스트 가져오기
+	public List<KsbVo> exeRecordList(int no) {
+		// System.out.println("ksbService.exeRecordList()");
+
 		List<KsbVo> recordList = ksbDao.recordList(no);
-		
+
 		return recordList;
 	}
-	
-	//코스 포인트 가져오기
-	public List<KsbVo> exeCoursePointList(KsbVo ksbVo){
-		//System.out.println("KsbService.exeCoursePointList()");
-		
+
+	// 코스 포인트 가져오기
+	public List<KsbVo> exeCoursePointList(KsbVo ksbVo) {
+		// System.out.println("KsbService.exeCoursePointList()");
+
 		List<KsbVo> coursepointList = ksbDao.coursepointList(ksbVo);
-		//System.out.println(coursepointList);
-		
+		// System.out.println(coursepointList);
+
 		return coursepointList;
-		
+
 	}
-	
-	//기록 포인트 가져오기
-	public List<KsbVo> exeRecordPointList(KsbVo ksbVo){
-		//System.out.println("KsbService.exeRecordPointList()");
-		
+
+	// 기록 포인트 가져오기
+	public List<KsbVo> exeRecordPointList(KsbVo ksbVo) {
+		// System.out.println("KsbService.exeRecordPointList()");
+
 		List<KsbVo> recordpointList = ksbDao.recordpointList(ksbVo);
-		//System.out.println(recordpointList);
-		
+		// System.out.println(recordpointList);
+
 		return recordpointList;
 	}
-	
-	//기록 1개만 가져오기
+
+	// 기록 1개만 가져오기
 	public KsbVo exeGetSelectedRecord(KsbVo ksbVo) {
-		//System.out.println("KsbService.exeGetSelectedRecord()");
-		
+		// System.out.println("KsbService.exeGetSelectedRecord()");
+
 		KsbVo RecordInfo = ksbDao.selectRecord(ksbVo);
-		//System.out.println(RecordInfo);
+		// System.out.println(RecordInfo);
 		return RecordInfo;
 	}
-	
-	//마이페이지
+
+	// 마이페이지
 	public KsbVo exeSelectMember(int no) {
-		//System.out.println("KsbService.exeSelectMember()");
+		// System.out.println("KsbService.exeSelectMember()");
 		KsbVo memberInfo = ksbDao.selectMember(no);
 		return memberInfo;
 	}
-	
-	//프로필 사진 업데이트
+
+	// 프로필 사진 업데이트
 	public void exeProfileUpdate(int users_no, MultipartFile file) {
-		//System.out.println("ksbService.exeProfileUpdate");
+		// System.out.println("ksbService.exeProfileUpdate");
 
 		// 파일저장 폴더
 		String saveDir = "C:\\javaStudy\\upload";
@@ -221,14 +288,14 @@ public class KsbService {
 
 		// (1)파일정보를 DB에 저장
 		// *vo묶어주고
-		
+
 		KsbVo ksbVo = new KsbVo(users_no, saveName, orgName, fileSize, filePath);
 		System.out.println(ksbVo);
-		
+
 		// *db에 저장
 		System.out.println("");
 		ksbDao.exeProfileUpdate(ksbVo);
-		
+
 		// (2)파일을 하드디스크에 저장
 
 		// 파일 저장
@@ -246,6 +313,5 @@ public class KsbService {
 		;
 
 	}
-	
-	
+
 }

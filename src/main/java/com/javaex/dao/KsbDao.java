@@ -16,6 +16,24 @@ public class KsbDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//소모임 등록하기
+	public int addGathering(int no, KsbVo ksbVo) {
+		System.out.println("KsbDao.addGathering()");
+
+		int count = sqlSession.insert("ksb.addGathering", ksbVo);
+
+		return count;
+	}
+	
+	//코스 리스트 가져오기
+	public List<KsbVo> courseList() {
+		//System.out.println("KsbDao.courseList()");
+		List<KsbVo> courseList = sqlSession.selectList("ksb.courseList");
+		//System.out.println(courseList);
+		
+		return courseList;
+	}
+	
 	// 고객 상품 리스트(검색O,페이징 O)
 		public List<KsbVo> gatheringList(Map<String, Object> limiMap) {
 			System.out.println("KsbDao.productList");

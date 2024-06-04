@@ -27,6 +27,42 @@ public class KsbController {
 	@Autowired
 	private KsbService ksbService;
 	
+	//소모임 등록
+	@PostMapping("/api/walking/addgathering")
+	public JsonResult AddGathering( HttpServletRequest request, @RequestParam String small_gathering_name,
+																@RequestParam String small_gathering_host_name,
+																@RequestParam String small_gathering_hp,
+																@RequestParam int small_gathering_total_personnel,
+																@RequestParam int course_no,
+																@RequestParam String small_gathering_date,
+																@RequestParam String small_gathering_deadline,
+																@RequestParam String small_gathering_region,
+																@RequestParam String small_gathering_gender_limit,
+																@RequestParam String small_gathering_age_limit,
+																@RequestParam MultipartFile file
+								   ) {
+		System.out.println("KdsController.write()");
+		
+		int no = JwtUtil.getNoFromHeader(request);
+		System.out.println(no);
+		int count=ksbService.exeAddGathering(no, course_no, small_gathering_name, small_gathering_host_name, small_gathering_hp, 
+				  							small_gathering_total_personnel, small_gathering_date, small_gathering_deadline, small_gathering_region, 
+				  							small_gathering_gender_limit, small_gathering_age_limit, file);
+		
+		
+		return JsonResult.success(count);
+	}
+	
+	//코스 리스트 가져오기
+	@PostMapping("/api/gathering/courseList")
+	public JsonResult courseList(HttpServletRequest request) {
+		//System.out.println("KsbController.courseList()");
+		
+		List<KsbVo> courseList = ksbService.exeCourseList();
+		
+		return JsonResult.success(courseList);
+	}
+	
 	// 리스트 가져오기
 		@PostMapping(value = "/api/gathering/list")
 		public JsonResult productlist(HttpServletRequest request, @RequestBody PageVo pageVo) {

@@ -64,14 +64,15 @@ public class KsbVo {
 	private String small_gathering_date;
 	private String small_gathering_deadline;
 	private String small_gathering_region;
-	private String small_gatheringn_saveName;
+	private String small_gathering_saveName;
 	private String small_gathering_information;
 	private String small_gathering_gender_limit;
 	private String small_gathering_age_limit;
 	private String small_gathering_hp;
 	private String small_gathering_filePath;
 	private String small_gathering_orgName;
-	private String small_gathering_listcol;
+	private long small_gathering_listcol;
+	private String small_gathering_exName;
 	
 	
 	
@@ -93,10 +94,10 @@ public class KsbVo {
 			String challenge_name, String challenge_filePath, String challenge_orgName, String challenge_saveName,
 			long challenge_fileSize, String challenge_explanation, int small_gathering_no, String small_gathering_name,
 			String small_gathering_host_name, int small_gathering_total_personnel, String small_gathering_date,
-			String small_gathering_deadline, String small_gathering_region, String small_gatheringn_saveName,
+			String small_gathering_deadline, String small_gathering_region, String small_gathering_saveName,
 			String small_gathering_information, String small_gathering_gender_limit, String small_gathering_age_limit,
 			String small_gathering_hp, String small_gathering_filePath, String small_gathering_orgName,
-			String small_gathering_listcol) {
+			long small_gathering_listcol, String small_gathering_exName) {
 		super();
 		this.users_no = users_no;
 		this.users_id = users_id;
@@ -145,7 +146,7 @@ public class KsbVo {
 		this.small_gathering_date = small_gathering_date;
 		this.small_gathering_deadline = small_gathering_deadline;
 		this.small_gathering_region = small_gathering_region;
-		this.small_gatheringn_saveName = small_gatheringn_saveName;
+		this.small_gathering_saveName = small_gathering_saveName;
 		this.small_gathering_information = small_gathering_information;
 		this.small_gathering_gender_limit = small_gathering_gender_limit;
 		this.small_gathering_age_limit = small_gathering_age_limit;
@@ -153,6 +154,7 @@ public class KsbVo {
 		this.small_gathering_filePath = small_gathering_filePath;
 		this.small_gathering_orgName = small_gathering_orgName;
 		this.small_gathering_listcol = small_gathering_listcol;
+		this.small_gathering_exName = small_gathering_exName;
 	}
 
 
@@ -196,6 +198,27 @@ public class KsbVo {
 		this.record_kcal = record_kcal;
 		this.record_vibe = record_vibe;
 		this.record_memo = record_memo;
+	}
+	
+	public KsbVo(int users_no, int course_no, String small_gathering_name, String small_gathering_host_name, String small_gathering_hp, 
+				int small_gathering_total_personnel, String small_gathering_date, String small_gathering_deadline, String small_gathering_region, 
+				String small_gathering_gender_limit, String small_gathering_age_limit, String small_gathering_filePath, String small_gathering_orgName, 
+				String small_gathering_saveName, long small_gathering_listcol) {
+		this.users_no = users_no;
+		this.course_no = course_no;
+		this.small_gathering_name = small_gathering_name;
+		this.small_gathering_host_name = small_gathering_host_name;
+		this.small_gathering_hp = small_gathering_hp;
+		this.small_gathering_total_personnel = small_gathering_total_personnel;
+		this.small_gathering_date = small_gathering_date;
+		this.small_gathering_deadline = small_gathering_deadline;
+		this.small_gathering_region = small_gathering_region;
+		this.small_gathering_gender_limit = small_gathering_gender_limit;
+		this.small_gathering_age_limit = small_gathering_age_limit;
+		this.small_gathering_filePath = small_gathering_filePath;
+		this.small_gathering_orgName = small_gathering_orgName;
+		this.small_gathering_saveName = small_gathering_saveName;
+		this.small_gathering_listcol = small_gathering_listcol;
 	}
 
 
@@ -673,15 +696,15 @@ public class KsbVo {
 
 
 
-	public String getSmall_gatheringn_saveName() {
-		return small_gatheringn_saveName;
+	public String getSmall_gathering_saveName() {
+		return small_gathering_saveName;
 	}
 
 
 
 
-	public void setSmall_gatheringn_saveName(String small_gatheringn_saveName) {
-		this.small_gatheringn_saveName = small_gatheringn_saveName;
+	public void setSmall_gathering_saveName(String small_gathering_saveName) {
+		this.small_gathering_saveName = small_gathering_saveName;
 	}
 
 
@@ -771,14 +794,12 @@ public class KsbVo {
 
 
 
-	public String getSmall_gathering_listcol() {
+	public long getSmall_gathering_listcol() {
 		return small_gathering_listcol;
 	}
 
 
-
-
-	public void setSmall_gathering_listcol(String small_gathering_listcol) {
+	public void setSmall_gathering_listcol(long small_gathering_listcol) {
 		this.small_gathering_listcol = small_gathering_listcol;
 	}
 
@@ -788,6 +809,14 @@ public class KsbVo {
 
 	public void setCourse_name(String course_name) {
 		this.course_name = course_name;
+	}
+
+	public String getSmall_gathering_exName() {
+		return small_gathering_exName;
+	}
+
+	public void setSmall_gathering_exName(String small_gathering_exName) {
+		this.small_gathering_exName = small_gathering_exName;
 	}
 
 	@Override
@@ -811,13 +840,18 @@ public class KsbVo {
 				+ small_gathering_host_name + ", small_gathering_total_personnel=" + small_gathering_total_personnel
 				+ ", small_gathering_date=" + small_gathering_date + ", small_gathering_deadline="
 				+ small_gathering_deadline + ", small_gathering_region=" + small_gathering_region
-				+ ", small_gatheringn_saveName=" + small_gatheringn_saveName + ", small_gathering_information="
+				+ ", small_gathering_saveName=" + small_gathering_saveName + ", small_gathering_information="
 				+ small_gathering_information + ", small_gathering_gender_limit=" + small_gathering_gender_limit
 				+ ", small_gathering_age_limit=" + small_gathering_age_limit + ", small_gathering_hp="
 				+ small_gathering_hp + ", small_gathering_filePath=" + small_gathering_filePath
 				+ ", small_gathering_orgName=" + small_gathering_orgName + ", small_gathering_listcol="
-				+ small_gathering_listcol + "]";
+				+ small_gathering_listcol + ", small_gathering_exName=" + small_gathering_exName + "]";
 	}
+
+	
+	
+	
+	
 
 	
 }
