@@ -63,7 +63,8 @@ public class YysController {
 	@PostMapping(value = "/api/walking/coursebooklist")
 	public List<YysVo> list(@RequestBody YysVo yysVo) {
 		System.out.println("YysController.list()");
-		// System.out.println(yysVo);
+		//System.out.println(yysVo);
+		//System.out.println("===========================");
 
 		List<YysVo> coursebookList = yysService.exeCourseList(yysVo);
 
