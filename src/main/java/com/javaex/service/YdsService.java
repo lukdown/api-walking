@@ -26,71 +26,104 @@ public class YdsService {
 		System.out.println("YdsService.exeAllList()");
 
 		List<YdsVo> gList = ydsDao.selectList();
-		
+
 		for (int i = 0; i < gList.size(); i++) {
 			List<YdsAttachVo> imageList = ydsDao.selectLatestGalleryNo(gList.get(i).getGallery_no());
 			gList.get(i).settList(imageList);
 			System.out.println(gList.get(i).gettList());
-			
+
 		}
-		
-		//System.out.println(gList);
+
+		// System.out.println(gList);
 		return gList;
 	}
-	
+
 	// 코스별 리스트
 	public List<YdsVo> getCourseList(int courseNo) {
-		
+
 		System.out.println("YdsService.getCourseList()");
 		List<YdsVo> cList = ydsDao.selectCourseList(courseNo);
-		
-		 // 반복문을 통해 각 갤러리 항목에 대한 이미지 목록을 설정
-        for (int i = 0; i < cList.size(); i++) {
-            List<YdsAttachVo> imageList = ydsDao.selectLatestGalleryNo(cList.get(i).getGallery_no());
-            cList.get(i).settList(imageList);
-            System.out.println(cList.get(i).gettList());
-        }
 
-        return cList;
-		
+		// 반복문을 통해 각 갤러리 항목에 대한 이미지 목록을 설정
+		for (int i = 0; i < cList.size(); i++) {
+			List<YdsAttachVo> imageList = ydsDao.selectLatestGalleryNo(cList.get(i).getGallery_no());
+			cList.get(i).settList(imageList);
+			System.out.println(cList.get(i).gettList());
+		}
+
+		return cList;
+
 	}
-        
-        
+
+	// 나의 코스 갤러리 리스트
+	public List<YdsVo> getMyCourseList(int userNo) {
+
+		System.out.println("YdsService.getMyCourseList()");
+		List<YdsVo> mList = ydsDao.selectMyCourseList(userNo);
+
+		// 반복문을 통해 각 갤러리 항목에 대한 이미지 목록을 설정
+		for (int i = 0; i < mList.size(); i++) {
+			List<YdsAttachVo> imageList = ydsDao.selectLatestGalleryNo(mList.get(i).getGallery_no());
+			mList.get(i).settList(imageList);
+			System.out.println(mList.get(i).gettList());
+		}
+
+		return mList;
+
+	}
+
+
+	
+	// 갤러리와 관련된 모든 데이터를 삭제하는 서비스 메서드
+    public void deleteGallery(int galleryNo, int userNo) {
+        System.out.println("YdsService.deleteGallery()");
+
+        // 갤러리의 라이크 삭제
+        ydsDao.deleteLike(galleryNo);
+
+        // 갤러리의 포토 삭제
+        ydsDao.deletePhoto(galleryNo);
+
+        // 갤러리 삭제
+        ydsDao.deleteGallery(galleryNo);
+
+        System.out.println("삭제 완료");
+    }
 
 	// 로그인한 회원의 코스 목록 조회
 	public List<YdsVo> exefindCoursesByUserNo(int userNo) {
 		System.out.println("YdsService.exefindCoursesByUserNo()");
 
 		List<YdsVo> userCourses = ydsDao.selectCoursesByUserNo(userNo);
-		//System.out.println(userCourses);
+		// System.out.println(userCourses);
 		return userCourses;
 	}
-	
-	//특정리스트 좋아요 조회
+
+	// 특정리스트 좋아요 조회
 	public int getGalleryLikes(int galleryNo) {
 		System.out.println("YdsService.getGalleryLikes()");
 		int count = ydsDao.selectGalleryLikes(galleryNo);
-		
-        return count;
-    }
+
+		return count;
+	}
 
 	// 좋아요 추가 및 삭제
-    public int likeGallery(int userNo, int galleryNo) {
-        int likeExists = ydsDao.checkLikeExists(userNo, galleryNo);
-        if (likeExists > 0) {
-        	ydsDao.gdeleteLike(userNo, galleryNo);
-        } else {
-        	ydsDao.ginsertLike(userNo, galleryNo);
-        }
-        return ydsDao.selectGalleryLikes(galleryNo);
-    }
+	public int likeGallery(int userNo, int galleryNo) {
+		int likeExists = ydsDao.checkLikeExists(userNo, galleryNo);
+		if (likeExists > 0) {
+			ydsDao.gdeleteLike(userNo, galleryNo);
+		} else {
+			ydsDao.ginsertLike(userNo, galleryNo);
+		}
+		return ydsDao.selectGalleryLikes(galleryNo);
+	}
 
 	// 로그인한 회원의 특정 코스 소개 등록(저장)
 	public void saveCourseIntroduction(MultipartFile[] galleryfile, YdsVo ydsVo) {
 
 		// 텍스트를 저장한다(사진을 제외한 나머지를 저장)///////////////////////
 		ydsDao.insertCourseIntroduction(ydsVo);
-		//System.out.println(ydsVo);
+		// System.out.println(ydsVo);
 
 		// 묶은이미지 저장
 
@@ -130,7 +163,7 @@ public class YdsService {
 			// vo로묶기
 			YdsAttachVo galleryVo = new YdsAttachVo(galleryNo, filePath, orgName, saveName, fileSize);
 			galleryVo.setGallery_no(galleryNo); // 갤러리 번호 설정
-			//System.out.println(galleryVo);
+			// System.out.println(galleryVo);
 
 			// Dao만들기 --> DB저장
 			// (3)DB저장 /////////////////////////////////////////////////////
@@ -157,21 +190,6 @@ public class YdsService {
 		}
 
 	}
-	
-//	//저장된 이미지 불러오기
-//	public List<YdsVo> exeGetGalleryPicList(YdsVo ydsVo) {
-//	    System.out.println("YdsService.exeGetGalleryPicList()");
-//	    
-//	    // 최신 포스팅의 gallery_no 가져오기
-//	    List<YdsVo> gpList = ydsDao.selectLatestGalleryNo(ydsVo);
-//	    
-//	    // 해당 포스팅에 대한 이미지 목록 가져오기
-//	    //List<YdsAttachVo> gpList = ydsDao.selectPicList(latestGalleryNo);
-//	    //System.out.println("서비스까지 갖고왔니");
-//	    
-//	    return gpList;
-//	}
-
 
 	// 선택한 코스의 상세 정보 조회
 	public YdsVo exefindCourseInfo(String courseName) {

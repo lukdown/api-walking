@@ -84,7 +84,67 @@
 
 	</select>
 	
-	
+	<!-- 유저별 갤러리 리스트 조회 -->
+	<select id="selectMyCourseList" resultType="YdsVo">
+	<![CDATA[
+		SELECT gl.gallery_no,
+		       gl.users_no,
+		       gl.course_no,
+		       gl.gallery_introduce,
+		       ul.users_nickname,
+		       ul.users_saveName,
+		       ch.challenge_name,
+		       re.record_date,
+		       cl.course_no,
+		       cl.course_name,
+		       cl.course_region,
+		       cl.course_length,
+		       cl.course_time,
+		       cl.course_difficulty,
+		       COALESCE(like_counts.like_count, 0) AS gallery_likeCount -- 좋아요 수를 포함
+		FROM gallery_list gl
+		LEFT JOIN users_list ul ON gl.users_no = ul.users_no
+		LEFT JOIN (
+		    SELECT record_date, course_no 
+		    FROM record
+		) re ON re.course_no = gl.course_no
+		LEFT JOIN (
+		    SELECT course_no, course_name, course_region, course_length, course_time, course_difficulty 
+		    FROM course_list
+		) cl ON cl.course_no = gl.course_no
+		LEFT JOIN (
+		    SELECT cp.users_no, ch.challenge_name 
+		    FROM challenge_person cp 
+		    LEFT JOIN challenge ch ON cp.challenge_no = ch.challenge_no
+		) ch ON ch.users_no = gl.users_no
+		LEFT JOIN (
+		    SELECT gallery_no, COUNT(*) AS like_count 
+		    FROM gallery_like 
+		    GROUP BY gallery_no
+		) like_counts ON like_counts.gallery_no = gl.gallery_no
+		WHERE gl.users_no = #{usersNo} -- 특정 유저를 기준으로 필터링
+		GROUP BY gl.gallery_no
+		]]>
+
+		</select>
+		
+	<!-- 나의 갤러리 포스팅 삭제 시리즈-->
+	<delete id="deleteLike" parameterType="int">
+		<![CDATA[
+			DELETE FROM gallery_like WHERE gallery_no = #{galleryNo};	
+		]]>
+	</delete>
+	<delete id="deletePhoto" parameterType="int">
+		<![CDATA[
+			DELETE FROM gallery_photo WHERE gallery_no = #{galleryNo};	
+		]]>
+	</delete>
+	<delete id="deleteGallery" parameterType="int">
+		<![CDATA[
+			DELETE FROM gallery_list WHERE gallery_no = #{galleryNo};	
+		]]>
+	</delete>
+		
 
 	<!-- 특정 회원의 코스 목록 조회 -->
 	<select id="selectCoursesByUserNo" parameterType="int" resultType="YdsVo">
