@@ -202,7 +202,7 @@ public class KsbVo {
 	
 	public KsbVo(int users_no, int course_no, String small_gathering_name, String small_gathering_host_name, String small_gathering_hp, 
 				int small_gathering_total_personnel, String small_gathering_date, String small_gathering_deadline, String small_gathering_region, 
-				String small_gathering_gender_limit, String small_gathering_age_limit, String small_gathering_filePath, String small_gathering_orgName, 
+				String small_gathering_gender_limit, String small_gathering_age_limit, String small_gathering_information, String small_gathering_filePath, String small_gathering_orgName, 
 				String small_gathering_saveName, long small_gathering_listcol) {
 		this.users_no = users_no;
 		this.course_no = course_no;
@@ -215,6 +215,7 @@ public class KsbVo {
 		this.small_gathering_region = small_gathering_region;
 		this.small_gathering_gender_limit = small_gathering_gender_limit;
 		this.small_gathering_age_limit = small_gathering_age_limit;
+		this.small_gathering_information = small_gathering_information;
 		this.small_gathering_filePath = small_gathering_filePath;
 		this.small_gathering_orgName = small_gathering_orgName;
 		this.small_gathering_saveName = small_gathering_saveName;

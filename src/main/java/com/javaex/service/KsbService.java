@@ -26,7 +26,7 @@ public class KsbService {
 	// 소모임 등록하기
 	public int exeAddGathering(int no, int course_no, String small_gathering_name, String small_gathering_host_name, String small_gathering_hp, 
 								int small_gathering_total_personnel, String small_gathering_date, String small_gathering_deadline, String small_gathering_region, 
-								String small_gathering_gender_limit, String small_gathering_age_limit, MultipartFile file) {
+								String small_gathering_gender_limit, String small_gathering_age_limit, String small_gathering_information, MultipartFile file) {
 		System.out.println("KsbService.exeAddGathering()");
 
 		// 파일저장 폴더
@@ -58,7 +58,7 @@ public class KsbService {
 
 		KsbVo KsbVo = new KsbVo(no, course_no, small_gathering_name, small_gathering_host_name, small_gathering_hp, 
 								small_gathering_total_personnel, small_gathering_date, small_gathering_deadline, small_gathering_region, 
-								small_gathering_gender_limit, small_gathering_age_limit, small_gathering_filePath, small_gathering_orgName, 
+								small_gathering_gender_limit, small_gathering_age_limit, small_gathering_information, small_gathering_filePath, small_gathering_orgName, 
 								  small_gathering_saveName, small_gathering_listcol);
 		System.out.println(KsbVo);
 		// *db에 저장

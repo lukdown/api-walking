@@ -39,6 +39,7 @@ public class KsbController {
 																@RequestParam String small_gathering_region,
 																@RequestParam String small_gathering_gender_limit,
 																@RequestParam String small_gathering_age_limit,
+																@RequestParam String small_gathering_information,
 																@RequestParam MultipartFile file
 								   ) {
 		System.out.println("KdsController.write()");
@@ -47,7 +48,7 @@ public class KsbController {
 		System.out.println(no);
 		int count=ksbService.exeAddGathering(no, course_no, small_gathering_name, small_gathering_host_name, small_gathering_hp, 
 				  							small_gathering_total_personnel, small_gathering_date, small_gathering_deadline, small_gathering_region, 
-				  							small_gathering_gender_limit, small_gathering_age_limit, file);
+				  							small_gathering_gender_limit, small_gathering_age_limit, small_gathering_information, file);
 		
 		
 		return JsonResult.success(count);
