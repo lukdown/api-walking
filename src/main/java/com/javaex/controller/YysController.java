@@ -142,6 +142,7 @@ public class YysController {
 		// return null;
 	}
 
+	
 	// 즐겨찾기 등록
 	@PostMapping(value = "/api/walking/favoritesupdatedelete")
 	public int favoritesupdate(@RequestBody YysVo yysVo) {
