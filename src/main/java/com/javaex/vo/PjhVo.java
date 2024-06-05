@@ -23,6 +23,20 @@ public class PjhVo {
 	private double facilities_latitude;
 	private double facilities_longitude;
 	private String facilities_memo;
+	private int small_gathering_no;
+	private int course_no;
+	private String small_gathering_name;
+	private String small_gathering_host_name;
+	private String small_gathering_hp;
+	private int small_gathering_total_personnel;
+	private String small_gathering_date;
+	private String small_gathering_deadline;
+	private String small_gathering_information;
+	private String small_gathering_region;
+	private String small_gathering_gender_limit;
+	private String small_gathering_age_limit;
+	private String small_gathering_saveName;
+	private String course_name;
 
 	// 생성자
 	public PjhVo() {
@@ -33,7 +47,11 @@ public class PjhVo {
 			String users_hp, String users_birth_date, String users_gender, String users_residence,
 			String users_filePath, String users_orgName, String users_saveName, String users_fileSize,
 			int users_login_type, int facilities_no, int convenient_facilities_type_no, String facilities_name,
-			double facilities_latitude, double facilities_longitude, String facilities_memo) {
+			double facilities_latitude, double facilities_longitude, String facilities_memo, int small_gathering_no,
+			int course_no, String small_gathering_name, String small_gathering_host_name, String small_gathering_hp,
+			int small_gathering_total_personnel, String small_gathering_date, String small_gathering_deadline,
+			String small_gathering_information, String small_gathering_region, String small_gathering_gender_limit,
+			String small_gathering_age_limit, String small_gathering_saveName, String course_name) {
 		super();
 		this.users_no = users_no;
 		this.users_id = users_id;
@@ -55,6 +73,20 @@ public class PjhVo {
 		this.facilities_latitude = facilities_latitude;
 		this.facilities_longitude = facilities_longitude;
 		this.facilities_memo = facilities_memo;
+		this.small_gathering_no = small_gathering_no;
+		this.course_no = course_no;
+		this.small_gathering_name = small_gathering_name;
+		this.small_gathering_host_name = small_gathering_host_name;
+		this.small_gathering_hp = small_gathering_hp;
+		this.small_gathering_total_personnel = small_gathering_total_personnel;
+		this.small_gathering_date = small_gathering_date;
+		this.small_gathering_deadline = small_gathering_deadline;
+		this.small_gathering_information = small_gathering_information;
+		this.small_gathering_region = small_gathering_region;
+		this.small_gathering_gender_limit = small_gathering_gender_limit;
+		this.small_gathering_age_limit = small_gathering_age_limit;
+		this.small_gathering_saveName = small_gathering_saveName;
+		this.course_name = course_name;
 	}
 
 	// 메소드 - g/s
@@ -218,6 +250,118 @@ public class PjhVo {
 		this.facilities_memo = facilities_memo;
 	}
 
+	public int getSmall_gathering_no() {
+		return small_gathering_no;
+	}
+
+	public void setSmall_gathering_no(int small_gathering_no) {
+		this.small_gathering_no = small_gathering_no;
+	}
+
+	public int getCourse_no() {
+		return course_no;
+	}
+
+	public void setCourse_no(int course_no) {
+		this.course_no = course_no;
+	}
+
+	public String getSmall_gathering_name() {
+		return small_gathering_name;
+	}
+
+	public void setSmall_gathering_name(String small_gathering_name) {
+		this.small_gathering_name = small_gathering_name;
+	}
+
+	public String getSmall_gathering_host_name() {
+		return small_gathering_host_name;
+	}
+
+	public void setSmall_gathering_host_name(String small_gathering_host_name) {
+		this.small_gathering_host_name = small_gathering_host_name;
+	}
+
+	public String getSmall_gathering_hp() {
+		return small_gathering_hp;
+	}
+
+	public void setSmall_gathering_hp(String small_gathering_hp) {
+		this.small_gathering_hp = small_gathering_hp;
+	}
+
+	public int getSmall_gathering_total_personnel() {
+		return small_gathering_total_personnel;
+	}
+
+	public void setSmall_gathering_total_personnel(int small_gathering_total_personnel) {
+		this.small_gathering_total_personnel = small_gathering_total_personnel;
+	}
+
+	public String getSmall_gathering_date() {
+		return small_gathering_date;
+	}
+
+	public void setSmall_gathering_date(String small_gathering_date) {
+		this.small_gathering_date = small_gathering_date;
+	}
+
+	public String getSmall_gathering_deadline() {
+		return small_gathering_deadline;
+	}
+
+	public void setSmall_gathering_deadline(String small_gathering_deadline) {
+		this.small_gathering_deadline = small_gathering_deadline;
+	}
+
+	public String getSmall_gathering_information() {
+		return small_gathering_information;
+	}
+
+	public void setSmall_gathering_information(String small_gathering_information) {
+		this.small_gathering_information = small_gathering_information;
+	}
+
+	public String getSmall_gathering_region() {
+		return small_gathering_region;
+	}
+
+	public void setSmall_gathering_region(String small_gathering_region) {
+		this.small_gathering_region = small_gathering_region;
+	}
+
+	public String getSmall_gathering_gender_limit() {
+		return small_gathering_gender_limit;
+	}
+
+	public void setSmall_gathering_gender_limit(String small_gathering_gender_limit) {
+		this.small_gathering_gender_limit = small_gathering_gender_limit;
+	}
+
+	public String getSmall_gathering_age_limit() {
+		return small_gathering_age_limit;
+	}
+
+	public void setSmall_gathering_age_limit(String small_gathering_age_limit) {
+		this.small_gathering_age_limit = small_gathering_age_limit;
+	}
+
+	public String getSmall_gathering_saveName() {
+		return small_gathering_saveName;
+	}
+
+	public void setSmall_gathering_saveName(String small_gathering_saveName) {
+		this.small_gathering_saveName = small_gathering_saveName;
+	}
+
+	public String getCourse_name() {
+		return course_name;
+	}
+
+	public void setCourse_name(String course_name) {
+		this.course_name = course_name;
+	}
+
 	// 메소드 - 일반
 	@Override
 	public String toString() {
@@ -229,7 +373,15 @@ public class PjhVo {
 				+ ", facilities_no=" + facilities_no + ", convenient_facilities_type_no="
 				+ convenient_facilities_type_no + ", facilities_name=" + facilities_name + ", facilities_latitude="
 				+ facilities_latitude + ", facilities_longitude=" + facilities_longitude + ", facilities_memo="
-				+ facilities_memo + "]";
+				+ facilities_memo + ", small_gathering_no=" + small_gathering_no + ", course_no=" + course_no
+				+ ", small_gathering_name=" + small_gathering_name + ", small_gathering_host_name="
+				+ small_gathering_host_name + ", small_gathering_hp=" + small_gathering_hp
+				+ ", small_gathering_total_personnel=" + small_gathering_total_personnel + ", small_gathering_date="
+				+ small_gathering_date + ", small_gathering_deadline=" + small_gathering_deadline
+				+ ", small_gathering_information=" + small_gathering_information + ", small_gathering_region="
+				+ small_gathering_region + ", small_gathering_gender_limit=" + small_gathering_gender_limit
+				+ ", small_gathering_age_limit=" + small_gathering_age_limit + ", small_gathering_saveName="
+				+ small_gathering_saveName + ", course_name=" + course_name + "]";
 	}
 
 }

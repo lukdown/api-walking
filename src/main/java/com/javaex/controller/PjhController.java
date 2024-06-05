@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.javaex.service.PjhService;
@@ -440,5 +441,17 @@ public class PjhController {
 			}
 
 		}
+		
+		//소모임 읽기페이지
+		@GetMapping("/api/walking/getSmallGatheringDetailData/{small_gathering_no}")
+		public JsonResult getSmallGatheringDetailData(@PathVariable("small_gathering_no") int smallgatheringno) {
+			System.out.println("PjhController.getSmallGatheringDetailData()");
+			
+			PjhVo smallgatheringVo = pjhService.exegetSmallGatheringDetailData(smallgatheringno);
+			
+			
+			return JsonResult.success(smallgatheringVo);
+		}
+		
 	
 }

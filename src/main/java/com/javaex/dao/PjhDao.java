@@ -35,7 +35,7 @@ public class PjhDao {
 
 	// 로그인
 	public PjhVo userSelscetByIdPw(PjhVo users_listVo) {
-		System.out.println("UserDao.userSelscetByIdPw()");
+		System.out.println("PjhDao.userSelscetByIdPw()");
 
 		System.out.println(users_listVo);
 		PjhVo authUser = sqlSession.selectOne("pjh.selectByIdPw", users_listVo);
@@ -97,5 +97,15 @@ public class PjhDao {
 		//System.out.println(count);
 
 		return count;
+	}
+	
+	//소모임 읽기페이지
+	public PjhVo getSmallGatheringDetail(int smallgatheringno) {
+		System.out.println("PjhDao.getSmallGatheringDetail()");
+
+		PjhVo smallgatheringVo = sqlSession.selectOne("pjh.SmallGatheringDetail", smallgatheringno);
+		//System.out.println(smallgatheringVo);
+
+		return smallgatheringVo;
 	}
 }

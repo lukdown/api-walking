@@ -106,4 +106,29 @@
 			values(null, #{users_no}, #{convenient_facilities_type_no}, #{facilities_name}, #{facilities_latitude}, #{facilities_longitude},#{facilities_memo});
 		]]>
 	</select>
+	
+	<!-- 소모임 읽기페이지 -->
+	<select id="SmallGatheringDetail" parameterType="int" resultType="PjhVo">
+		<![CDATA[ 
+			select s.small_gathering_no,
+				   s.users_no,
+			       s.course_no,
+			       s.small_gathering_name,
+			       s.small_gathering_host_name,
+			       s.small_gathering_hp,
+			       s.small_gathering_total_personnel,
+			       s.small_gathering_date,
+			       s.small_gathering_deadline,
+			       s.small_gathering_information,
+			       s.small_gathering_region,
+			       s.small_gathering_gender_limit,
+			       s.small_gathering_age_limit,
+			       s.small_gathering_saveName,
+			       c.course_name
+			from small_gathering_list s, course_list c
+			where s.course_no = c.course_no
+			and s.small_gathering_no = #{smallgatheringno}
+		]]>
+	</select>
+	
 </mapper>

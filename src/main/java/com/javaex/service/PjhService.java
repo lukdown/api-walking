@@ -50,7 +50,7 @@ public class PjhService {
 
 	// 로그인
 	public PjhVo exeLogin(PjhVo users_listVo) {
-		System.out.println("UserService.exeLogin()");
+		System.out.println("PjhService.exeLogin()");
 
 		PjhVo authUser = pjhDao.userSelscetByIdPw(users_listVo);
 
@@ -59,7 +59,7 @@ public class PjhService {
 
 	// 회원정보 수정폼(1명 데이터 가져오기)
 	public PjhVo exeModifyForm(int no) {
-		System.out.println("UserService.exeModifyForm()");
+		System.out.println("PjhService.exeModifyForm()");
 
 		PjhVo users_listVo = pjhDao.userSelectOneByNo(no);
 		return users_listVo;
@@ -67,7 +67,7 @@ public class PjhService {
 
 	// 회원정보수정
 	public int exeModify(PjhVo users_listVo) {
-		System.out.println("UserService.exeModify()");
+		System.out.println("PjhService.exeModify()");
 
 		int count = pjhDao.userUpdate(users_listVo);
 		return count;
@@ -243,7 +243,7 @@ public class PjhService {
 
 	// 카카오 자동 로그인
 	public PjhVo exeApiLogin(PjhVo users_listVo) {
-		System.out.println("UserService.exeApiLogin()");
+		System.out.println("PjhService.exeApiLogin()");
 
 		PjhVo authUser = pjhDao.userSelscetByKakaoId(users_listVo);
 
@@ -404,4 +404,12 @@ public class PjhService {
         return userInfo;
     }
 	
+	//소모임 읽기페이지
+	public PjhVo exegetSmallGatheringDetailData(int smallgatheringno) {
+		System.out.println("PjhService.exegetSmallGatheringDetailData()");
+
+		PjhVo smallgatheringVo = pjhDao.getSmallGatheringDetail(smallgatheringno);
+
+		return smallgatheringVo;
+	}
 }
