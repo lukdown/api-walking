@@ -77,7 +77,7 @@ public class YysController {
 	@PostMapping(value = "/api/walking/coursebookflist")
 	public List<YysVo> favoritlist(@RequestBody String users_no) {
 		System.out.println("YysController.favoritlist()");
-		// System.out.println(users_no);
+		//System.out.println(users_no);
 
 		List<YysVo> coursebookfList = yysService.exeCoursefList(users_no);
 

@@ -89,10 +89,15 @@
 					    cl.course_introduce,
 					    clike.course_like_no,
 					    clike.login_users_no,
-					    CASE 
-					        WHEN clike.login_users_no IS NOT NULL THEN 1 
-					        ELSE 0 
-					    END AS is_liked
+					    cf.course_favorites_no,
+					   CASE 
+					      WHEN clike.login_users_no IS NOT NULL THEN 1 
+					      ELSE 0
+					   END AS is_liked,
+				       CASE 
+					      WHEN cf.login_users_no IS NOT NULL THEN 1 
+					      ELSE 0
+					   END AS is_favorited
 					FROM 
 					    course_list cl
 					LEFT JOIN (
@@ -107,6 +112,13 @@
 					) clike 
 					ON 
 					    clike.course_no = cl.course_no
+					LEFT JOIN ( SELECT course_favorites_no,
+					       course_no,
+					       users_no AS 'login_users_no'
+					FROM course_favorites
+					WHERE users_no = #{login_users_no}
+		            ) cf
+		            ON cf.course_no = cl.course_no
 				]]>
 
 
@@ -162,6 +174,7 @@
 				    cl.course_introduce,
 				    clike.course_like_no,
 				    clike.login_users_no,
+				    cf.course_favorites_no,
 				    CASE 
 				        WHEN clike.login_users_no IS NOT NULL THEN 1 
 				        ELSE 0 
