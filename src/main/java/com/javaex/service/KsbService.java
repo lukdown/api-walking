@@ -23,10 +23,81 @@ public class KsbService {
 
 	// 수빈이꺼
 
+	// 소모임 수정하기
+	public int exeGatheringModify(int small_gathering_no, int no, int course_no, String small_gathering_name, String small_gathering_host_name,
+			String small_gathering_hp, int small_gathering_total_personnel, String small_gathering_date,
+			String small_gathering_deadline, String small_gathering_region, String small_gathering_gender_limit,
+			String small_gathering_age_limit, String small_gathering_information, MultipartFile file) {
+		System.out.println("ksbService.exeGatheringModify()");
+		// 파일저장 폴더
+		String saveDir = "C:\\javaStudy\\upload";
+
+		// (0)파일관련 정보수집
+		// 오리지날 파일명
+		String small_gathering_orgName = file.getOriginalFilename();
+		System.out.println("orgName:" + small_gathering_orgName);
+
+		// 확장자
+		String exName = small_gathering_orgName.substring(small_gathering_orgName.lastIndexOf("."));
+		System.out.println("exName:" + exName);
+
+		// 저장 파일명(겹치지 않아야 한다)
+		String small_gathering_saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
+		System.out.println("saveName:" + small_gathering_saveName);
+
+		// 파일 사이즈
+		long small_gathering_listcol = file.getSize();
+		System.out.println("fileSize:" + small_gathering_listcol);
+
+		// 파일 전체 경로(저장파일명 포함)
+		String small_gathering_filePath = saveDir + "\\" + small_gathering_saveName;
+		System.out.println("filePath:" + small_gathering_filePath);
+
+		// (1)파일정보를 DB에 저장
+		// *vo묶어주고
+
+		KsbVo KsbVo = new KsbVo(small_gathering_no, no, course_no, small_gathering_name, small_gathering_host_name, small_gathering_hp,
+				small_gathering_total_personnel, small_gathering_date, small_gathering_deadline, small_gathering_region,
+				small_gathering_gender_limit, small_gathering_age_limit, small_gathering_information,
+				small_gathering_filePath, small_gathering_orgName, small_gathering_saveName, small_gathering_listcol);
+		System.out.println(KsbVo);
+		// *db에 저장
+		System.out.println(".......DB저장롼료");
+		int count = ksbDao.exeGatheringModify(no, KsbVo);
+		// (2)파일을 하드디스크에 저장
+
+		// 파일 저장
+		try {
+			byte[] fileData = file.getBytes();
+
+			OutputStream os = new FileOutputStream(small_gathering_filePath);
+			BufferedOutputStream bos = new BufferedOutputStream(os);
+
+			bos.write(fileData);
+			bos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		;
+
+		return count;
+
+	}
+
+	// 소모임 1개 불러오기
+	public KsbVo exeGetGathering(int small_gathering_no) {
+		System.out.println("ksbService.exeGetGathering()");
+
+		KsbVo GatheringInfo = ksbDao.selectGathering(small_gathering_no);
+		System.out.println(GatheringInfo);
+		return GatheringInfo;
+	}
+
 	// 소모임 등록하기
-	public int exeAddGathering(int no, int course_no, String small_gathering_name, String small_gathering_host_name, String small_gathering_hp, 
-								int small_gathering_total_personnel, String small_gathering_date, String small_gathering_deadline, String small_gathering_region, 
-								String small_gathering_gender_limit, String small_gathering_age_limit, String small_gathering_information, MultipartFile file) {
+	public int exeAddGathering(int no, int course_no, String small_gathering_name, String small_gathering_host_name,
+			String small_gathering_hp, int small_gathering_total_personnel, String small_gathering_date,
+			String small_gathering_deadline, String small_gathering_region, String small_gathering_gender_limit,
+			String small_gathering_age_limit, String small_gathering_information, MultipartFile file) {
 		System.out.println("KsbService.exeAddGathering()");
 
 		// 파일저장 폴더
@@ -56,10 +127,10 @@ public class KsbService {
 		// (1)파일정보를 DB에 저장
 		// *vo묶어주고
 
-		KsbVo KsbVo = new KsbVo(no, course_no, small_gathering_name, small_gathering_host_name, small_gathering_hp, 
-								small_gathering_total_personnel, small_gathering_date, small_gathering_deadline, small_gathering_region, 
-								small_gathering_gender_limit, small_gathering_age_limit, small_gathering_information, small_gathering_filePath, small_gathering_orgName, 
-								  small_gathering_saveName, small_gathering_listcol);
+		KsbVo KsbVo = new KsbVo(no, course_no, small_gathering_name, small_gathering_host_name, small_gathering_hp,
+				small_gathering_total_personnel, small_gathering_date, small_gathering_deadline, small_gathering_region,
+				small_gathering_gender_limit, small_gathering_age_limit, small_gathering_information,
+				small_gathering_filePath, small_gathering_orgName, small_gathering_saveName, small_gathering_listcol);
 		System.out.println(KsbVo);
 		// *db에 저장
 		System.out.println(".......DB저장롼료");

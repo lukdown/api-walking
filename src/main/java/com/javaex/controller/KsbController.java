@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,44 @@ public class KsbController {
 	@Autowired
 	private KsbService ksbService;
 	
+	//소모임 수정하기
+	@PutMapping("/api/gathering/modify/{small_gathering_no}")
+	public JsonResult gatheringModify(HttpServletRequest request, 	@RequestParam int small_gathering_no,
+																	@RequestParam String small_gathering_name,
+																	@RequestParam String small_gathering_host_name,
+																	@RequestParam String small_gathering_hp,
+																	@RequestParam int small_gathering_total_personnel,
+																	@RequestParam int course_no,
+																	@RequestParam String small_gathering_date,
+																	@RequestParam String small_gathering_deadline,
+																	@RequestParam String small_gathering_region,
+																	@RequestParam String small_gathering_gender_limit,
+																	@RequestParam String small_gathering_age_limit,
+																	@RequestParam String small_gathering_information,
+																	@RequestParam MultipartFile file) {
+		System.out.println("KsbController.gatheringModify()");
+		
+		int no = JwtUtil.getNoFromHeader(request);
+		System.out.println(no);
+		int count=ksbService.exeGatheringModify(small_gathering_no, no, course_no, small_gathering_name, small_gathering_host_name, small_gathering_hp, 
+				  							small_gathering_total_personnel, small_gathering_date, small_gathering_deadline, small_gathering_region, 
+				  							small_gathering_gender_limit, small_gathering_age_limit, small_gathering_information, file);
+		
+		
+		return JsonResult.success(count);
+	}
+	
+	//소모임 1개 불러오기
+	@GetMapping("/api/gathering/modify/{small_gathering_no}")
+	public JsonResult getGathering(@PathVariable int small_gathering_no) {
+		System.out.println("ksbController.getGathering()");
+		System.out.println(small_gathering_no);
+		
+		KsbVo gatheringInfo = ksbService.exeGetGathering(small_gathering_no);
+		
+		return JsonResult.success(gatheringInfo);
+	}
+	
 	//소모임 등록
 	@PostMapping("/api/walking/addgathering")
 	public JsonResult AddGathering( HttpServletRequest request, @RequestParam String small_gathering_name,
@@ -42,7 +81,7 @@ public class KsbController {
 																@RequestParam String small_gathering_information,
 																@RequestParam MultipartFile file
 								   ) {
-		System.out.println("KdsController.write()");
+		System.out.println("KsbController.AddGathering()");
 		
 		int no = JwtUtil.getNoFromHeader(request);
 		System.out.println(no);

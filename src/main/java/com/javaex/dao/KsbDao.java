@@ -16,6 +16,25 @@ public class KsbDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//소모임 수정하기
+	public int exeGatheringModify(int no, KsbVo ksbVo) {
+		System.out.println("KsbDao.addGathering()");
+		
+		int count = sqlSession.update("ksb.gatheringModify", ksbVo);
+		
+		return count;
+	}
+	
+	//소모임 1개 불러오기
+	public KsbVo selectGathering(int small_gathering_no) {
+		System.out.println("KsbDao.selectGathering()");
+		
+		KsbVo GatheringInfo = sqlSession.selectOne("ksb.selectGathering", small_gathering_no);
+		//System.out.println(RecordInfo+"__________________________________________________________________");
+		return GatheringInfo;
+		
+	}
+	
 	//소모임 등록하기
 	public int addGathering(int no, KsbVo ksbVo) {
 		System.out.println("KsbDao.addGathering()");

@@ -36,16 +36,16 @@ public class KsbVo {
 	private double record_longitude;
 	private String record_division;
 	private String record_order;
-	
-	//코스포인트
-	
+
+	// 코스포인트
+
 	private int course_point_no;
 	private double course_latitude;
 	private double course_longitude;
 	private int course_order;
 	private String course_division;
-	
-	//도전과제
+
+	// 도전과제
 	private int person_no;
 	private int challenge_no;
 	private String challenge_name;
@@ -54,9 +54,8 @@ public class KsbVo {
 	private String challenge_saveName;
 	private long challenge_fileSize;
 	private String challenge_explanation;
-	
 
-	//소모임
+	// 소모임
 	private int small_gathering_no;
 	private String small_gathering_name;
 	private String small_gathering_host_name;
@@ -73,11 +72,6 @@ public class KsbVo {
 	private String small_gathering_orgName;
 	private long small_gathering_listcol;
 	private String small_gathering_exName;
-	
-	
-	
-
-
 
 	// 생성자
 	public KsbVo() {
@@ -157,7 +151,6 @@ public class KsbVo {
 		this.small_gathering_exName = small_gathering_exName;
 	}
 
-
 	public KsbVo(int users_no, String users_id, String users_pw, String users_name, String users_nickname,
 			String users_hp, String users_birth_date, String users_gender, String users_residence, String filePath,
 			String orgName, String saveName, long fileSize) {
@@ -199,11 +192,12 @@ public class KsbVo {
 		this.record_vibe = record_vibe;
 		this.record_memo = record_memo;
 	}
-	
-	public KsbVo(int users_no, int course_no, String small_gathering_name, String small_gathering_host_name, String small_gathering_hp, 
-				int small_gathering_total_personnel, String small_gathering_date, String small_gathering_deadline, String small_gathering_region, 
-				String small_gathering_gender_limit, String small_gathering_age_limit, String small_gathering_information, String small_gathering_filePath, String small_gathering_orgName, 
-				String small_gathering_saveName, long small_gathering_listcol) {
+
+	public KsbVo(int users_no, int course_no, String small_gathering_name, String small_gathering_host_name,
+			String small_gathering_hp, int small_gathering_total_personnel, String small_gathering_date,
+			String small_gathering_deadline, String small_gathering_region, String small_gathering_gender_limit,
+			String small_gathering_age_limit, String small_gathering_information, String small_gathering_filePath,
+			String small_gathering_orgName, String small_gathering_saveName, long small_gathering_listcol) {
 		this.users_no = users_no;
 		this.course_no = course_no;
 		this.small_gathering_name = small_gathering_name;
@@ -222,316 +216,277 @@ public class KsbVo {
 		this.small_gathering_listcol = small_gathering_listcol;
 	}
 
+	public KsbVo(int small_gathering_no, int users_no, int course_no, String small_gathering_name, String small_gathering_host_name,
+			String small_gathering_hp, int small_gathering_total_personnel, String small_gathering_date,
+			String small_gathering_deadline, String small_gathering_region, String small_gathering_gender_limit,
+			String small_gathering_age_limit, String small_gathering_information, String small_gathering_filePath,
+			String small_gathering_orgName, String small_gathering_saveName, long small_gathering_listcol) {
+		this.small_gathering_no = small_gathering_no;
+		this.users_no = users_no;
+		this.course_no = course_no;
+		this.small_gathering_name = small_gathering_name;
+		this.small_gathering_host_name = small_gathering_host_name;
+		this.small_gathering_hp = small_gathering_hp;
+		this.small_gathering_total_personnel = small_gathering_total_personnel;
+		this.small_gathering_date = small_gathering_date;
+		this.small_gathering_deadline = small_gathering_deadline;
+		this.small_gathering_region = small_gathering_region;
+		this.small_gathering_gender_limit = small_gathering_gender_limit;
+		this.small_gathering_age_limit = small_gathering_age_limit;
+		this.small_gathering_information = small_gathering_information;
+		this.small_gathering_filePath = small_gathering_filePath;
+		this.small_gathering_orgName = small_gathering_orgName;
+		this.small_gathering_saveName = small_gathering_saveName;
+		this.small_gathering_listcol = small_gathering_listcol;
+	}
 
 	public int getUsers_no() {
 		return users_no;
 	}
 
-
 	public void setUsers_no(int users_no) {
 		this.users_no = users_no;
 	}
-
 
 	public String getUsers_id() {
 		return users_id;
 	}
 
-
 	public void setUsers_id(String users_id) {
 		this.users_id = users_id;
 	}
-
 
 	public String getUsers_pw() {
 		return users_pw;
 	}
 
-
 	public void setUsers_pw(String users_pw) {
 		this.users_pw = users_pw;
 	}
-
 
 	public String getUsers_name() {
 		return users_name;
 	}
 
-
 	public void setUsers_name(String users_name) {
 		this.users_name = users_name;
 	}
-
 
 	public String getUsers_nickname() {
 		return users_nickname;
 	}
 
-
 	public void setUsers_nickname(String users_nickname) {
 		this.users_nickname = users_nickname;
 	}
-
 
 	public String getUsers_hp() {
 		return users_hp;
 	}
 
-
 	public void setUsers_hp(String users_hp) {
 		this.users_hp = users_hp;
 	}
-
 
 	public String getUsers_birth_date() {
 		return users_birth_date;
 	}
 
-
 	public void setUsers_birth_date(String users_birth_date) {
 		this.users_birth_date = users_birth_date;
 	}
-
 
 	public String getUsers_gender() {
 		return users_gender;
 	}
 
-
 	public void setUsers_gender(String users_gender) {
 		this.users_gender = users_gender;
 	}
-
 
 	public String getUsers_residence() {
 		return users_residence;
 	}
 
-
 	public void setUsers_residence(String users_residence) {
 		this.users_residence = users_residence;
 	}
-
 
 	public String getFilePath() {
 		return filePath;
 	}
 
-
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
-
 
 	public String getOrgName() {
 		return orgName;
 	}
 
-
 	public void setOrgName(String orgName) {
 		this.orgName = orgName;
 	}
-
 
 	public String getSaveName() {
 		return saveName;
 	}
 
-
 	public void setSaveName(String saveName) {
 		this.saveName = saveName;
 	}
-
 
 	public long getFileSize() {
 		return fileSize;
 	}
 
-
 	public void setFileSize(long fileSize) {
 		this.fileSize = fileSize;
 	}
-
 
 	public int getRecord_no() {
 		return record_no;
 	}
 
-
 	public void setRecord_no(int record_no) {
 		this.record_no = record_no;
 	}
-
 
 	public int getCourse_no() {
 		return course_no;
 	}
 
-
 	public void setCourse_no(int course_no) {
 		this.course_no = course_no;
 	}
-
 
 	public String getRecord_date() {
 		return record_date;
 	}
 
-
 	public void setRecord_date(String record_date) {
 		this.record_date = record_date;
 	}
-
 
 	public String getRecord_time() {
 		return record_time;
 	}
 
-
 	public void setRecord_time(String record_time) {
 		this.record_time = record_time;
 	}
-
 
 	public double getRecord_length() {
 		return record_length;
 	}
 
-
 	public void setRecord_length(double record_length) {
 		this.record_length = record_length;
 	}
-
 
 	public int getRecord_kcal() {
 		return record_kcal;
 	}
 
-
 	public void setRecord_kcal(int record_kcal) {
 		this.record_kcal = record_kcal;
 	}
-
 
 	public String getRecord_vibe() {
 		return record_vibe;
 	}
 
-
 	public void setRecord_vibe(String record_vibe) {
 		this.record_vibe = record_vibe;
 	}
-
 
 	public String getRecord_memo() {
 		return record_memo;
 	}
 
-
 	public void setRecord_memo(String record_memo) {
 		this.record_memo = record_memo;
 	}
-
 
 	public int getRecord_point_no() {
 		return record_point_no;
 	}
 
-
 	public void setRecord_point_no(int record_point_no) {
 		this.record_point_no = record_point_no;
 	}
-
 
 	public double getRecord_latitude() {
 		return record_latitude;
 	}
 
-
 	public void setRecord_latitude(double record_latitude) {
 		this.record_latitude = record_latitude;
 	}
-
 
 	public double getRecord_longitude() {
 		return record_longitude;
 	}
 
-
 	public void setRecord_longitude(double record_longitude) {
 		this.record_longitude = record_longitude;
 	}
-
 
 	public String getRecord_division() {
 		return record_division;
 	}
 
-
 	public void setRecord_division(String record_division) {
 		this.record_division = record_division;
 	}
-
 
 	public String getRecord_order() {
 		return record_order;
 	}
 
-
 	public void setRecord_order(String record_order) {
 		this.record_order = record_order;
 	}
-
 
 	public int getCourse_point_no() {
 		return course_point_no;
 	}
 
-
 	public void setCourse_point_no(int course_point_no) {
 		this.course_point_no = course_point_no;
 	}
-
 
 	public double getCourse_latitude() {
 		return course_latitude;
 	}
 
-
 	public void setCourse_latitude(double course_latitude) {
 		this.course_latitude = course_latitude;
 	}
-
 
 	public double getCourse_longitude() {
 		return course_longitude;
 	}
 
-
 	public void setCourse_longitude(double course_longitude) {
 		this.course_longitude = course_longitude;
 	}
-
 
 	public int getCourse_order() {
 		return course_order;
 	}
 
-
 	public void setCourse_order(int course_order) {
 		this.course_order = course_order;
 	}
-
 
 	public String getCourse_division() {
 		return course_division;
 	}
 
-
 	public void setCourse_division(String course_division) {
 		this.course_division = course_division;
 	}
-
 
 	public int getPerson_no() {
 		return person_no;
@@ -596,209 +551,122 @@ public class KsbVo {
 	public void setChallenge_explanation(String challenge_explanation) {
 		this.challenge_explanation = challenge_explanation;
 	}
-	
-	
 
 	public int getSmall_gathering_no() {
 		return small_gathering_no;
 	}
 
-
-
-
 	public void setSmall_gathering_no(int small_gathering_no) {
 		this.small_gathering_no = small_gathering_no;
 	}
-
-
-
 
 	public String getSmall_gathering_name() {
 		return small_gathering_name;
 	}
 
-
-
-
 	public void setSmall_gathering_name(String small_gathering_name) {
 		this.small_gathering_name = small_gathering_name;
 	}
-
-
-
 
 	public String getSmall_gathering_host_name() {
 		return small_gathering_host_name;
 	}
 
-
-
-
 	public void setSmall_gathering_host_name(String small_gathering_host_name) {
 		this.small_gathering_host_name = small_gathering_host_name;
 	}
-
-
-
 
 	public int getSmall_gathering_total_personnel() {
 		return small_gathering_total_personnel;
 	}
 
-
-
-
 	public void setSmall_gathering_total_personnel(int small_gathering_total_personnel) {
 		this.small_gathering_total_personnel = small_gathering_total_personnel;
 	}
-
-
-
 
 	public String getSmall_gathering_date() {
 		return small_gathering_date;
 	}
 
-
-
-
 	public void setSmall_gathering_date(String small_gathering_date) {
 		this.small_gathering_date = small_gathering_date;
 	}
-
-
-
 
 	public String getSmall_gathering_deadline() {
 		return small_gathering_deadline;
 	}
 
-
-
-
 	public void setSmall_gathering_deadline(String small_gathering_deadline) {
 		this.small_gathering_deadline = small_gathering_deadline;
 	}
-
-
-
 
 	public String getSmall_gathering_region() {
 		return small_gathering_region;
 	}
 
-
-
-
 	public void setSmall_gathering_region(String small_gathering_region) {
 		this.small_gathering_region = small_gathering_region;
 	}
-
-
-
 
 	public String getSmall_gathering_saveName() {
 		return small_gathering_saveName;
 	}
 
-
-
-
 	public void setSmall_gathering_saveName(String small_gathering_saveName) {
 		this.small_gathering_saveName = small_gathering_saveName;
 	}
-
-
-
 
 	public String getSmall_gathering_information() {
 		return small_gathering_information;
 	}
 
-
-
-
 	public void setSmall_gathering_information(String small_gathering_information) {
 		this.small_gathering_information = small_gathering_information;
 	}
-
-
-
 
 	public String getSmall_gathering_gender_limit() {
 		return small_gathering_gender_limit;
 	}
 
-
-
-
 	public void setSmall_gathering_gender_limit(String small_gathering_gender_limit) {
 		this.small_gathering_gender_limit = small_gathering_gender_limit;
 	}
-
-
-
 
 	public String getSmall_gathering_age_limit() {
 		return small_gathering_age_limit;
 	}
 
-
-
-
 	public void setSmall_gathering_age_limit(String small_gathering_age_limit) {
 		this.small_gathering_age_limit = small_gathering_age_limit;
 	}
-
-
-
 
 	public String getSmall_gathering_hp() {
 		return small_gathering_hp;
 	}
 
-
-
-
 	public void setSmall_gathering_hp(String small_gathering_hp) {
 		this.small_gathering_hp = small_gathering_hp;
 	}
-
-
-
 
 	public String getSmall_gathering_filePath() {
 		return small_gathering_filePath;
 	}
 
-
-
-
 	public void setSmall_gathering_filePath(String small_gathering_filePath) {
 		this.small_gathering_filePath = small_gathering_filePath;
 	}
-
-
-
 
 	public String getSmall_gathering_orgName() {
 		return small_gathering_orgName;
 	}
 
-
-
-
 	public void setSmall_gathering_orgName(String small_gathering_orgName) {
 		this.small_gathering_orgName = small_gathering_orgName;
 	}
 
-
-
-
 	public long getSmall_gathering_listcol() {
 		return small_gathering_listcol;
 	}
-
 
 	public void setSmall_gathering_listcol(long small_gathering_listcol) {
 		this.small_gathering_listcol = small_gathering_listcol;
@@ -849,10 +717,4 @@ public class KsbVo {
 				+ small_gathering_listcol + ", small_gathering_exName=" + small_gathering_exName + "]";
 	}
 
-	
-	
-	
-	
-
-	
 }
