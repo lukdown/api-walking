@@ -168,42 +168,26 @@ public class LebController {
 		}
 	}
 	
-	//RecordDraw: 코스 데이터 넣기(좌표 제외)
+	//RecordDraw: 산책 데이터 넣기(좌표 제외)
 		@PostMapping("/api/walking/recorddraw")
-		public JsonResult recordDraw(@RequestBody KsbVo recordVo, HttpServletRequest request) {
+		public JsonResult recordDraw(@RequestBody KsbVo recordVo) {
 			System.out.println("LebController.recordDraw()");
 			System.out.println(recordVo);
-			int no = JwtUtil.getNoFromHeader(request);
 
-			if (no != -1) {
-				recordVo.setUsers_no(no);
-				System.out.println(recordVo.getUsers_no());
-				lebService.exeRecordeDraw(recordVo);
-				
-				return JsonResult.success(recordVo.getRecord_no());
-			} else {
-				// 토큰이 없거나(로그인상태아님), 변조된 경우
-
-				return JsonResult.fail("로그인상태아님");
-			}
-		}
-		
-		//RecordPointDraw: 코스 좌표 넣기
-		@PostMapping("/api/walking/recordpointdraw")
-		public JsonResult recordPointDraw(@RequestBody List<KsbVo> pointList, HttpServletRequest request) {
-			System.out.println("LebController.recordPointDraw()");
+			lebService.exeRecordeDraw(recordVo);
 			
-			int no = JwtUtil.getNoFromHeader(request);
+			return JsonResult.success(recordVo.getRecord_no());
+		} 
+		
+		
+		//RecordPointDraw: 산책 좌표 넣기
+		@PostMapping("/api/walking/recordpointdraw")
+		public JsonResult recordPointDraw(@RequestBody List<KsbVo> pointList) {
+			System.out.println("LebController.recordPointDraw()");
+		
+			System.out.println(pointList);
+			int result = lebService.exeRecordPointDraw(pointList);
 
-			if (no != -1) {
-				System.out.println(pointList);
-				int result = lebService.exeRecordPointDraw(pointList);
-
-				return JsonResult.success(result);
-			} else {
-				// 토큰이 없거나(로그인상태아님), 변조된 경우
-
-				return JsonResult.fail("로그인상태아님");
-			}
+			return JsonResult.success(result);
 		}
 }
