@@ -21,6 +21,7 @@ import com.javaex.dao.PjhDao;
 import com.javaex.vo.GoogleToken;
 import com.javaex.vo.KakaoToken;
 import com.javaex.vo.PjhVo;
+import com.javaex.vo.YysVo;
 
 @Service
 public class PjhService {
@@ -408,8 +409,28 @@ public class PjhService {
 	public PjhVo exegetSmallGatheringDetailData(int smallgatheringno) {
 		System.out.println("PjhService.exegetSmallGatheringDetailData()");
 
-		PjhVo smallgatheringVo = pjhDao.getSmallGatheringDetail(smallgatheringno);
-
-		return smallgatheringVo;
+		PjhVo sVo = pjhDao.getSmallGatheringDetail(smallgatheringno);
+		
+		int count = pjhDao.getSmallGatheringCount(smallgatheringno);
+		
+		sVo.setApplication_no_count(count);
+		
+		//System.out.println(count);
+		
+		//return null;
+		return sVo;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

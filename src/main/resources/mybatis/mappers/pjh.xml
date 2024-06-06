@@ -110,24 +110,20 @@
 	<!-- 소모임 읽기페이지 -->
 	<select id="SmallGatheringDetail" parameterType="int" resultType="PjhVo">
 		<![CDATA[ 
-			select s.small_gathering_no,
-				   s.users_no,
-			       s.course_no,
-			       s.small_gathering_name,
-			       s.small_gathering_host_name,
-			       s.small_gathering_hp,
-			       s.small_gathering_total_personnel,
-			       s.small_gathering_date,
-			       s.small_gathering_deadline,
-			       s.small_gathering_information,
-			       s.small_gathering_region,
-			       s.small_gathering_gender_limit,
-			       s.small_gathering_age_limit,
-			       s.small_gathering_saveName,
-			       c.course_name
-			from small_gathering_list s, course_list c
-			where s.course_no = c.course_no
-			and s.small_gathering_no = #{smallgatheringno}
+			select sgl.*,
+				   cl.course_name
+			from small_gathering_list sgl
+			left join course_list cl on sgl.course_no = cl.course_no
+			where sgl.small_gathering_no = #{smallgatheringno}
+		]]>
+	</select>
+	
+	<!-- 소모임 신청카운터 -->
+	<select id="SmallGatheringCount" parameterType="int" resultType="int">
+		<![CDATA[ 
+			select count(*)
+			from small_group_application
+			where small_gathering_no = #{small_gathering_no}
 		]]>
 	</select>
 	

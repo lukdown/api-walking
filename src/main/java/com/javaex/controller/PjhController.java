@@ -448,7 +448,7 @@ public class PjhController {
 			System.out.println("PjhController.getSmallGatheringDetailData()");
 			
 			PjhVo smallgatheringVo = pjhService.exegetSmallGatheringDetailData(smallgatheringno);
-			
+			System.out.println(smallgatheringVo);
 			
 			return JsonResult.success(smallgatheringVo);
 		}

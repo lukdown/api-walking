@@ -37,6 +37,8 @@ public class PjhVo {
 	private String small_gathering_age_limit;
 	private String small_gathering_saveName;
 	private String course_name;
+	
+	private int application_no_count;
 
 	// 생성자
 	public PjhVo() {
@@ -51,7 +53,8 @@ public class PjhVo {
 			int course_no, String small_gathering_name, String small_gathering_host_name, String small_gathering_hp,
 			int small_gathering_total_personnel, String small_gathering_date, String small_gathering_deadline,
 			String small_gathering_information, String small_gathering_region, String small_gathering_gender_limit,
-			String small_gathering_age_limit, String small_gathering_saveName, String course_name) {
+			String small_gathering_age_limit, String small_gathering_saveName, String course_name,
+			int application_no_count) {
 		super();
 		this.users_no = users_no;
 		this.users_id = users_id;
@@ -87,9 +90,19 @@ public class PjhVo {
 		this.small_gathering_age_limit = small_gathering_age_limit;
 		this.small_gathering_saveName = small_gathering_saveName;
 		this.course_name = course_name;
+		this.application_no_count = application_no_count;
 	}
 
+
 	// 메소드 - g/s
+	public int getApplication_no_count() {
+		return application_no_count;
+	}
+
+	public void setApplication_no_count(int application_no_count) {
+		this.application_no_count = application_no_count;
+	}
+	
 	public int getUsers_no() {
 		return users_no;
 	}
@@ -362,7 +375,6 @@ public class PjhVo {
 		this.course_name = course_name;
 	}
 
-	// 메소드 - 일반
 	@Override
 	public String toString() {
 		return "PjhVo [users_no=" + users_no + ", users_id=" + users_id + ", users_pw=" + users_pw + ", users_name="
@@ -381,7 +393,11 @@ public class PjhVo {
 				+ ", small_gathering_information=" + small_gathering_information + ", small_gathering_region="
 				+ small_gathering_region + ", small_gathering_gender_limit=" + small_gathering_gender_limit
 				+ ", small_gathering_age_limit=" + small_gathering_age_limit + ", small_gathering_saveName="
-				+ small_gathering_saveName + ", course_name=" + course_name + "]";
+				+ small_gathering_saveName + ", course_name=" + course_name + ", application_no_count="
+				+ application_no_count + "]";
 	}
+
+	// 메소드 - 일반
+	
 
 }
