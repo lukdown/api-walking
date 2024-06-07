@@ -13,6 +13,7 @@
 		       ul.users_nickname,
 		       ul.users_saveName,
 		       ch.challenge_name,
+		       ch.saveName,
 		       re.record_date,
 		       cl.course_no,
 		       cl.course_name,
@@ -25,7 +26,7 @@
 		left join users_list ul on gl.users_no = ul.users_no
 		left join (select record_date, course_no from record) re on re.course_no = gl.course_no
 		left join (select course_no, course_name, course_region, course_length, course_time, course_difficulty from course_list) cl on cl.course_no = gl.course_no
-		left join (select cp.users_no, ch.challenge_name FROM challenge_person cp 
+		left join (select cp.users_no, ch.challenge_name, ch.saveName FROM challenge_person cp 
      				left join challenge ch ON cp.challenge_no = ch.challenge_no) ch ON ch.users_no = gl.users_no
      	left join (select gallery_no, COUNT(*) AS like_count FROM gallery_like 
         			GROUP BY gallery_no
@@ -45,6 +46,7 @@
 		       ul.users_nickname,
 		       ul.users_saveName,
 		       ch.challenge_name,
+		       ch.saveName,
 		       re.record_date,
 		       cl.course_no,
 		       cl.course_name,
@@ -68,7 +70,7 @@
 		    FROM course_list
 		) cl ON cl.course_no = gl.course_no
 		LEFT JOIN (
-		    SELECT cp.users_no, ch.challenge_name 
+		    SELECT cp.users_no, ch.challenge_name, ch.saveName 
 		    FROM challenge_person cp 
 		    LEFT JOIN challenge ch ON cp.challenge_no = ch.challenge_no
 		) ch ON ch.users_no = gl.users_no
@@ -94,6 +96,7 @@
 		       ul.users_nickname,
 		       ul.users_saveName,
 		       ch.challenge_name,
+		       ch.saveName,
 		       re.record_date,
 		       cl.course_no,
 		       cl.course_name,
@@ -113,7 +116,7 @@
 		    FROM course_list
 		) cl ON cl.course_no = gl.course_no
 		LEFT JOIN (
-		    SELECT cp.users_no, ch.challenge_name 
+		    SELECT cp.users_no, ch.challenge_name, ch.saveName 
 		    FROM challenge_person cp 
 		    LEFT JOIN challenge ch ON cp.challenge_no = ch.challenge_no
 		) ch ON ch.users_no = gl.users_no
