@@ -16,6 +16,22 @@ public class KsbDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//도전과제 사진 등록하기
+	public int challengeUpdate(KsbVo ksbVo) {
+		System.out.println("ksbDao.challengeUpdate()");
+		
+		return sqlSession.update("ksb.challengeUpdate", ksbVo);
+	}
+
+	//도전과제 리스트 가져오기
+	public List<KsbVo> achievementList() {
+		System.out.println("KsbDao.achievementList()");
+		List<KsbVo> achievementList = sqlSession.selectList("ksb.achievementList");
+		System.out.println(achievementList);
+		
+		return achievementList;
+	}
+
 	
 	//즐겨찾기 갯수 구하기
 	public int getFavCount(int no) {

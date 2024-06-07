@@ -23,6 +23,73 @@ public class KsbService {
 
 	// 수빈이꺼
 	
+	//도전과제 사진 등록하기
+	// 프로필 사진 업데이트
+	public void exechallengeUpdate(int challenge_no, MultipartFile file) {
+		// System.out.println("ksbService.exeProfileUpdate");
+
+		// 파일저장 폴더
+		String saveDir = "C:\\javaStudy\\upload";
+
+		// (0)파일관련 정보수집
+		// 오리지날 파일명
+		String orgName = file.getOriginalFilename();
+		System.out.println("orgName:" + orgName);
+
+		// 확장자
+		String exName = orgName.substring(orgName.lastIndexOf("."));
+		System.out.println("exName:" + exName);
+
+		// 저장 파일명(겹치지 않아야 한다)
+		String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
+		System.out.println("saveName:" + saveName);
+
+		// 파일 사이즈
+		long fileSize = file.getSize();
+		System.out.println("fileSize:" + fileSize);
+
+		// 파일 전체 경로(저장파일명 포함)
+		String filePath = saveDir + "\\" + saveName;
+		System.out.println("filePath:" + filePath);
+
+		// (1)파일정보를 DB에 저장
+		// *vo묶어주고
+
+		KsbVo ksbVo = new KsbVo(challenge_no, saveName, orgName, fileSize, filePath);
+		System.out.println(ksbVo);
+
+		// *db에 저장
+		System.out.println("");
+		ksbDao.challengeUpdate(ksbVo);
+
+		// (2)파일을 하드디스크에 저장
+
+		// 파일 저장
+		try {
+			byte[] fileData = file.getBytes();
+
+			OutputStream os = new FileOutputStream(filePath);
+			BufferedOutputStream bos = new BufferedOutputStream(os);
+
+			bos.write(fileData);
+			bos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		;
+
+	}
+	
+	
+	//도전과제 리스트 가져오기
+	public List<KsbVo> exeAchievementList() {
+		 System.out.println("ksbService.exeachievementList()");
+
+		List<KsbVo> achievementList = ksbDao.achievementList();
+
+		return achievementList;
+	}
+	
 	// 즐겨찾기 갯수 구하기
 		public int exegetFavCount(int no) {
 			System.out.println("ksbService.exeTotalWalk()");

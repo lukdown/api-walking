@@ -28,6 +28,26 @@ public class KsbController {
 	@Autowired
 	private KsbService ksbService;
 	
+	// 도전과제 사진 업데이트
+	@PutMapping("/api/walking/addgathering")
+	public JsonResult challengeUpdate(@RequestParam int challenge_no, @RequestParam MultipartFile file) {
+		System.out.println("KsbController.exechallengeUpdate()");
+
+		ksbService.exechallengeUpdate(challenge_no, file);
+
+		return JsonResult.success("성공");
+	}
+	
+	//도전과제 리스트 가져오기
+	@PostMapping("/api/gathering/getAchievementList")
+	public JsonResult achievementList(HttpServletRequest request) {
+		System.out.println("KsbController.achievementList()");
+		
+		List<KsbVo> achievementList = ksbService.exeAchievementList();
+		
+		return JsonResult.success(achievementList);
+	}
+	
 	//즐겨찾기 개수 구하기
 	@GetMapping("/api/walking/getfavcount")
 	public JsonResult getFavCount(HttpServletRequest request) {
