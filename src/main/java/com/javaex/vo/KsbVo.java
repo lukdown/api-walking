@@ -35,7 +35,7 @@ public class KsbVo {
 	private double record_latitude;
 	private double record_longitude;
 	private String record_division;
-	private String record_order;
+	private int record_order;
 
 	// 코스포인트
 
@@ -83,7 +83,7 @@ public class KsbVo {
 			String orgName, String saveName, long fileSize, int record_no, int course_no, String course_name,
 			String record_date, String record_time, double record_length, int record_kcal, String record_vibe,
 			String record_memo, int record_point_no, double record_latitude, double record_longitude,
-			String record_division, String record_order, int course_point_no, double course_latitude,
+			String record_division, int record_order, int course_point_no, double course_latitude,
 			double course_longitude, int course_order, String course_division, int person_no, int challenge_no,
 			String challenge_name, String challenge_filePath, String challenge_orgName, String challenge_saveName,
 			long challenge_fileSize, String challenge_explanation, int small_gathering_no, String small_gathering_name,
@@ -440,11 +440,11 @@ public class KsbVo {
 		this.record_division = record_division;
 	}
 
-	public String getRecord_order() {
+	public int getRecord_order() {
 		return record_order;
 	}
 
-	public void setRecord_order(String record_order) {
+	public void setRecord_order(int record_order) {
 		this.record_order = record_order;
 	}
 

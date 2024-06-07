@@ -9,15 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.javaex.service.LebService;
 import com.javaex.service.PjhService;
 import com.javaex.util.JsonResult;
 import com.javaex.util.JwtUtil;
-import com.javaex.vo.KsbVo;
 import com.javaex.vo.LebVo;
+import com.javaex.vo.LebVo2;
 import com.javaex.vo.PjhVo;
+import com.javaex.vo.YysVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -168,26 +170,27 @@ public class LebController {
 		}
 	}
 	
-	//RecordDraw: 산책 데이터 넣기(좌표 제외)
+	// 코스포인트 리스트
+		@PostMapping(value = "/api/walking/coursebook/point/{course_no}")
+		public JsonResult mappointlist(@RequestParam int course_no) {
+			System.out.println("YysController.mappointlist()");
+			// System.out.println(yysVo);
+
+			List<YysVo> coursepointList = lebService.exeCoursePointList(course_no);
+
+			System.out.println(coursepointList);
+			return JsonResult.success(coursepointList);
+			// return null;
+		}
+	
+	//RecordDraw: 산책기록 데이터 넣기
 		@PostMapping("/api/walking/recorddraw")
-		public JsonResult recordDraw(@RequestBody KsbVo recordVo) {
+		public JsonResult recordDraw(@RequestBody LebVo2 recordRequestVo) {
 			System.out.println("LebController.recordDraw()");
-			System.out.println(recordVo);
+			System.out.println(recordRequestVo);
 
-			lebService.exeRecordeDraw(recordVo);
-			
-			return JsonResult.success(recordVo.getRecord_no());
-		} 
-		
-		
-		//RecordPointDraw: 산책 좌표 넣기
-		@PostMapping("/api/walking/recordpointdraw")
-		public JsonResult recordPointDraw(@RequestBody List<KsbVo> pointList) {
-			System.out.println("LebController.recordPointDraw()");
-		
-			System.out.println(pointList);
-			int result = lebService.exeRecordPointDraw(pointList);
+			lebService.exeRecordeDraw(recordRequestVo);
 
-			return JsonResult.success(result);
+			return JsonResult.success("성공");
 		}
 }

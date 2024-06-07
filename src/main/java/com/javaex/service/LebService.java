@@ -15,11 +15,13 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javaex.dao.LebDao;
-import com.javaex.vo.KakaoToken;
 import com.javaex.vo.KsbVo;
 import com.javaex.vo.LebVo;
+import com.javaex.vo.LebVo2;
+import com.javaex.vo.LebVo3;
 import com.javaex.vo.NaverTokenVo;
 import com.javaex.vo.PjhVo;
+import com.javaex.vo.YysVo;
 
 @Service
 public class LebService {
@@ -214,6 +216,17 @@ public class LebService {
 		return result;
 	}
 	
+	// 코스 포인트 리스트 가져오기
+		public List<YysVo> exeCoursePointList(int course_no) {
+			System.out.println("YysService.exeCoursePointList()");
+
+			List<YysVo> coursepointList = lebDao.coursepointList(course_no);
+
+			// System.out.println(coursebookList);
+
+			return coursepointList;
+		}
+	
 	public int exeCoursePointDraw(List<LebVo> pointList) {
 		System.out.println("lebService.exeCoursePointDraw()");
 		for(int i=0; i<pointList.size(); i++) {
@@ -222,20 +235,28 @@ public class LebService {
 		return 0;
 	}
 	
-	public int exeRecordeDraw(KsbVo courseVo) {
+	public int exeRecordeDraw(LebVo2 recordRequestVo) {
 		System.out.println("lebService.exeCourseDraw()");
-		int result = lebDao.recordDraw(courseVo);
-		System.out.println(result);
-		return result;
+
+		//Record
+		KsbVo recordVo = recordRequestVo.getRecordVo();
+		lebDao.recordDraw(recordVo);
+		
+		//Record_Point
+
+		List<LebVo3> pointList = recordRequestVo.getRecordPointList();
+	
+		for(int i=0; i<pointList.size(); i++) {
+			LebVo3 pointVo = pointList.get(i);
+			pointVo.setRecord_no(recordVo.getRecord_no());
+			pointVo.setRecord_order(i+1);
+			lebDao.recordPointDraw(pointVo);
+		}
+		
+		return 1;
 	}
 	
-	public int exeRecordPointDraw(List<KsbVo> pointList) {
-		System.out.println("lebService.exeCoursePointDraw()");
-		for(int i=0; i<pointList.size(); i++) {
-			lebDao.recordPointDraw(pointList.get(i));
-		}
-		return 0;
-	}
+
 	
 
 }
