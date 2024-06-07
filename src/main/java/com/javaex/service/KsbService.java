@@ -23,9 +23,18 @@ public class KsbService {
 
 	// 수빈이꺼
 	
+	// 즐겨찾기 갯수 구하기
+		public int exegetFavCount(int no) {
+			System.out.println("ksbService.exeTotalWalk()");
+
+			int FavCount = ksbDao.getFavCount(no);
+
+			return FavCount;
+		}
+	
 	//대표 도전과제 가져오기
 	public KsbVo exeGetChallengeDaepyo(int no) {
-		System.out.println("ksbService.exeGetChallengeDaepyo()");
+		//System.out.println("ksbService.exeGetChallengeDaepyo()");
 		
 		KsbVo daepyoInfo = ksbDao.getChallengeDaepyo(no);
 		
@@ -267,10 +276,10 @@ public class KsbService {
 	}
 
 	// 스티커 바꾸기
-	public int exeChallengeUpdate(int no, KsbVo ksbVo) {
+	public int exeChallengeUpdate(KsbVo ksbVo) {
 		System.out.println("ksbDao.exeChallengeUpdate()");
 
-		return ksbDao.ChallengeUpdate(no, ksbVo);
+		return ksbDao.ChallengeUpdate(ksbVo);
 	}
 
 	// 스티커 리스트 가져오기

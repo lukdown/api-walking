@@ -28,14 +28,30 @@ public class KsbController {
 	@Autowired
 	private KsbService ksbService;
 	
+	//즐겨찾기 개수 구하기
+	@GetMapping("/api/walking/getfavcount")
+	public JsonResult getFavCount(HttpServletRequest request) {
+		
+		System.out.println("ksbController.totalWalk()");
+		
+		int no = JwtUtil.getNoFromHeader(request);
+		
+		int favCount = ksbService.exegetFavCount(no);
+		
+		return JsonResult.success(favCount);
+	}
+	
 	//대표 도전과제 가져오기
 	@GetMapping("/api/walking/getchallengedaepyo")
 	public JsonResult getChallengeDaepyo(HttpServletRequest request) {
-		System.out.println("ksbController.getChallengeDaepyo()");
+		//System.out.println("ksbController.getChallengeDaepyo()");
 		
 		int no = JwtUtil.getNoFromHeader(request);
 		KsbVo daepyoInfo = ksbService.exeGetChallengeDaepyo(no);
 		
+		
+		System.out.println("-----------");
+		System.out.println(daepyoInfo);
 		return JsonResult.success(daepyoInfo);
 	}
 	
@@ -150,7 +166,8 @@ public class KsbController {
 	    int no = JwtUtil.getNoFromHeader(request);
 	    System.out.println(no);
 	    System.out.println(ksbVo);
-	    ksbService.exeChallengeUpdate(no, ksbVo);
+	    ksbVo.setUsers_no(no);
+	    ksbService.exeChallengeUpdate(ksbVo);
 	    
 	    return JsonResult.success("성공");
 	}

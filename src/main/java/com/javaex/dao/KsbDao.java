@@ -16,12 +16,22 @@ public class KsbDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
+	//즐겨찾기 갯수 구하기
+	public int getFavCount(int no) {
+		System.out.println("ksbDao.totalWalk()");
+		
+		int FavCount = sqlSession.selectOne("ksb.FavCount", no);
+		System.out.println(FavCount);
+		return FavCount;
+	}
+
 	//도전과제 번호로 도전과제 이름 가져오기
 	public KsbVo getChallengeDaepyo(int no) {
-		System.out.println("ksbDao.getChallengeDaepyo()");
+		//System.out.println("ksbDao.getChallengeDaepyo()");
 		
 		KsbVo daepyoInfo = sqlSession.selectOne("ksb.getChallengeDaepyo", no);
-		System.out.println("대표 도전과제 이름: "+ daepyoInfo);
+		//System.out.println("대표 도전과제 이름: "+ daepyoInfo);
 		
 		return daepyoInfo;
 	}
@@ -93,10 +103,15 @@ public class KsbDao {
 		}
 	
 	//스티커 바꾸기
-	public int ChallengeUpdate(int no, KsbVo ksbVo) {
+	public int ChallengeUpdate(KsbVo ksbVo) {
 		System.out.println("ksbDao.ChallengeUpdate()");
 		
-		return sqlSession.update("ksb.ChallengeUpdate", ksbVo);
+		int count = sqlSession.update("ksb.SetChallengeDaepyoToOne", ksbVo);
+		int count2 = sqlSession.update("ksb.ResetOtherChallengeDaepyo", ksbVo);
+		System.out.println(ksbVo);
+		System.out.println(count);
+		System.out.println(count2);
+		return count2;
 	}
 	
 	//스티커 리스트 가져오기

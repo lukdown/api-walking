@@ -159,14 +159,22 @@
 		]]>
 	</select>
 
-	<!-- 스티커 바꾸기 -->
-	<update id="ChallengeUpdate" parameterType="int">
-		<![CDATA[
-			update challenge_person
-			set challenge_daepyo = 1
-			where users_no = #{users_no}
-            and challenge_no = #{challenge_no}
-		]]>
+	<update id="SetChallengeDaepyoToOne" parameterType="ksbVo">
+	    <![CDATA[
+	        update challenge_person
+	        set challenge_daepyo = 1
+	        where challenge_no = #{challenge_no}
+	        and users_no = #{users_no};
+	    ]]>
+	</update>
+	
+	<update id="ResetOtherChallengeDaepyo" parameterType="ksbVo">
+	    <![CDATA[
+	        update challenge_person
+	        set challenge_daepyo = 0
+	        where users_no = #{users_no}
+	        and challenge_no != #{challenge_no};
+	    ]]>
 	</update>
 
 	<!-- 소모임 리스트 가져오기 -->
@@ -237,7 +245,7 @@
 		order by gl.small_gathering_no desc	 
 			limit #{startRowNo}, #{listCnt}
 		]]>
-		
+
 	</select>
 
 	<!-- 소모임 리스트 전체 글갯수 -->
@@ -252,7 +260,7 @@
 		]]>
 		</if>
 	</select>
-	
+
 	<!-- 코스 리스트 가져오기 -->
 	<select id="courseList" resultType="KsbVo">
 		<![CDATA[
@@ -261,7 +269,7 @@
 			from course_list
 		]]>
 	</select>
-	
+
 	<!-- 소모임 등록하기 -->
 	<select id="addGathering" parameterType="KsbVo">
 		<![CDATA[
@@ -272,7 +280,7 @@
 				  #{small_gathering_saveName}, #{small_gathering_listcol} )
 		]]>
 	</select>
-	
+
 	<!-- 소모임 1개 가져오기 -->
 	<select id="selectGathering" parameterType="int" resultType="KsbVo">
 		<![CDATA[
@@ -295,7 +303,7 @@
 		
 		]]>
 	</select>
-	
+
 	<!-- 소모임 수정하기 -->
 	<select id="gatheringModify" parameterType="KsbVo">
 		<![CDATA[
@@ -322,7 +330,7 @@
 		
 		]]>
 	</select>
-	
+
 	<!-- 대표 도전과제 이름 가져오기 -->
 	<select id="getChallengeDaepyo" parameterType="int" resultType="KsbVo">
 		<![CDATA[
@@ -337,7 +345,13 @@
 			    AND cp.challenge_daepyo = 1			
 		]]>
 	</select>
-	
-	
-	
+
+	<!-- 즐겨찾기 갯수 구하기 -->
+	<select id="FavCount" parameterType="int" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) 
+			FROM course_favorites 
+			WHERE users_no = #{users_no}
+		]]>
+	</select>
 </mapper>
