@@ -148,7 +148,7 @@ public class YysDao {
 	public int viewmodify(YysVo yysVo) {
 		System.out.println("YysDao.viewmodify()");
 
-		int count = sqlSession.insert("yys.viewmodify", yysVo);
+		int count = sqlSession.update("yys.viewmodify", yysVo);
 		return count;
 	}
 

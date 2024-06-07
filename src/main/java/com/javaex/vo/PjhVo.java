@@ -42,7 +42,11 @@ public class PjhVo {
 	private int login_users_no;
 	private int is_application;
 	
-
+	private int application_division;
+	private String application_date;
+	private int category;
+	
+	
 	// 생성자
 	public PjhVo() {
 		super();
@@ -57,7 +61,8 @@ public class PjhVo {
 			int small_gathering_total_personnel, String small_gathering_date, String small_gathering_deadline,
 			String small_gathering_information, String small_gathering_region, String small_gathering_gender_limit,
 			String small_gathering_age_limit, String small_gathering_saveName, String course_name,
-			int application_no_count, int login_users_no, int is_application) {
+			int application_no_count, int login_users_no, int is_application, int application_division,
+			String application_date, int category) {
 		super();
 		this.users_no = users_no;
 		this.users_id = users_id;
@@ -96,6 +101,9 @@ public class PjhVo {
 		this.application_no_count = application_no_count;
 		this.login_users_no = login_users_no;
 		this.is_application = is_application;
+		this.application_division = application_division;
+		this.application_date = application_date;
+		this.category = category;
 	}
 
 
@@ -105,6 +113,30 @@ public class PjhVo {
 	
 	public int getIs_application() {
 		return is_application;
+	}
+
+	public int getCategory() {
+		return category;
+	}
+
+	public void setCategory(int category) {
+		this.category = category;
+	}
+
+	public int getApplication_division() {
+		return application_division;
+	}
+
+	public void setApplication_division(int application_division) {
+		this.application_division = application_division;
+	}
+
+	public String getApplication_date() {
+		return application_date;
+	}
+
+	public void setApplication_date(String application_date) {
+		this.application_date = application_date;
 	}
 
 	public void setIs_application(int is_application) {
@@ -399,7 +431,6 @@ public class PjhVo {
 		this.course_name = course_name;
 	}
 
-	// 메소드 - 일반
 	@Override
 	public String toString() {
 		return "PjhVo [users_no=" + users_no + ", users_id=" + users_id + ", users_pw=" + users_pw + ", users_name="
@@ -420,9 +451,9 @@ public class PjhVo {
 				+ ", small_gathering_age_limit=" + small_gathering_age_limit + ", small_gathering_saveName="
 				+ small_gathering_saveName + ", course_name=" + course_name + ", application_no_count="
 				+ application_no_count + ", login_users_no=" + login_users_no + ", is_application=" + is_application
-				+ "]";
+				+ ", application_division=" + application_division + ", application_date=" + application_date
+				+ ", category=" + category + "]";
 	}
-	
 
 	
 	

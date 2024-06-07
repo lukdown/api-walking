@@ -448,7 +448,7 @@ public class PjhController {
 			HttpServletRequest request) {
 		System.out.println("PjhController.getSmallGatheringDetailData()");
 		int login_users_no = JwtUtil.getNoFromHeader(request);
-		//System.out.println(login_users_no);
+		// System.out.println(login_users_no);
 
 		PjhVo smallgatheringVo = pjhService.exegetSmallGatheringDetailData(smallgatheringno, login_users_no);
 		System.out.println(smallgatheringVo);
@@ -489,6 +489,31 @@ public class PjhController {
 		System.out.println(pjhVo);
 
 		int count = pjhService.exeapplicationdelete(pjhVo);
+		// System.out.println(guestVo);
+
+		return count;
+		// return 0;
+	}
+
+	// 소모임 신청 리스트
+	@PostMapping("/api/walking/small_app_list")
+	public JsonResult small_app_List(@RequestBody PjhVo pjhVo) {
+		System.out.println("PjhController.small_app_List()");
+
+		// System.out.println(pjhVo);
+		List<PjhVo> s_l_List = pjhService.exeSmall_app_List(pjhVo.getSmall_gathering_no());
+
+		return JsonResult.success(s_l_List);
+		// return JsonResult.success(null);
+	}
+
+	// 소모임 신청 수락
+	@PutMapping(value = "/api/walking/small_app_modify")
+	public int small_app_modify(@RequestBody PjhVo pjhVo) {
+		System.out.println("PjhController.small_app_modify()");
+		// System.out.println(yysVo);
+
+		int count = pjhService.exeSmall_app_modify(pjhVo);
 		// System.out.println(guestVo);
 
 		return count;

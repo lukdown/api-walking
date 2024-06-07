@@ -295,7 +295,7 @@
 		]]>
 	</delete>
 	
-	<!-- 좋아요 등록 -->
+	<!-- 조회수 등록 -->
    <update id="viewmodify" parameterType="YysVo">
       <![CDATA[   
           	update course_list

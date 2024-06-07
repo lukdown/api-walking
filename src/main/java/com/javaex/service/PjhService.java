@@ -453,4 +453,22 @@ public class PjhService {
 		return count;
 	}
 
+	// 소모임 신청 리스트
+	public List<PjhVo> exeSmall_app_List(int small_gathering_no) {
+		System.out.println("PjhService.exeSmall_app_List()");
+
+		List<PjhVo> lList = pjhDao.small_app_List(small_gathering_no);
+
+		return lList;
+	}
+
+	// 소모임 신청 수락
+	public int exeSmall_app_modify(PjhVo pjhVo) {
+		System.out.println("PjhService.exeSmall_app_modify()");
+
+		int count = pjhDao.small_app_modify(pjhVo);
+
+		return count;
+	}
+
 }

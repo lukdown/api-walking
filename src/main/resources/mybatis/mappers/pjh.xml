@@ -2,26 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="pjh">
-	
+
 	<!-- 회원가입 -->
-	<select id ="join" resultType="PjhVo" parameterType="PjhVo">
+	<select id="join" resultType="PjhVo" parameterType="PjhVo">
 		<![CDATA[
 			insert into users_list
 			values(null, #{users_id}, #{users_pw}, #{users_name}, #{users_nickname}, #{users_hp},#{users_birth_date}, #{users_gender}, #{users_residence}, #{users_filePath}, #{users_orgName}, #{users_fileSize}, #{users_filePath}, #{users_login_type});
 		]]>
 	</select>
-	
+
 	<!-- id 중복체크 -->
 	<select id="idCheck" resultType="int" parameterType="String">
 		<![CDATA[
 			select count(users_id) from users_list
 			where users_id = #{users_id}
 		]]>
-	
+
 	</select>
-	
+
 	<!-- 로그인 -->
-	<select id="selectByIdPw" parameterType="PjhVo" resultType="PjhVo">
+	<select id="selectByIdPw" parameterType="PjhVo"
+		resultType="PjhVo">
 		<![CDATA[
 			select  users_no,
 					users_nickname,
@@ -32,9 +33,10 @@
 			and users_pw= #{users_pw}
 		]]>
 	</select>
-	
+
 	<!-- 회원정보 수정폼 1개 데이터 가져오기 -->
-	<select id="selectOneByNo" parameterType="int" resultType="PjhVo">
+	<select id="selectOneByNo" parameterType="int"
+		resultType="PjhVo">
 		<![CDATA[ 
 			select 	users_id, 
 					users_pw,
@@ -48,7 +50,7 @@
 			where users_no = #{no}
 		]]>
 	</select>
-	
+
 	<!-- 회원정보수정 -->
 	<update id="update" parameterType="PjhVo">
 		<![CDATA[ 
@@ -63,9 +65,10 @@
 			where users_no = #{users_no}
 		]]>
 	</update>
-	
+
 	<!--카카오 로그인 -->
-	<select id="selectBykakakoId" parameterType="PjhVo" resultType="PjhVo">
+	<select id="selectBykakakoId" parameterType="PjhVo"
+		resultType="PjhVo">
 		<![CDATA[
 			select  users_no,
 					users_nickname,
@@ -74,10 +77,11 @@
 			where users_id= #{users_id}
 		]]>
 	</select>
-	
-	
+
+
 	<!-- 편의시설 리스트불러오기 -->
-	<select id="ConvenientFacilitieslist" resultType="PjhVo" parameterType="PjhVo">
+	<select id="ConvenientFacilitieslist" resultType="PjhVo"
+		parameterType="PjhVo">
 		<![CDATA[		
 			select cl.facilities_no,
 				   cl.convenient_facilities_type_no,
@@ -89,26 +93,29 @@
 			where cl.convenient_facilities_type_no = ct.convenient_facilities_type_no
 		]]>
 	</select>
-	
+
 	<!-- 편의시설 api 데이터 있나 비교 -->
-	<select id="facilitieslistcomparison" resultType="int" parameterType="String">
+	<select id="facilitieslistcomparison" resultType="int"
+		parameterType="String">
 		<![CDATA[
 			select count(facilities_name) from convenient_facilities_list
 			where facilities_name = #{facilities_name}
 		]]>
-	
+
 	</select>
-	
+
 	<!-- 편의시설 api/유저입력 데이터 저장 -->
-	<select id ="facilitieslistinsert" resultType="PjhVo" parameterType="PjhVo">
+	<select id="facilitieslistinsert" resultType="PjhVo"
+		parameterType="PjhVo">
 		<![CDATA[
 			insert into convenient_facilities_list
 			values(null, #{users_no}, #{convenient_facilities_type_no}, #{facilities_name}, #{facilities_latitude}, #{facilities_longitude},#{facilities_memo});
 		]]>
 	</select>
-	
+
 	<!-- 소모임 읽기페이지 -->
-	<select id="SmallGatheringDetail" parameterType="PjhVo" resultType="PjhVo">
+	<select id="SmallGatheringDetail" parameterType="PjhVo"
+		resultType="PjhVo">
 		<![CDATA[ 
 			select sgl.*,
 					cl.course_name,
@@ -131,17 +138,18 @@
 			where sgl.small_gathering_no = #{small_gathering_no}
 		]]>
 	</select>
-	
+
 	<!-- 소모임 신청카운터 -->
-	<select id="SmallGatheringCount" parameterType="int" resultType="int">
+	<select id="SmallGatheringCount" parameterType="int"
+		resultType="int">
 		<![CDATA[ 
 			select count(*)
 			from small_group_application
-			where small_gathering_no = #{small_gathering_no}
+			where small_gathering_no = #{small_gathering_no} and application_division = 1
 		]]>
 	</select>
-	
-	
+
+
 	<!-- 소모임 신청 삭제 -->
 	<delete id="smalldapplicationdelete" parameterType="PjhVo">
 		<![CDATA[
@@ -149,7 +157,7 @@
 			where small_gathering_no = #{ small_gathering_no }
 		]]>
 	</delete>
-	
+
 	<!-- 소모임 삭제 -->
 	<delete id="smalldgatheringdelete" parameterType="PjhVo">
 		<![CDATA[
@@ -157,24 +165,68 @@
 			where small_gathering_no = #{ small_gathering_no }
 		]]>
 	</delete>
-	
+
 	<!-- 소모임 신청 -->
-   <insert id="applicationinsert" parameterType="PjhVo">
+	<insert id="applicationinsert" parameterType="PjhVo">
       <![CDATA[   
           insert into small_group_application
               values ( null, #{small_gathering_no}, #{users_no}, 0, now())
        ]]>
-   </insert>
-   
-   <!-- 소모임 신청 취소 -->
-   <delete id="applicationdelete" parameterType="PjhVo">
+	</insert>
+
+	<!-- 소모임 신청 취소 -->
+	<delete id="applicationdelete" parameterType="PjhVo">
       <![CDATA[   
           delete from small_group_application
 			where small_gathering_no = #{ small_gathering_no } and users_no= #{ users_no }
        ]]>
-   </delete>
-	
-	
-	
-	
+	</delete>
+
+	<!-- 소모임 신청 리스트 -->
+	<select id="small_app_List" parameterType="int"
+		resultType="PjhVo">
+      <![CDATA[ 
+        select sga.application_no,
+			   sga.small_gathering_no,
+		       sga.users_no,
+		       sga.application_division,
+		       sga.application_date,
+		       ul.users_nickname,
+		       ul.users_hp,
+		       ul.users_gender,
+		       ul.users_residence
+		from small_group_application sga
+		left join users_list ul on ul.users_no = sga.users_no
+		where sga.small_gathering_no = #{ small_gathering_no }
+      ]]>
+	</select>
+
+
+	<!-- 소모임 신청 수락 -->
+	<update id="small_app_modify" parameterType="PjhVo">
+      <![CDATA[   
+          	update small_group_application
+       ]]>
+		<choose>
+			<when test="category == 0">
+				<![CDATA[
+					set application_division = 1
+					]]>
+			</when>
+			<when test="category == 1">
+				<![CDATA[
+					set application_division = 0
+					]]>
+			</when>
+
+			<otherwise></otherwise>
+		</choose>
+		<![CDATA[
+			where small_gathering_no = #{small_gathering_no} and users_no = #{users_no}
+       ]]>
+	</update>
+
+
+
+
 </mapper>
