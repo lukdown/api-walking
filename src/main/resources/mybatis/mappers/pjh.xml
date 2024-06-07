@@ -108,13 +108,27 @@
 	</select>
 	
 	<!-- 소모임 읽기페이지 -->
-	<select id="SmallGatheringDetail" parameterType="int" resultType="PjhVo">
+	<select id="SmallGatheringDetail" parameterType="PjhVo" resultType="PjhVo">
 		<![CDATA[ 
 			select sgl.*,
-				   cl.course_name
+					cl.course_name,
+			        CASE 
+						WHEN small_app.login_users_no IS NOT NULL THEN 1 
+						ELSE 0 
+					END AS is_application
 			from small_gathering_list sgl
 			left join course_list cl on sgl.course_no = cl.course_no
-			where sgl.small_gathering_no = #{smallgatheringno}
+			LEFT JOIN (
+							    SELECT 
+							        application_no,
+							        small_gathering_no,
+							        users_no AS login_users_no
+							    FROM 
+							        small_group_application
+							    WHERE 
+							        users_no = #{login_users_no}
+							) small_app ON sgl.small_gathering_no = small_app.small_gathering_no
+			where sgl.small_gathering_no = #{small_gathering_no}
 		]]>
 	</select>
 	
@@ -126,5 +140,41 @@
 			where small_gathering_no = #{small_gathering_no}
 		]]>
 	</select>
+	
+	
+	<!-- 소모임 신청 삭제 -->
+	<delete id="smalldapplicationdelete" parameterType="PjhVo">
+		<![CDATA[
+			delete from small_group_application
+			where small_gathering_no = #{ small_gathering_no }
+		]]>
+	</delete>
+	
+	<!-- 소모임 삭제 -->
+	<delete id="smalldgatheringdelete" parameterType="PjhVo">
+		<![CDATA[
+			delete from small_gathering_list
+			where small_gathering_no = #{ small_gathering_no }
+		]]>
+	</delete>
+	
+	<!-- 소모임 신청 -->
+   <insert id="applicationinsert" parameterType="PjhVo">
+      <![CDATA[   
+          insert into small_group_application
+              values ( null, #{small_gathering_no}, #{users_no}, 0, now())
+       ]]>
+   </insert>
+   
+   <!-- 소모임 신청 취소 -->
+   <delete id="applicationdelete" parameterType="PjhVo">
+      <![CDATA[   
+          delete from small_group_application
+			where small_gathering_no = #{ small_gathering_no } and users_no= #{ users_no }
+       ]]>
+   </delete>
+	
+	
+	
 	
 </mapper>

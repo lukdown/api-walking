@@ -273,164 +273,184 @@ public class PjhService {
 	public int exefacilitieslistcomparisoninsert(PjhVo convenient_facilities_list) {
 		System.out.println("PjhService.exefacilitieslistcomparisoninsert()");
 		int count = pjhDao.facilitieslistinsert(convenient_facilities_list);
-		//System.out.println(count);
+		// System.out.println(count);
 
 		return count;
 	}
-	
-	//구글 토큰(인증코드)
+
+	// 구글 토큰(인증코드)
 	public String googleRequestToken(String rawCode) {
-        String accessToken = "";
-        
-        String code = rawCode.replace("\"", "").trim();
+		String accessToken = "";
 
-        System.out.println(code);
-        
-        try {
-            URL url = new URL("https://oauth2.googleapis.com/token");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		String code = rawCode.replace("\"", "").trim();
 
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		System.out.println(code);
 
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-            StringBuilder sb = new StringBuilder();
+		try {
+			URL url = new URL("https://oauth2.googleapis.com/token");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            sb.append("code="+code);
-            sb.append("&client_id=17637626061-ss04i67obe0couopq08tu72i1efjil82.apps.googleusercontent.com");
-            sb.append("&client_secret=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");
-            sb.append("&redirect_uri=http://localhost:8080/walking/googlejoinpage");
-            sb.append("&grant_type=authorization_code");
-            sb.append("&approval_prompt=auto");
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-            bw.write(sb.toString());
-            bw.flush();
-            bw.close();
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			StringBuilder sb = new StringBuilder();
 
-            int responseCode = conn.getResponseCode();
-            System.out.println("responseCode: " + responseCode);
+			sb.append("code=" + code);
+			sb.append("&client_id=17637626061-ss04i67obe0couopq08tu72i1efjil82.apps.googleusercontent.com");
+			sb.append("&client_secret=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");
+			sb.append("&redirect_uri=http://localhost:8080/walking/googlejoinpage");
+			sb.append("&grant_type=authorization_code");
+			sb.append("&approval_prompt=auto");
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-            StringBuilder result = new StringBuilder();
+			bw.write(sb.toString());
+			bw.flush();
+			bw.close();
 
-            while ((line = br.readLine()) != null) {
-                result.append(line);
-            }
-            br.close();
-            bw.close();
+			int responseCode = conn.getResponseCode();
+			System.out.println("responseCode: " + responseCode);
 
-            ObjectMapper mapper = new ObjectMapper();
-            GoogleToken googleToken = mapper.readValue(result.toString(), GoogleToken.class);
-            accessToken = googleToken.getAccess_token();
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line;
+			StringBuilder result = new StringBuilder();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+			while ((line = br.readLine()) != null) {
+				result.append(line);
+			}
+			br.close();
+			bw.close();
 
-        return accessToken;
-    }
-	
-	//구글 사용자 정보(인증코드)
+			ObjectMapper mapper = new ObjectMapper();
+			GoogleToken googleToken = mapper.readValue(result.toString(), GoogleToken.class);
+			accessToken = googleToken.getAccess_token();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return accessToken;
+	}
+
+	// 구글 사용자 정보(인증코드)
 	public HashMap<String, String> googleRequestUser(String accessToken) {
-        HashMap<String, String> userInfo = new HashMap<>();
-        userInfo.put("accessToken", accessToken);
-        String url = "https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses,genders,birthdays,nicknames&key=AIzaSyB-m-ixX_wtCttdqmUJKMovzgWiU0lhuBY&access_token=" + accessToken;
+		HashMap<String, String> userInfo = new HashMap<>();
+		userInfo.put("accessToken", accessToken);
+		String url = "https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses,genders,birthdays,nicknames&key=AIzaSyB-m-ixX_wtCttdqmUJKMovzgWiU0lhuBY&access_token="
+				+ accessToken;
 
-        try {
-            URL obj = new URL(url);
-            HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
-            conn.setRequestMethod("GET");
+		try {
+			URL obj = new URL(url);
+			HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
+			conn.setRequestMethod("GET");
 
-            int responseCode = conn.getResponseCode();
-            System.out.println("응답 코드: " + responseCode);
+			int responseCode = conn.getResponseCode();
+			System.out.println("응답 코드: " + responseCode);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-            StringBuilder result = new StringBuilder();
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line;
+			StringBuilder result = new StringBuilder();
 
-            while ((line = br.readLine()) != null) {
-                result.append(line);
-            }
-            br.close();
+			while ((line = br.readLine()) != null) {
+				result.append(line);
+			}
+			br.close();
 
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode jsonNode = mapper.readTree(result.toString());
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode jsonNode = mapper.readTree(result.toString());
 
-            System.out.println(jsonNode);
-            
-         // ID 가져오기
-            String id = jsonNode.path("resourceName").asText().split("/")[1];
-            userInfo.put("id", id);
+			System.out.println(jsonNode);
 
-            // 이름 가져오기
-            JsonNode namesNode = jsonNode.path("names");
-            String displayName = namesNode.get(0).path("displayName").asText();
-            userInfo.put("name", displayName);
+			// ID 가져오기
+			String id = jsonNode.path("resourceName").asText().split("/")[1];
+			userInfo.put("id", id);
 
-            // 닉네임 가져오기
-            JsonNode nicknamesNode = jsonNode.path("nicknames");
-            String nickname = nicknamesNode.get(0).path("value").asText();
-            userInfo.put("nickname", nickname);
-            
-            // 이메일 가져오기
-            JsonNode emailNode = jsonNode.path("emailAddresses");
-            String email = emailNode.get(0).path("value").asText();
-            userInfo.put("email", email);
+			// 이름 가져오기
+			JsonNode namesNode = jsonNode.path("names");
+			String displayName = namesNode.get(0).path("displayName").asText();
+			userInfo.put("name", displayName);
 
-            // 성별 가져오기
-            JsonNode gendersNode = jsonNode.path("genders");
-            String gender = "";
-            if (gendersNode.size() > 0) {
-                gender = gendersNode.get(0).path("value").asText();
-            }
-            userInfo.put("gender", gender);
+			// 닉네임 가져오기
+			JsonNode nicknamesNode = jsonNode.path("nicknames");
+			String nickname = nicknamesNode.get(0).path("value").asText();
+			userInfo.put("nickname", nickname);
 
-            // 생일 가져오기
-            JsonNode birthdaysNode = jsonNode.path("birthdays");
-            if (birthdaysNode.size() > 0) {
-                JsonNode birthdayNode = birthdaysNode.get(0).path("date");
-                int year = birthdayNode.path("year").asInt();
-                int month = birthdayNode.path("month").asInt();
-                int day = birthdayNode.path("day").asInt();
-                String birthday = year + "-" + month + "-" + day;
-                userInfo.put("birthday", birthday);
-            }
+			// 이메일 가져오기
+			JsonNode emailNode = jsonNode.path("emailAddresses");
+			String email = emailNode.get(0).path("value").asText();
+			userInfo.put("email", email);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+			// 성별 가져오기
+			JsonNode gendersNode = jsonNode.path("genders");
+			String gender = "";
+			if (gendersNode.size() > 0) {
+				gender = gendersNode.get(0).path("value").asText();
+			}
+			userInfo.put("gender", gender);
 
-        return userInfo;
-    }
-	
-	//소모임 읽기페이지
-	public PjhVo exegetSmallGatheringDetailData(int smallgatheringno) {
+			// 생일 가져오기
+			JsonNode birthdaysNode = jsonNode.path("birthdays");
+			if (birthdaysNode.size() > 0) {
+				JsonNode birthdayNode = birthdaysNode.get(0).path("date");
+				int year = birthdayNode.path("year").asInt();
+				int month = birthdayNode.path("month").asInt();
+				int day = birthdayNode.path("day").asInt();
+				String birthday = year + "-" + month + "-" + day;
+				userInfo.put("birthday", birthday);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return userInfo;
+	}
+
+	// 소모임 읽기페이지
+	public PjhVo exegetSmallGatheringDetailData(int smallgatheringno, int login_users_no) {
 		System.out.println("PjhService.exegetSmallGatheringDetailData()");
 
-		PjhVo sVo = pjhDao.getSmallGatheringDetail(smallgatheringno);
-		
+		PjhVo sVo = pjhDao.getSmallGatheringDetail(smallgatheringno, login_users_no);
+
 		int count = pjhDao.getSmallGatheringCount(smallgatheringno);
-		
+
 		sVo.setApplication_no_count(count);
-		
-		//System.out.println(count);
-		
-		//return null;
+
+		// System.out.println(count);
+
+		// return null;
 		return sVo;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	// 소모임 삭제
+	public int exesmallgatherdelete(PjhVo pjhVo) {
+		System.out.println("PjhService.exesmallgatherdelete()");
+
+		// 소모임 신청 삭제
+		pjhDao.smalldapplicationdelete(pjhVo);
+
+		// 소모임 삭제
+		int count = pjhDao.smalldgatheringdelete(pjhVo);
+
+		return count;
+	}
+
+	// 소모임 신청
+	public int exeapplicationupdate(PjhVo pjhVo) {
+		System.out.println("PjhService.exeapplicationupdate()");
+
+		int count = pjhDao.applicationinsert(pjhVo);
+
+		return count;
+	}
+
+	// 소모임 신청 취소
+	public int exeapplicationdelete(PjhVo pjhVo) {
+		System.out.println("PjhService.exeapplicationdelete()");
+
+		int count = pjhDao.applicationdelete(pjhVo);
+
+		return count;
+	}
+
 }

@@ -39,6 +39,9 @@ public class PjhVo {
 	private String course_name;
 	
 	private int application_no_count;
+	private int login_users_no;
+	private int is_application;
+	
 
 	// 생성자
 	public PjhVo() {
@@ -54,7 +57,7 @@ public class PjhVo {
 			int small_gathering_total_personnel, String small_gathering_date, String small_gathering_deadline,
 			String small_gathering_information, String small_gathering_region, String small_gathering_gender_limit,
 			String small_gathering_age_limit, String small_gathering_saveName, String course_name,
-			int application_no_count) {
+			int application_no_count, int login_users_no, int is_application) {
 		super();
 		this.users_no = users_no;
 		this.users_id = users_id;
@@ -91,10 +94,31 @@ public class PjhVo {
 		this.small_gathering_saveName = small_gathering_saveName;
 		this.course_name = course_name;
 		this.application_no_count = application_no_count;
+		this.login_users_no = login_users_no;
+		this.is_application = is_application;
 	}
 
 
+
+
 	// 메소드 - g/s
+	
+	public int getIs_application() {
+		return is_application;
+	}
+
+	public void setIs_application(int is_application) {
+		this.is_application = is_application;
+	}
+	
+	public int getLogin_users_no() {
+		return login_users_no;
+	}
+
+	public void setLogin_users_no(int login_users_no) {
+		this.login_users_no = login_users_no;
+	}
+
 	public int getApplication_no_count() {
 		return application_no_count;
 	}
@@ -375,6 +399,7 @@ public class PjhVo {
 		this.course_name = course_name;
 	}
 
+	// 메소드 - 일반
 	@Override
 	public String toString() {
 		return "PjhVo [users_no=" + users_no + ", users_id=" + users_id + ", users_pw=" + users_pw + ", users_name="
@@ -394,10 +419,12 @@ public class PjhVo {
 				+ small_gathering_region + ", small_gathering_gender_limit=" + small_gathering_gender_limit
 				+ ", small_gathering_age_limit=" + small_gathering_age_limit + ", small_gathering_saveName="
 				+ small_gathering_saveName + ", course_name=" + course_name + ", application_no_count="
-				+ application_no_count + "]";
+				+ application_no_count + ", login_users_no=" + login_users_no + ", is_application=" + is_application
+				+ "]";
 	}
-
-	// 메소드 - 일반
 	
 
+	
+	
+	
 }

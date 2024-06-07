@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import com.javaex.service.PjhService;
 import com.javaex.util.JsonResult;
 import com.javaex.util.JwtUtil;
 import com.javaex.vo.PjhVo;
+import com.javaex.vo.YysVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,7 +39,7 @@ public class PjhController {
 		users_listVo.setUsers_login_type(0);
 
 		int count = pjhService.exejoinpage(users_listVo);
-		//System.out.println(count);
+		// System.out.println(count);
 
 		return JsonResult.success("");
 	}
@@ -217,7 +219,7 @@ public class PjhController {
 
 		List<PjhVo> convenient_facilities_list = pjhService.exeConvenientlist();
 
-		//System.out.println(convenient_facilities_list);
+		// System.out.println(convenient_facilities_list);
 
 		return JsonResult.success(convenient_facilities_list);
 	}
@@ -226,7 +228,7 @@ public class PjhController {
 	@GetMapping("/api/walking/facilitieslistcomparison/{facilities_name}")
 	public JsonResult facilitieslistcomparison(@PathVariable("facilities_name") String facilities_name) {
 		System.out.println("PjhController.facilitieslistcomparison()");
-		//System.out.println(facilities_name);
+		// System.out.println(facilities_name);
 
 		int count = pjhService.exefacilitieslistcomparison(facilities_name);
 
@@ -257,10 +259,10 @@ public class PjhController {
 		convenient_facilities_list.setFacilities_memo(facilities_memo);
 		convenient_facilities_list.setUsers_no(1);
 		convenient_facilities_list.setConvenient_facilities_type_no(2);
-		//System.out.println(convenient_facilities_list);
+		// System.out.println(convenient_facilities_list);
 
 		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
-		//System.out.println(count);
+		// System.out.println(count);
 
 		return JsonResult.success("");
 	}
@@ -269,7 +271,7 @@ public class PjhController {
 	@GetMapping("/api/walking/facilitieslistoutdoorexercise/{facilities_name}")
 	public JsonResult facilitieslistoutdoorexercise(@PathVariable("facilities_name") String facilities_name) {
 		System.out.println("PjhController.facilitieslistoutdoorexercise()");
-		//System.out.println(facilities_name);
+		// System.out.println(facilities_name);
 
 		int count = pjhService.exefacilitieslistcomparison(facilities_name);
 
@@ -300,10 +302,10 @@ public class PjhController {
 		convenient_facilities_list.setFacilities_memo(facilities_memo);
 		convenient_facilities_list.setUsers_no(1);
 		convenient_facilities_list.setConvenient_facilities_type_no(3);
-		//System.out.println(convenient_facilities_list);
+		// System.out.println(convenient_facilities_list);
 
 		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
-		//System.out.println(count);
+		// System.out.println(count);
 
 		return JsonResult.success("");
 	}
@@ -315,10 +317,10 @@ public class PjhController {
 
 		convenient_facilities_list.setUsers_no(1);
 		convenient_facilities_list.setConvenient_facilities_type_no(1);
-		//System.out.println(convenient_facilities_list);
+		// System.out.println(convenient_facilities_list);
 
 		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
-		//System.out.println(count);
+		// System.out.println(count);
 
 		return JsonResult.success("화장실 등록완료");
 	}
@@ -330,10 +332,10 @@ public class PjhController {
 
 		convenient_facilities_list.setUsers_no(1);
 		convenient_facilities_list.setConvenient_facilities_type_no(2);
-		//System.out.println(convenient_facilities_list);
+		// System.out.println(convenient_facilities_list);
 
 		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
-		//System.out.println(count);
+		// System.out.println(count);
 
 		return JsonResult.success("장애복지관 등록완료");
 	}
@@ -345,48 +347,46 @@ public class PjhController {
 
 		convenient_facilities_list.setUsers_no(1);
 		convenient_facilities_list.setConvenient_facilities_type_no(3);
-		//System.out.println(convenient_facilities_list);
+		// System.out.println(convenient_facilities_list);
 
 		int count = pjhService.exefacilitieslistcomparisoninsert(convenient_facilities_list);
-		//System.out.println(count);
+		// System.out.println(count);
 
 		return JsonResult.success(" 등록완료");
 	}
-	
-	
-	//구글 로그인 시작
-	
+
+	// 구글 로그인 시작
+
 	@GetMapping("/api/walking/googlelogin")
 	public String Googlemain() {
 		String url = "https://accounts.google.com/o/oauth2/v2/auth?client_id=17637626061-ss04i67obe0couopq08tu72i1efjil82.apps.googleusercontent.com&redirect_uri=http://localhost:8080/walking/googlejoinpage&response_type=code&scope=email profile https://www.googleapis.com/auth/user.gender.read https://www.googleapis.com/auth/user.birthday.read https://www.googleapis.com/auth/userinfo.profile";
 		System.out.println("googlelogin 컨트롤러 접근");
 		return url;
 	}
-	
-	
-	//(인증코드)
+
+	// (인증코드)
 	@PostMapping("/api/walking/googlejoinpage")
-    public HashMap<String, String> googleLogin(@RequestBody String code) {
+	public HashMap<String, String> googleLogin(@RequestBody String code) {
 
-        System.out.println(code);
-        
-        // 토큰을 요청하여 얻음
-        String googleToken = pjhService.googleRequestToken(code);
-        System.out.println("구글토큰: " + googleToken);
+		System.out.println(code);
 
-        // 사용자 정보를 요청하여 얻음
-        HashMap<String, String> userInfo = pjhService.googleRequestUser(googleToken);
-        System.out.println("userInfo: " + userInfo);
+		// 토큰을 요청하여 얻음
+		String googleToken = pjhService.googleRequestToken(code);
+		System.out.println("구글토큰: " + googleToken);
 
-        return userInfo;
-        
-    }
-	
-	//구글 회원비회원 구별
+		// 사용자 정보를 요청하여 얻음
+		HashMap<String, String> userInfo = pjhService.googleRequestUser(googleToken);
+		System.out.println("userInfo: " + userInfo);
+
+		return userInfo;
+
+	}
+
+	// 구글 회원비회원 구별
 	@GetMapping("/api/walking/googleBysubscription/{id}")
 	public JsonResult googleBysubscription(@PathVariable("id") String id) {
 		System.out.println("PjhController.googleBysubscription()");
-		
+
 		String Google = "Google_" + id;
 
 		int count = pjhService.exejoinpageidcheck(Google);
@@ -401,57 +401,98 @@ public class PjhController {
 		System.out.println(exejoinidcheck);
 		return JsonResult.success(exejoinidcheck);
 	}
-	
+
 	// 구글로 회원가입하기
-		@PostMapping("/api/walking/Googlejoinpage")
-		public JsonResult Googlejoinpage(@RequestBody PjhVo users_listVo) {
-			System.out.println("PjhController.Googlejoinpage()");
+	@PostMapping("/api/walking/Googlejoinpage")
+	public JsonResult Googlejoinpage(@RequestBody PjhVo users_listVo) {
+		System.out.println("PjhController.Googlejoinpage()");
 
-			String id = users_listVo.getUsers_id();
-			System.out.println(id);
+		String id = users_listVo.getUsers_id();
+		System.out.println(id);
 
-			users_listVo.setUsers_id("Google_" + id);
-			users_listVo.setUsers_login_type(3);
+		users_listVo.setUsers_id("Google_" + id);
+		users_listVo.setUsers_login_type(3);
 
-			int count = pjhService.exejoinpage(users_listVo);
-			System.out.println(count);
+		int count = pjhService.exejoinpage(users_listVo);
+		System.out.println(count);
 
-			return JsonResult.success("");
+		return JsonResult.success("");
+	}
+
+	@PostMapping("/api/walking/Googleloginpage")
+	public JsonResult googleAutoLogin(@RequestBody PjhVo users_listVo, HttpServletResponse response) {
+
+		System.out.println("sssss" + users_listVo);
+
+		String id = users_listVo.getUsers_id();
+		System.out.println(id);
+
+		users_listVo.setUsers_id("Google_" + id);
+
+		PjhVo authUser = pjhService.exeApiLogin(users_listVo);
+
+		if (authUser != null) {
+			// 토큰발급 해더에 실어 보낸다
+			JwtUtil.createTokenAndSetHeader(response, "" + authUser.getUsers_no());
+			return JsonResult.success(authUser);
+		} else {
+
+			return JsonResult.fail("로그인실패");
 		}
-		
-		@PostMapping("/api/walking/Googleloginpage")
-		public JsonResult googleAutoLogin(@RequestBody PjhVo users_listVo, HttpServletResponse response) {
 
-			System.out.println("sssss" + users_listVo);
+	}
 
-			String id = users_listVo.getUsers_id();
-			System.out.println(id);
+	// 소모임 읽기페이지
+	@GetMapping("/api/walking/getSmallGatheringDetailData/{small_gathering_no}")
+	public JsonResult getSmallGatheringDetailData(@PathVariable("small_gathering_no") int smallgatheringno,
+			HttpServletRequest request) {
+		System.out.println("PjhController.getSmallGatheringDetailData()");
+		int login_users_no = JwtUtil.getNoFromHeader(request);
+		//System.out.println(login_users_no);
 
-			users_listVo.setUsers_id("Google_" + id);
+		PjhVo smallgatheringVo = pjhService.exegetSmallGatheringDetailData(smallgatheringno, login_users_no);
+		System.out.println(smallgatheringVo);
 
-			PjhVo authUser = pjhService.exeApiLogin(users_listVo);
+		return JsonResult.success(smallgatheringVo);
+	}
 
-			if (authUser != null) {
-				// 토큰발급 해더에 실어 보낸다
-				JwtUtil.createTokenAndSetHeader(response, "" + authUser.getUsers_no());
-				return JsonResult.success(authUser);
-			} else {
+	// 소모임 삭제
+	@DeleteMapping(value = "/api/walking/smallgatheringupdatedelete")
+	public int smallgatherdelete(@RequestBody PjhVo pjhVo) {
+		System.out.println("PjhController.smallgatherdelete()");
+		// System.out.println(yysVo);
 
-				return JsonResult.fail("로그인실패");
-			}
+		int count = pjhService.exesmallgatherdelete(pjhVo);
+		// System.out.println(guestVo);
 
-		}
-		
-		//소모임 읽기페이지
-		@GetMapping("/api/walking/getSmallGatheringDetailData/{small_gathering_no}")
-		public JsonResult getSmallGatheringDetailData(@PathVariable("small_gathering_no") int smallgatheringno) {
-			System.out.println("PjhController.getSmallGatheringDetailData()");
-			
-			PjhVo smallgatheringVo = pjhService.exegetSmallGatheringDetailData(smallgatheringno);
-			System.out.println(smallgatheringVo);
-			
-			return JsonResult.success(smallgatheringVo);
-		}
-		
-	
+		// return count;
+		return count;
+	}
+
+	// 소모임 신청
+	@PostMapping(value = "/api/walking/applicationupdatedelete")
+	public int applicationupdate(@RequestBody PjhVo pjhVo) {
+		System.out.println("PjhController.applicationupdate()");
+		System.out.println(pjhVo);
+
+		int count = pjhService.exeapplicationupdate(pjhVo);
+		// System.out.println(guestVo);
+
+		return count;
+		// return 0;
+	}
+
+	// 소모임 신청 취소
+	@DeleteMapping(value = "/api/walking/applicationupdatedelete")
+	public int applicationdelete(@RequestBody PjhVo pjhVo) {
+		System.out.println("PjhController.applicationdelete()");
+		System.out.println(pjhVo);
+
+		int count = pjhService.exeapplicationdelete(pjhVo);
+		// System.out.println(guestVo);
+
+		return count;
+		// return 0;
+	}
+
 }

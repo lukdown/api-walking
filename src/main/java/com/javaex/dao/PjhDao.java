@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.javaex.vo.PjhVo;
+import com.javaex.vo.YysVo;
 
 @Repository
 public class PjhDao {
@@ -100,10 +101,16 @@ public class PjhDao {
 	}
 
 	// 소모임 읽기페이지
-	public PjhVo getSmallGatheringDetail(int smallgatheringno) {
+	public PjhVo getSmallGatheringDetail(int smallgatheringno, int login_users_no) {
 		System.out.println("PjhDao.getSmallGatheringDetail()");
+		
+		PjhVo pVo = new PjhVo();
+		pVo.setSmall_gathering_no(smallgatheringno);
+		pVo.setLogin_users_no(login_users_no);
 
-		PjhVo smallgatheringVo = sqlSession.selectOne("pjh.SmallGatheringDetail", smallgatheringno);
+		
+		
+		PjhVo smallgatheringVo = sqlSession.selectOne("pjh.SmallGatheringDetail", pVo);
 		// System.out.println(smallgatheringVo);
 
 		return smallgatheringVo;
@@ -114,9 +121,49 @@ public class PjhDao {
 		System.out.println("PjhDao.getSmallGatheringCount()");
 
 		int count = sqlSession.selectOne("pjh.SmallGatheringCount", smallgatheringno);
-		//System.out.println(count);
+		// System.out.println(count);
 		// System.out.println(smallgatheringVo);
 
 		return count;
 	}
+
+	// 소모임 신청 삭제
+	public int smalldapplicationdelete(PjhVo pjhVo) {
+		System.out.println("PjhDao.smalldapplicationdelete()");
+		// System.out.println(pjhVo.get);
+
+		int count = sqlSession.delete("pjh.smalldapplicationdelete", pjhVo);
+
+		return count;
+	}
+
+	// 소모임 삭제
+	public int smalldgatheringdelete(PjhVo pjhVo) {
+		System.out.println("PjhDao.smalldgatheringdelete()");
+		// System.out.println(pjhVo.get);
+
+		int count = sqlSession.delete("pjh.smalldgatheringdelete", pjhVo);
+
+		return count;
+	}
+
+	// 소모임 신청
+	public int applicationinsert(PjhVo pjhVo) {
+		System.out.println("PjhDao.applicationinsert()");
+
+		int count = sqlSession.insert("pjh.applicationinsert", pjhVo);
+		return count;
+		// return count;
+	}
+
+	// 소모임 신청 취소
+	public int applicationdelete(PjhVo pjhVo) {
+		System.out.println("PjhDao.applicationdelete()");
+
+		int count = sqlSession.delete("pjh.applicationdelete", pjhVo);
+		
+		return count;
+		// return count;
+	}
+
 }
