@@ -16,6 +16,16 @@ public class KsbDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//도전과제 번호로 도전과제 이름 가져오기
+	public KsbVo getChallengeDaepyo(int no) {
+		System.out.println("ksbDao.getChallengeDaepyo()");
+		
+		KsbVo daepyoInfo = sqlSession.selectOne("ksb.getChallengeDaepyo", no);
+		System.out.println("대표 도전과제 이름: "+ daepyoInfo);
+		
+		return daepyoInfo;
+	}
+	
 	//소모임 수정하기
 	public int exeGatheringModify(int no, KsbVo ksbVo) {
 		System.out.println("KsbDao.addGathering()");

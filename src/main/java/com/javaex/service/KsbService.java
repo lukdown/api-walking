@@ -22,6 +22,15 @@ public class KsbService {
 	private KsbDao ksbDao;
 
 	// 수빈이꺼
+	
+	//대표 도전과제 가져오기
+	public KsbVo exeGetChallengeDaepyo(int no) {
+		System.out.println("ksbService.exeGetChallengeDaepyo()");
+		
+		KsbVo daepyoInfo = ksbDao.getChallengeDaepyo(no);
+		
+		return daepyoInfo;
+	}
 
 	// 소모임 수정하기
 	public int exeGatheringModify(int small_gathering_no, int no, int course_no, String small_gathering_name, String small_gathering_host_name,

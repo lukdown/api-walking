@@ -28,6 +28,17 @@ public class KsbController {
 	@Autowired
 	private KsbService ksbService;
 	
+	//대표 도전과제 가져오기
+	@GetMapping("/api/walking/getchallengedaepyo")
+	public JsonResult getChallengeDaepyo(HttpServletRequest request) {
+		System.out.println("ksbController.getChallengeDaepyo()");
+		
+		int no = JwtUtil.getNoFromHeader(request);
+		KsbVo daepyoInfo = ksbService.exeGetChallengeDaepyo(no);
+		
+		return JsonResult.success(daepyoInfo);
+	}
+	
 	//소모임 수정하기
 	@PutMapping("/api/gathering/modify/{small_gathering_no}")
 	public JsonResult gatheringModify(HttpServletRequest request, 	@RequestParam int small_gathering_no,

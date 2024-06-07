@@ -191,6 +191,7 @@
 	  				FROM course_list
                   					) cl
 				ON gl.course_no = cl.course_no
+			order by gl.small_gathering_no desc
 		]]>
 	</select>
 
@@ -231,9 +232,12 @@
 				where (small_gathering_region like concat('%',#{keyword},'%'))
 			]]>
 		</if>	
-		<![CDATA[				 
+		
+		<![CDATA[			
+		order by gl.small_gathering_no desc	 
 			limit #{startRowNo}, #{listCnt}
 		]]>
+		
 	</select>
 
 	<!-- 소모임 리스트 전체 글갯수 -->
@@ -318,5 +322,22 @@
 		
 		]]>
 	</select>
-
+	
+	<!-- 대표 도전과제 이름 가져오기 -->
+	<select id="getChallengeDaepyo" parameterType="int" resultType="KsbVo">
+		<![CDATA[
+			SELECT 
+				    c.challenge_name,
+				    c.saveName
+			FROM 
+			    challenge c
+			INNER JOIN challenge_person cp ON c.challenge_no = cp.challenge_no
+			WHERE 
+			    cp.users_no = #{users_no}
+			    AND cp.challenge_daepyo = 1			
+		]]>
+	</select>
+	
+	
+	
 </mapper>
