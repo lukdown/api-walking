@@ -21,6 +21,18 @@ public class YysController {
 	@Autowired
 	private YysService yysService;
 
+	// 해당 코스 정보
+	@PostMapping("/api/walking/courselikeinfo")
+	public JsonResult course_info(@RequestBody int course_no) {
+		System.out.println("YysController.course_info()");
+
+		System.out.println(course_no);
+		// List<YysVo> lList = yysService.exelikeList(yysVo.getUsers_no());
+
+		// return JsonResult.success(lList);
+		return JsonResult.success(null);
+	}
+
 	// 편의시설(화장실) 리스트
 	@GetMapping(value = "/api/walking/course_facilities_map")
 	public List<YysVo> facilitieslist() {
@@ -29,7 +41,7 @@ public class YysController {
 
 		List<YysVo> facilitiesList = yysService.exefacilitiesList();
 
-		//return JsonResult.success(facilitiesList);
+		// return JsonResult.success(facilitiesList);
 		return facilitiesList;
 	}
 
@@ -63,8 +75,8 @@ public class YysController {
 	@PostMapping(value = "/api/walking/coursebooklist")
 	public List<YysVo> list(@RequestBody YysVo yysVo) {
 		System.out.println("YysController.list()");
-		//System.out.println(yysVo);
-		//System.out.println("===========================");
+		// System.out.println(yysVo);
+		// System.out.println("===========================");
 
 		List<YysVo> coursebookList = yysService.exeCourseList(yysVo);
 
@@ -77,7 +89,7 @@ public class YysController {
 	@PostMapping(value = "/api/walking/coursebookflist")
 	public List<YysVo> favoritlist(@RequestBody String users_no) {
 		System.out.println("YysController.favoritlist()");
-		//System.out.println(users_no);
+		// System.out.println(users_no);
 
 		List<YysVo> coursebookfList = yysService.exeCoursefList(users_no);
 
@@ -142,7 +154,6 @@ public class YysController {
 		// return null;
 	}
 
-	
 	// 즐겨찾기 등록
 	@PostMapping(value = "/api/walking/favoritesupdatedelete")
 	public int favoritesupdate(@RequestBody YysVo yysVo) {

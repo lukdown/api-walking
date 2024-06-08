@@ -19,9 +19,9 @@
 		]]>
 
 
-		
+
 	</select>
-	
+
 	<!-- 코스포인트 리스트 -->
 	<select id="coursepointList" parameterType="YysVo"
 		resultType="YysVo">
@@ -40,7 +40,7 @@
 		]]>
 
 
-		
+
 	</select>
 
 
@@ -69,11 +69,10 @@
 				]]>
 
 
-		
+
 	</select>
 	<!-- 전체리스트/내코스리스트 -->
-	<select id="courseList" parameterType="YysVo"
-		resultType="YysVo">
+	<select id="courseList" parameterType="YysVo" resultType="YysVo">
 		<![CDATA[
 					SELECT 
 					    cl.course_no,
@@ -128,7 +127,7 @@
 					where cl.users_no = #{ write_users_no }
 				]]>
 			</when>
-			
+
 
 
 
@@ -137,24 +136,24 @@
 		<![CDATA[
 			order by cl.course_no desc
 		]]>
-		
+
 	</select>
-	
-	
+
+
 	<!-- 해당 코스 좋아요 카운터 확인 -->
-   <select id="like_count" parameterType = "int" resultType="int">
+	<select id="like_count" parameterType="int" resultType="int">
 		<![CDATA[
 			select count(*)
 			from course_like
 			where course_no= #{course_no}
 		]]>
 	</select>
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	<!-- 즐겨찾기리스트 -->
 	<select id="coursefList" parameterType="String"
 		resultType="YysVo">
@@ -199,11 +198,12 @@
 				]]>
 
 	</select>
-	
-	
-	
+
+
+
 	<!-- 좋아요 리스트 -->
-   <select id="selectLikeList" parameterType="int" resultType="YysVo">
+	<select id="selectLikeList" parameterType="int"
+		resultType="YysVo">
       <![CDATA[ 
         select cl.course_no,
 				   cl.users_no,
@@ -226,10 +226,11 @@
 					   from course_like
 		   where users_no = #{users_no}) clike on clike.course_no = cl.course_no
       ]]>
-   </select>
+	</select>
 
 	<!-- 리뷰리스트 -->
-	<select id="coursereviewList" parameterType="int" resultType="YysVo">
+	<select id="coursereviewList" parameterType="int"
+		resultType="YysVo">
 		<![CDATA[
 			select crl.review_no,
 				   crl.course_no,
@@ -244,65 +245,66 @@
 			where crl.course_no = #{course_no}
 		]]>
 	</select>
-	
+
 	<!-- 후기등록 -->
-   <insert id="reviewinsert" parameterType="YysVo">
+	<insert id="reviewinsert" parameterType="YysVo">
       <![CDATA[   
           insert into course_review_list
               values ( null, #{course_no}, #{users_no}, #{review_content}, now() )
        ]]>
-   </insert>
-   
-   <!-- 해당 유저 즐겨찾기 데이터 여부 확인 -->
-   <select id="favoritesOne" parameterType = "YysVo" resultType="YysVo">
+	</insert>
+
+	<!-- 해당 유저 즐겨찾기 데이터 여부 확인 -->
+	<select id="favoritesOne" parameterType="YysVo"
+		resultType="YysVo">
 		<![CDATA[
 			select *
 			from course_favorites
 			where users_no = #{users_no} and course_no = #{course_no}
 		]]>
 	</select>
-	
+
 	<!-- 즐겨찾기 등록 -->
-   <insert id="favoritesinsert" parameterType="YysVo">
+	<insert id="favoritesinsert" parameterType="YysVo">
       <![CDATA[   
           insert into course_favorites
               values ( null, #{users_no}, #{course_no} )
        ]]>
-   </insert>
-   
-   <!-- 즐겨찾기 삭제 -->
+	</insert>
+
+	<!-- 즐겨찾기 삭제 -->
 	<delete id="favoritesdelete" parameterType="YysVo">
 		<![CDATA[
 			delete from course_favorites
 			where users_no = #{users_no} and course_no = #{course_no}
 		]]>
 	</delete>
-	
-	
+
+
 	<!-- 좋아요 등록 -->
-   <insert id="likeinsert" parameterType="YysVo">
+	<insert id="likeinsert" parameterType="YysVo">
       <![CDATA[   
           insert into course_like
               values ( null, #{users_no}, #{course_no} )
        ]]>
-   </insert>
-   
-   <!-- 좋아요 삭제 -->
+	</insert>
+
+	<!-- 좋아요 삭제 -->
 	<delete id="likedelete" parameterType="YysVo">
 		<![CDATA[
 			delete from course_like
 			where users_no = #{users_no} and course_no = #{course_no}
 		]]>
 	</delete>
-	
+
 	<!-- 조회수 등록 -->
-   <update id="viewmodify" parameterType="YysVo">
+	<update id="viewmodify" parameterType="YysVo">
       <![CDATA[   
           	update course_list
 			set course_hit = course_hit + 1
 			where course_no = #{course_no}
        ]]>
-   </update>
+	</update>
 
 
 </mapper>
