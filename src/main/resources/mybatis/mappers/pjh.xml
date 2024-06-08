@@ -136,6 +136,7 @@
 							        users_no = #{login_users_no}
 							) small_app ON sgl.small_gathering_no = small_app.small_gathering_no
 			where sgl.small_gathering_no = #{small_gathering_no}
+			group by sgl.small_gathering_no
 		]]>
 	</select>
 
@@ -198,6 +199,7 @@
 		from small_group_application sga
 		left join users_list ul on ul.users_no = sga.users_no
 		where sga.small_gathering_no = #{ small_gathering_no }
+		
       ]]>
 	</select>
 

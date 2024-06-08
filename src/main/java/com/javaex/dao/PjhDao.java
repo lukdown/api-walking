@@ -108,6 +108,8 @@ public class PjhDao {
 		pVo.setSmall_gathering_no(smallgatheringno);
 		pVo.setLogin_users_no(login_users_no);
 
+		System.out.println(pVo);
+		
 		PjhVo smallgatheringVo = sqlSession.selectOne("pjh.SmallGatheringDetail", pVo);
 		// System.out.println(smallgatheringVo);
 
@@ -170,7 +172,7 @@ public class PjhDao {
 
 		List<PjhVo> lList = sqlSession.selectList("pjh.small_app_List", small_gathering_no);
 
-		System.out.println(lList);
+		//System.out.println(lList);
 
 		return lList;
 
@@ -179,7 +181,9 @@ public class PjhDao {
 	// 소모임 신청 수락
 	public int small_app_modify(PjhVo pjhVo) {
 		System.out.println("PjhDao.small_app_modify()");
-		//System.out.println(pjhVo);
+		System.out.println("===============++++");
+		System.out.println(pjhVo);
+		System.out.println("===============++++");
 		int count = sqlSession.update("pjh.small_app_modify", pjhVo);
 		return count;
 	}
