@@ -169,6 +169,14 @@ public class KsbVo {
 		this.saveName = saveName;
 		this.fileSize = fileSize;
 	}
+	public KsbVo(int challenge_no, String saveName, String orgName, String filePath, long fileSize) {
+		super();
+		this.challenge_no = challenge_no;
+		this.saveName = saveName;
+		this.orgName = orgName;
+		this.filePath = filePath;
+		this.fileSize = fileSize;
+	}
 
 	public KsbVo(int users_no, String saveName, String orgName, long fileSize, String filePath) {
 		super();

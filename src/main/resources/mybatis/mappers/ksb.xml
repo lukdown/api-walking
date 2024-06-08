@@ -365,4 +365,16 @@
 		]]>
 	</select>
 	
+	<!--도전과제 사진 업데이트 -->
+	<update id="challengeUpdate" parameterType="ksbVo">
+		<![CDATA[
+			update challenge
+			set saveName = #{saveName},
+				orgName = #{orgName},
+			    fileSize = #{fileSize},
+			    filePath = #{filePath}
+			where challenge_no = #{challenge_no}
+		]]>
+	</update>
+	
 </mapper>

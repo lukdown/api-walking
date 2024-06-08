@@ -28,6 +28,16 @@ public class KsbController {
 	@Autowired
 	private KsbService ksbService;
 	
+	// 프로필 사진 업데이트
+	@PutMapping("/api/walking/addchallenge")
+	public JsonResult challengeUpdate(@RequestParam int challenge_no, @RequestParam MultipartFile file) {
+		System.out.println("KsbController.challengeUpdate()");
+		System.out.println(challenge_no);
+		ksbService.exeChallengeUpdate(challenge_no, file);
+
+		return JsonResult.success("성공");
+	}
+	
 	//도전과제 리스트 가져오기
 	@PostMapping("/api/gathering/getAchievementList")
 	public JsonResult achievementList(HttpServletRequest request) {
@@ -42,7 +52,7 @@ public class KsbController {
 	@GetMapping("/api/walking/getfavcount")
 	public JsonResult getFavCount(HttpServletRequest request) {
 		
-		System.out.println("ksbController.totalWalk()");
+		//System.out.println("ksbController.totalWalk()");
 		
 		int no = JwtUtil.getNoFromHeader(request);
 		
@@ -67,7 +77,7 @@ public class KsbController {
 	
 	//소모임 수정하기
 	@PutMapping("/api/gathering/modify/{small_gathering_no}")
-	public JsonResult gatheringModify(HttpServletRequest request, 	@RequestParam int small_gathering_no,
+	public JsonResult gatheringModify(HttpServletRequest request,	@RequestParam int small_gathering_no,
 																	@RequestParam String small_gathering_name,
 																	@RequestParam String small_gathering_host_name,
 																	@RequestParam String small_gathering_hp,
@@ -81,15 +91,15 @@ public class KsbController {
 																	@RequestParam String small_gathering_information,
 																	@RequestParam MultipartFile file) {
 		System.out.println("KsbController.gatheringModify()");
-		
 		int no = JwtUtil.getNoFromHeader(request);
 		System.out.println(no);
-		int count=ksbService.exeGatheringModify(small_gathering_no, no, course_no, small_gathering_name, small_gathering_host_name, small_gathering_hp, 
-				  							small_gathering_total_personnel, small_gathering_date, small_gathering_deadline, small_gathering_region, 
-				  							small_gathering_gender_limit, small_gathering_age_limit, small_gathering_information, file);
-		
+		int count=ksbService.exeGatheringModify(
+				small_gathering_no, no, course_no, small_gathering_name, small_gathering_host_name, small_gathering_hp, 
+				small_gathering_total_personnel, small_gathering_date, small_gathering_deadline, small_gathering_region, 
+				small_gathering_gender_limit, small_gathering_age_limit, small_gathering_information, file);
 		
 		return JsonResult.success(count);
+		
 	}
 	
 	//소모임 1개 불러오기
