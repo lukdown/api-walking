@@ -11,6 +11,7 @@
     	<typeAlias alias="YdsAttachVo" type="com.javaex.vo.YdsAttachVo" />
     </typeAliases>
     
+    
     <mappers>
         <mapper resource="mybatis/mappers/leb.xml" />
         <mapper resource="mybatis/mappers/ksb.xml" />
