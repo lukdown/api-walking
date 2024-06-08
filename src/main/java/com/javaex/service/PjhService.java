@@ -471,4 +471,13 @@ public class PjhService {
 		return count;
 	}
 
+	// 소모임 신청 확인
+	public PjhVo exeSmall_app_Check(PjhVo pjhVo) {
+		System.out.println("PjhService.exeSmall_app_Check()");
+
+		PjhVo pVo = pjhDao.small_app_Check(pjhVo);
+
+		return pVo;
+	}
+
 }

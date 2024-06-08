@@ -227,6 +227,18 @@
 			where small_gathering_no = #{small_gathering_no} and users_no = #{users_no}
        ]]>
 	</update>
+	
+	
+	<!-- 소모임 신청 리스트 -->
+	<select id="small_app_Check" parameterType="PjhVo"
+		resultType="PjhVo">
+      <![CDATA[ 
+        select *
+		from small_group_application
+		where small_gathering_no = #{small_gathering_no} and users_no = #{users_no}
+		
+      ]]>
+	</select>
 
 
 

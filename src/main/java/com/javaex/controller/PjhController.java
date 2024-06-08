@@ -520,4 +520,18 @@ public class PjhController {
 		// return 0;
 	}
 
+	// 소모임 신청 확인
+	@PostMapping("/api/walking/small_app_check")
+	public JsonResult small_app_check(@RequestBody PjhVo pjhVo) {
+		System.out.println("PjhController.small_app_check()");
+
+		PjhVo pVo = pjhService.exeSmall_app_Check(pjhVo);
+		System.out.println("//////////////////////");
+		System.out.println(pVo);
+		System.out.println("//////////////////////");
+
+		return JsonResult.success(pVo);
+		//return JsonResult.success(null);
+	}
+
 }

@@ -45,6 +45,7 @@ public class PjhVo {
 	private int application_division;
 	private String application_date;
 	private int category;
+	private int application_no;
 	
 	
 	// 생성자
@@ -62,7 +63,7 @@ public class PjhVo {
 			String small_gathering_information, String small_gathering_region, String small_gathering_gender_limit,
 			String small_gathering_age_limit, String small_gathering_saveName, String course_name,
 			int application_no_count, int login_users_no, int is_application, int application_division,
-			String application_date, int category) {
+			String application_date, int category, int application_no) {
 		super();
 		this.users_no = users_no;
 		this.users_id = users_id;
@@ -104,13 +105,21 @@ public class PjhVo {
 		this.application_division = application_division;
 		this.application_date = application_date;
 		this.category = category;
+		this.application_no = application_no;
 	}
-
 
 
 
 	// 메소드 - g/s
 	
+	public int getApplication_no() {
+		return application_no;
+	}
+
+	public void setApplication_no(int application_no) {
+		this.application_no = application_no;
+	}
+
 	public int getIs_application() {
 		return is_application;
 	}
@@ -452,10 +461,8 @@ public class PjhVo {
 				+ small_gathering_saveName + ", course_name=" + course_name + ", application_no_count="
 				+ application_no_count + ", login_users_no=" + login_users_no + ", is_application=" + is_application
 				+ ", application_division=" + application_division + ", application_date=" + application_date
-				+ ", category=" + category + "]";
+				+ ", category=" + category + ", application_no=" + application_no + "]";
 	}
 
-	
-	
 	
 }
