@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.javaex.service.LebService;
@@ -18,8 +17,8 @@ import com.javaex.util.JsonResult;
 import com.javaex.util.JwtUtil;
 import com.javaex.vo.LebVo;
 import com.javaex.vo.LebVo2;
+import com.javaex.vo.LebVo4;
 import com.javaex.vo.PjhVo;
-import com.javaex.vo.YysVo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -172,11 +171,11 @@ public class LebController {
 	
 	// 코스포인트 리스트
 		@PostMapping(value = "/api/walking/coursebook/point/{course_no}")
-		public JsonResult mappointlist(@RequestParam int course_no) {
-			System.out.println("YysController.mappointlist()");
+		public JsonResult mappointlist(@PathVariable int course_no) {
+			System.out.println("LebController.mappointlist()");
 			// System.out.println(yysVo);
 
-			List<YysVo> coursepointList = lebService.exeCoursePointList(course_no);
+			List<LebVo4> coursepointList = lebService.exeCoursePointList(course_no);
 
 			System.out.println(coursepointList);
 			return JsonResult.success(coursepointList);

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.javaex.vo.KsbVo;
 import com.javaex.vo.LebVo;
 import com.javaex.vo.LebVo3;
+import com.javaex.vo.LebVo4;
 import com.javaex.vo.PjhVo;
 import com.javaex.vo.YysVo;
 
@@ -40,11 +41,11 @@ public class LebDao {
 	}
 	
 	// 코스 포인트리스트 가져오기
-		public List<YysVo> coursepointList(int course_no) {
-			System.out.println("YysDao.coursepointList()");
+		public List<LebVo4> coursepointList(int course_no) {
+			System.out.println("leb.coursepointList()");
 
 			// System.out.println(yysVo);
-			List<YysVo> coursepointList = sqlSession.selectList("leb.coursepointList", course_no);
+			List<LebVo4> coursepointList = sqlSession.selectList("leb.coursepointList", course_no);
 
 			System.out.println(coursepointList);
 			return coursepointList;

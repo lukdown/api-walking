@@ -19,6 +19,7 @@ import com.javaex.vo.KsbVo;
 import com.javaex.vo.LebVo;
 import com.javaex.vo.LebVo2;
 import com.javaex.vo.LebVo3;
+import com.javaex.vo.LebVo4;
 import com.javaex.vo.NaverTokenVo;
 import com.javaex.vo.PjhVo;
 import com.javaex.vo.YysVo;
@@ -217,10 +218,10 @@ public class LebService {
 	}
 	
 	// 코스 포인트 리스트 가져오기
-		public List<YysVo> exeCoursePointList(int course_no) {
+		public List<LebVo4> exeCoursePointList(int course_no) {
 			System.out.println("YysService.exeCoursePointList()");
 
-			List<YysVo> coursepointList = lebDao.coursepointList(course_no);
+			List<LebVo4> coursepointList = lebDao.coursepointList(course_no);
 
 			// System.out.println(coursebookList);
 

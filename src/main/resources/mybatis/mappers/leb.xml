@@ -80,13 +80,11 @@
    
    <!-- 코스포인트 리스트 -->
 	<select id="coursepointList" parameterType="int"
-		resultType="YysVo">
+		resultType="com.javaex.vo.LebVo4">
 		<![CDATA[
 			
 			
-			SELECT course_point_no, course_no, course_latitude, course_longitude, course_order, course_division,
-			       @group_num := IF(@last_val = 0 AND course_order != 0, @group_num + 1, @group_num) AS group_num,
-			       @last_val := course_order
+			SELECT course_no, course_latitude, course_longitude, course_order, course_division
 			FROM (
 			    SELECT course_point_no, course_no, course_latitude, course_longitude, course_order, course_division
 			    FROM course_point
