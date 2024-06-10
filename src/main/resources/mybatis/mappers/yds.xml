@@ -31,7 +31,9 @@
      	left join (select gallery_no, COUNT(*) AS like_count FROM gallery_like 
         			GROUP BY gallery_no
     				) like_counts ON like_counts.gallery_no = gl.gallery_no
+    	
     	group by gl.gallery_no
+    	order by gl.gallery_no desc
 	]]>
 
 	</select>
@@ -82,6 +84,7 @@
 		LEFT JOIN gallery_photo gp ON gp.gallery_no = gl.gallery_no
 	WHERE gl.course_no = #{courseNo} -- 특정 코스를 기준으로 필터링
 	GROUP BY gl.gallery_no
+	order by gl.gallery_no desc  -- 최신 항목이 상단에 오도록 정렬
 	]]>
 
 	</select>
@@ -127,6 +130,7 @@
 		) like_counts ON like_counts.gallery_no = gl.gallery_no
 		WHERE gl.users_no = #{usersNo} -- 특정 유저를 기준으로 필터링
 		GROUP BY gl.gallery_no
+		order by gl.gallery_no desc  -- 최신 항목이 상단에 오도록 정렬
 		]]>
 
 		</select>

@@ -1,6 +1,7 @@
 package com.javaex.service;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -72,23 +73,21 @@ public class YdsService {
 
 	}
 
-
-	
 	// 갤러리와 관련된 모든 데이터를 삭제하는 서비스 메서드
-    public void deleteGallery(int galleryNo, int userNo) {
-        System.out.println("YdsService.deleteGallery()");
+	public void deleteGallery(int galleryNo, int userNo) {
+		System.out.println("YdsService.deleteGallery()");
 
-        // 갤러리의 라이크 삭제
-        ydsDao.deleteLike(galleryNo);
+		// 갤러리의 라이크 삭제
+		ydsDao.deleteLike(galleryNo);
 
-        // 갤러리의 포토 삭제
-        ydsDao.deletePhoto(galleryNo);
+		// 갤러리의 포토 삭제
+		ydsDao.deletePhoto(galleryNo);
 
-        // 갤러리 삭제
-        ydsDao.deleteGallery(galleryNo);
+		// 갤러리 삭제
+		ydsDao.deleteGallery(galleryNo);
 
-        System.out.println("삭제 완료");
-    }
+		System.out.println("삭제 완료");
+	}
 
 	// 로그인한 회원의 코스 목록 조회
 	public List<YdsVo> exefindCoursesByUserNo(int userNo) {
@@ -118,9 +117,12 @@ public class YdsService {
 		return ydsDao.selectGalleryLikes(galleryNo);
 	}
 
-	// 로그인한 회원의 특정 코스 소개 등록(저장)
+	// 로그인한 회원의 특정 코스 소개 등록(저장)	
 	public void saveCourseIntroduction(MultipartFile[] galleryfile, YdsVo ydsVo) {
-
+		// 운영 체제 이름 확인
+		String osName = System.getProperty("os.name").toLowerCase();
+		String saveDir;
+		
 		// 텍스트를 저장한다(사진을 제외한 나머지를 저장)///////////////////////
 		ydsDao.insertCourseIntroduction(ydsVo);
 		// System.out.println(ydsVo);
@@ -133,8 +135,16 @@ public class YdsService {
 
 			// 파일테이타 db저장+서버에 복사(즉 2군데 저장)///////////////////////////////////
 
-			// 파일저장디렉토리
-			String saveDir = "C:\\JavaStudy\\upload";
+			// 운영 체제에 따라 다른 경로 설정
+			if (osName.contains("linux")) {
+				System.out.println("리눅스");
+				// 파일저장디렉토리
+				saveDir = "/app/upload"; // Linux 경로. username을 실제 사용자 이름으로 변경하세요.
+			} else {
+				System.out.println("윈도우");
+				// 파일저장디렉토리
+				saveDir = "C:\\javaStudy\\upload";
+			}
 
 			// (1)파일관련 정보 추출//////////////
 			// 오리지널 파일명
@@ -154,7 +164,7 @@ public class YdsService {
 			System.out.println(fileSize);
 
 			// 파일전체경로
-			String filePath = saveDir + "\\" + saveName;
+			String filePath = saveDir + File.separator + saveName;
 			System.out.println(filePath);
 
 			// int uNo = gVo.getUser_no();
