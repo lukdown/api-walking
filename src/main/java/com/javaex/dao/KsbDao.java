@@ -16,6 +16,15 @@ public class KsbDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//도전과제 리스트 가져오기
+	public List<KsbVo> get4achievementList(int no) {
+		System.out.println("KsbDao.achievementList()");
+		List<KsbVo> achievementList = sqlSession.selectList("ksb.get4achievementList", no);
+		System.out.println(achievementList);
+		
+		return achievementList;
+	}
+	
 	//프로필 사진 업데이트
 	public int challengeUpdate(KsbVo ksbVo) {
 		System.out.println("ksbDao.challengeUpdate()");
@@ -113,9 +122,9 @@ public class KsbDao {
 		public double totalWalk(int no) {
 			System.out.println("ksbDao.totalWalk()");
 			
-			double totalLength = sqlSession.selectOne("ksb.totalLength", no);
+			Double totalLength = sqlSession.selectOne("ksb.totalLength", no);
 			System.out.println(totalLength);
-			return totalLength;
+			return totalLength != null ? totalLength.doubleValue() : 0.0;
 		}
 	
 	//스티커 바꾸기
