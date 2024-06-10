@@ -372,6 +372,7 @@ public class YysVo {
 		this.review_no = review_no;
 	}
 
+	
 	public String getReview_content() {
 		return review_content;
 	}
