@@ -22,21 +22,23 @@ public class YysController {
 	private YysService yysService;
 
 	// 해당 코스 정보
-	@PostMapping("/api/walking/courselikeinfo")
+	@PostMapping("/api/walking/coursebookinfo")
 	public JsonResult course_info(@RequestBody int course_no) {
 		System.out.println("YysController.course_info()");
 
-		System.out.println(course_no);
-		// List<YysVo> lList = yysService.exelikeList(yysVo.getUsers_no());
+		//System.out.println("====================================");
+		//System.out.println(course_no);
+		//System.out.println("====================================");
+		YysVo yysVo = yysService.exeCourse_Info(course_no);
 
 		// return JsonResult.success(lList);
-		return JsonResult.success(null);
+		return JsonResult.success(yysVo);
 	}
 
 	// 편의시설(화장실) 리스트
 	@GetMapping(value = "/api/walking/course_facilities_map")
 	public List<YysVo> facilitieslist() {
-		System.out.println("YysController.facilitieslist()");
+		//System.out.println("YysController.facilitieslist()");
 		// System.out.println(yysVo);
 
 		List<YysVo> facilitiesList = yysService.exefacilitiesList();
@@ -48,7 +50,7 @@ public class YysController {
 	// 코스포인트 리스트
 	@PostMapping(value = "/api/walking/coursebook_map_info")
 	public JsonResult mappointlist(@RequestBody YysVo yysVo) {
-		System.out.println("YysController.mappointlist()");
+		//System.out.println("YysController.mappointlist()");
 		// System.out.println(yysVo);
 
 		List<YysVo> coursepointList = yysService.exeCoursePointList(yysVo);
@@ -61,7 +63,7 @@ public class YysController {
 	// 내 리스트(로그인 전)
 	@GetMapping(value = "/api/walking/coursebooktotallist")
 	public List<YysVo> totallist() {
-		System.out.println("YysController.totallist()");
+		//System.out.println("YysController.totallist()");
 		// System.out.println(yysVo);
 
 		List<YysVo> coursebookList = yysService.exeCoursetotalList();
@@ -74,7 +76,7 @@ public class YysController {
 	// 전체리스트 or 내 리스트- (로그인 이후)
 	@PostMapping(value = "/api/walking/coursebooklist")
 	public List<YysVo> list(@RequestBody YysVo yysVo) {
-		System.out.println("YysController.list()");
+		//System.out.println("YysController.list()");
 		// System.out.println(yysVo);
 		// System.out.println("===========================");
 
@@ -88,7 +90,7 @@ public class YysController {
 	// 즐겨찾기 리스트
 	@PostMapping(value = "/api/walking/coursebookflist")
 	public List<YysVo> favoritlist(@RequestBody String users_no) {
-		System.out.println("YysController.favoritlist()");
+		//System.out.println("YysController.favoritlist()");
 		// System.out.println(users_no);
 
 		List<YysVo> coursebookfList = yysService.exeCoursefList(users_no);
@@ -101,9 +103,9 @@ public class YysController {
 	// 좋아요 리스트
 	@PostMapping("/api/walking/courselikelist")
 	public JsonResult likeList(@RequestBody YysVo yysVo) {
-		System.out.println("YysController.likeList()");
+		//System.out.println("YysController.likeList()");
 
-		System.out.println(yysVo);
+		//System.out.println(yysVo);
 		List<YysVo> lList = yysService.exelikeList(yysVo.getUsers_no());
 
 		return JsonResult.success(lList);
@@ -113,7 +115,7 @@ public class YysController {
 	// 리뷰 리스트
 	@GetMapping(value = "/api/walking/coursebookreviewlist/{course_no}")
 	public List<YysVo> reviewlist(@PathVariable("course_no") int course_no) {
-		System.out.println("YysController.reviewlist()");
+		//System.out.println("YysController.reviewlist()");
 		// System.out.println(course_no);
 
 		List<YysVo> coursereviewList = yysService.exeCoursereviewList(course_no);
@@ -126,7 +128,7 @@ public class YysController {
 	// 리뷰 등록
 	@PostMapping(value = "/api/walking/coursebookreviewupdate")
 	public int reviewupdate(@RequestBody YysVo yysVo) {
-		System.out.println("YysController.reviewupdate()");
+		//System.out.println("YysController.reviewupdate()");
 		// System.out.println(yysVo);
 
 		int count = yysService.exereviewupdate(yysVo);
@@ -140,7 +142,7 @@ public class YysController {
 	@GetMapping(value = "/api/walking/onefavoritesinfo/{users_no}/{course_no}")
 	public JsonResult onefavoritesinfo(@PathVariable("users_no") int users_no,
 			@PathVariable("course_no") int course_no) {
-		System.out.println("YysController.onefavoritesinfo()");
+		//System.out.println("YysController.onefavoritesinfo()");
 
 		YysVo yVo = new YysVo();
 		yVo.setUsers_no(users_no);
@@ -157,8 +159,8 @@ public class YysController {
 	// 즐겨찾기 등록
 	@PostMapping(value = "/api/walking/favoritesupdatedelete")
 	public int favoritesupdate(@RequestBody YysVo yysVo) {
-		System.out.println("YysController.favoritesupdate()");
-		System.out.println(yysVo);
+		//System.out.println("YysController.favoritesupdate()");
+		//System.out.println(yysVo);
 
 		int count = yysService.exefavoritesupdate(yysVo);
 		// System.out.println(guestVo);
@@ -170,7 +172,7 @@ public class YysController {
 	// 즐겨찾기 삭제
 	@DeleteMapping(value = "/api/walking/favoritesupdatedelete")
 	public int favoritesdelete(@RequestBody YysVo yysVo) {
-		System.out.println("YysController.favoritesupdate()");
+		//System.out.println("YysController.favoritesupdate()");
 		// System.out.println(yysVo);
 
 		int count = yysService.exefavoritesdelete(yysVo);
@@ -183,8 +185,8 @@ public class YysController {
 	// 좋아요 등록
 	@PostMapping(value = "/api/walking/likeupdatedelete")
 	public int likeupdate(@RequestBody YysVo yysVo) {
-		System.out.println("YysController.likeupdate()");
-		System.out.println(yysVo);
+		//System.out.println("YysController.likeupdate()");
+		//System.out.println(yysVo);
 
 		int count = yysService.exelikeupdate(yysVo);
 		// System.out.println(guestVo);
@@ -196,7 +198,7 @@ public class YysController {
 	// 좋아요 삭제
 	@DeleteMapping(value = "/api/walking/likeupdatedelete")
 	public int likedelete(@RequestBody YysVo yysVo) {
-		System.out.println("YysController.likedelete()");
+		//System.out.println("YysController.likedelete()");
 		// System.out.println(yysVo);
 
 		int count = yysService.exelikedelete(yysVo);
@@ -209,7 +211,7 @@ public class YysController {
 	// 리스트 조회수 수정
 	@PutMapping(value = "/api/walking/coursebook_list_view_modify")
 	public int viewmodify(@RequestBody YysVo yysVo) {
-		System.out.println("YysController.viewmodify()");
+		//System.out.println("YysController.viewmodify()");
 		// System.out.println(yysVo);
 
 		int count = yysService.exeViewmodify(yysVo);

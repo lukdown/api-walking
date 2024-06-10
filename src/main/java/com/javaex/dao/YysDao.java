@@ -14,20 +14,28 @@ public class YysDao {
 	@Autowired
 	private SqlSession sqlSession;
 
+	// 좋아요 리스트
+	public YysVo selectCourse_Info(int course_no) {
+		// System.out.println("YysDao.selectCourse_Info()");
+
+		YysVo yysVo = sqlSession.selectOne("yys.selectCourse_Info", course_no);
+		return yysVo;
+	}
+
 	// 편의시설(화장실)리스트 가져오기
 	public List<YysVo> facilitiesList() {
-		System.out.println("YysDao.facilitiesList()");
+		// System.out.println("YysDao.facilitiesList()");
 
 		// System.out.println(yysVo);
 		List<YysVo> facilitiesList = sqlSession.selectList("yys.facilitiesList");
 
-		//System.out.println(facilitiesList);
+		// System.out.println(facilitiesList);
 		return facilitiesList;
 	}
 
 	// 코스 포인트리스트 가져오기
 	public List<YysVo> coursepointList(YysVo yysVo) {
-		System.out.println("YysDao.coursepointList()");
+		// System.out.println("YysDao.coursepointList()");
 
 		// System.out.println(yysVo);
 		List<YysVo> coursepointList = sqlSession.selectList("yys.coursepointList", yysVo);
@@ -38,7 +46,7 @@ public class YysDao {
 
 	// 리스트 가져오기
 	public List<YysVo> coursebooktotalList() {
-		System.out.println("YysDao.coursebooktotalList()");
+		// System.out.println("YysDao.coursebooktotalList()");
 		// System.out.println(yysVo);
 		List<YysVo> coursebookList = sqlSession.selectList("yys.coursetotalList");
 
@@ -48,7 +56,7 @@ public class YysDao {
 
 	// 리스트 가져오기
 	public List<YysVo> coursebookList(YysVo yysVo) {
-		System.out.println("YysDao.coursebookList()");
+		// System.out.println("YysDao.coursebookList()");
 		// System.out.println(yysVo);
 		List<YysVo> coursebookList = sqlSession.selectList("yys.courseList", yysVo);
 
@@ -68,7 +76,7 @@ public class YysDao {
 
 	// 즐겨찾기 리스트 가져오기
 	public List<YysVo> coursebookfList(String users_no) {
-		System.out.println("YysDao.coursebookfList()");
+		// System.out.println("YysDao.coursebookfList()");
 		// System.out.println(users_no);
 		List<YysVo> coursebookfList = sqlSession.selectList("yys.coursefList", users_no);
 
@@ -78,7 +86,7 @@ public class YysDao {
 
 	// 좋아요 리스트
 	public List<YysVo> selectLike(int users_no) {
-		System.out.println("YysDao.selectLike()");
+		// System.out.println("YysDao.selectLike()");
 
 		List<YysVo> lList = sqlSession.selectList("yys.selectLikeList", users_no);
 		return lList;
@@ -86,7 +94,7 @@ public class YysDao {
 
 	// 후기 리스트 가져오기
 	public List<YysVo> coursereviewList(int course_no) {
-		System.out.println("YysDao.coursereviewList()");
+		// System.out.println("YysDao.coursereviewList()");
 		// System.out.println(course_no);
 		List<YysVo> coursereviewList = sqlSession.selectList("yys.coursereviewList", course_no);
 
@@ -96,7 +104,7 @@ public class YysDao {
 
 	// 코스 후기 저장
 	public int reviewinsert(YysVo yysVo) {
-		System.out.println("YysDao.reviewinsert()");
+		// System.out.println("YysDao.reviewinsert()");
 
 		int count = sqlSession.insert("yys.reviewinsert", yysVo);
 		return count;
@@ -104,7 +112,7 @@ public class YysDao {
 
 	// 즐겨찾기 해당 정보 가져오기
 	public YysVo favoritesOne(YysVo yVo) {
-		System.out.println("YysDao.favoritesOne()");
+		// System.out.println("YysDao.favoritesOne()");
 		// System.out.println(course_no);
 		YysVo yysVo = sqlSession.selectOne("yys.favoritesOne", yVo);
 
@@ -114,7 +122,7 @@ public class YysDao {
 
 	// 즐겨찾기 저장
 	public int favoritesinsert(YysVo yysVo) {
-		System.out.println("YysDao.favoritesinsert()");
+		// System.out.println("YysDao.favoritesinsert()");
 
 		int count = sqlSession.insert("yys.favoritesinsert", yysVo);
 		return count;
@@ -122,7 +130,7 @@ public class YysDao {
 
 	// 즐겨찾기 삭제
 	public int favoritesdelete(YysVo yysVo) {
-		System.out.println("YysDao.favoritesdelete()");
+		// System.out.println("YysDao.favoritesdelete()");
 
 		int count = sqlSession.delete("yys.favoritesdelete", yysVo);
 		return count;
@@ -130,7 +138,7 @@ public class YysDao {
 
 	// 좋아요 저장
 	public int likeinsert(YysVo yysVo) {
-		System.out.println("YysDao.likeinsert()");
+		// System.out.println("YysDao.likeinsert()");
 
 		int count = sqlSession.insert("yys.likeinsert", yysVo);
 		return count;
@@ -138,7 +146,7 @@ public class YysDao {
 
 	// 좋아요 삭제
 	public int likedelete(YysVo yysVo) {
-		System.out.println("YysDao.likedelete()");
+		// System.out.println("YysDao.likedelete()");
 
 		int count = sqlSession.delete("yys.likedelete", yysVo);
 		return count;
@@ -146,7 +154,7 @@ public class YysDao {
 
 	// 리스트 조회수 수정
 	public int viewmodify(YysVo yysVo) {
-		System.out.println("YysDao.viewmodify()");
+		// System.out.println("YysDao.viewmodify()");
 
 		int count = sqlSession.update("yys.viewmodify", yysVo);
 		return count;

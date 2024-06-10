@@ -14,9 +14,18 @@ public class YysService {
 	@Autowired
 	private YysDao yysDao;
 
+	// 좋아요 리스트
+	public YysVo exeCourse_Info(int course_no) {
+		System.out.println("YysService.exeCourse_Info()");
+
+		YysVo yysVo = yysDao.selectCourse_Info(course_no);
+
+		return yysVo;
+	}
+
 	// 편의시설(화장실) 리스트 가져오기
 	public List<YysVo> exefacilitiesList() {
-		System.out.println("YysService.exefacilitiesList()");
+		// System.out.println("YysService.exefacilitiesList()");
 
 		List<YysVo> facilitiesList = yysDao.facilitiesList();
 
@@ -27,7 +36,7 @@ public class YysService {
 
 	// 코스 포인트 리스트 가져오기
 	public List<YysVo> exeCoursePointList(YysVo yysVo) {
-		System.out.println("YysService.exeCoursePointList()");
+		// System.out.println("YysService.exeCoursePointList()");
 
 		List<YysVo> coursepointList = yysDao.coursepointList(yysVo);
 
@@ -38,7 +47,7 @@ public class YysService {
 
 	// 리스트 가져오기
 	public List<YysVo> exeCoursetotalList() {
-		System.out.println("YysService.exeCoursetotalList()");
+		// System.out.println("YysService.exeCoursetotalList()");
 
 		List<YysVo> coursebookList = yysDao.coursebooktotalList();
 
@@ -59,7 +68,7 @@ public class YysService {
 
 	// 리스트 가져오기
 	public List<YysVo> exeCourseList(YysVo yysVo) {
-		System.out.println("YysService.exeCourseList()");
+		// System.out.println("YysService.exeCourseList()");
 
 		List<YysVo> coursebookList = yysDao.coursebookList(yysVo);
 
@@ -80,7 +89,7 @@ public class YysService {
 
 	// 즐겨찾기 리스트 가져오기
 	public List<YysVo> exeCoursefList(String users_no) {
-		System.out.println("YysService.exeCoursefList()");
+		// System.out.println("YysService.exeCoursefList()");
 
 		List<YysVo> coursebookfList = yysDao.coursebookfList(users_no);
 
@@ -98,11 +107,11 @@ public class YysService {
 
 	// 좋아요 리스트
 	public List<YysVo> exelikeList(int users_no) {
-		System.out.println("YysService.exelikeList()");
+		// System.out.println("YysService.exelikeList()");
 
 		List<YysVo> lList = yysDao.selectLike(users_no);
 
-		System.out.println("======================================");
+		// System.out.println("======================================");
 		// System.out.println(lList);
 
 		/*
@@ -117,14 +126,14 @@ public class YysService {
 		 * } }
 		 */
 
-		System.out.println("======================================");
+		// System.out.println("======================================");
 
 		return lList;
 	}
 
 	// 후기리스트 가져오기
 	public List<YysVo> exeCoursereviewList(int course_no) {
-		System.out.println("YysService.exeCoursereviewList()");
+		// System.out.println("YysService.exeCoursereviewList()");
 
 		List<YysVo> coursereviewList = yysDao.coursereviewList(course_no);
 
@@ -133,7 +142,7 @@ public class YysService {
 
 	// 후기 저장
 	public int exereviewupdate(YysVo yysVo) {
-		System.out.println("YysService.exereviewupdate()");
+		// System.out.println("YysService.exereviewupdate()");
 
 		// 등록
 		int count = yysDao.reviewinsert(yysVo);
@@ -143,7 +152,7 @@ public class YysService {
 
 	// 즐겨찾기 해당 정보 가져오기
 	public YysVo exeonefavoritesinfo(YysVo yVo) {
-		System.out.println("YysService.exeonefavoritesinfo()");
+		// System.out.println("YysService.exeonefavoritesinfo()");
 
 		YysVo yysVo = yysDao.favoritesOne(yVo);
 
@@ -152,7 +161,7 @@ public class YysService {
 
 	// 즐겨찾기 저장
 	public int exefavoritesupdate(YysVo yysVo) {
-		System.out.println("YysService.exefavoritesupdate()");
+		// System.out.println("YysService.exefavoritesupdate()");
 
 		int count = yysDao.favoritesinsert(yysVo);
 
@@ -161,7 +170,7 @@ public class YysService {
 
 	// 즐겨찾기 삭제
 	public int exefavoritesdelete(YysVo yysVo) {
-		System.out.println("YysService.exefavoritesdelete()");
+		// System.out.println("YysService.exefavoritesdelete()");
 
 		// 등록
 		int count = yysDao.favoritesdelete(yysVo);
@@ -171,7 +180,7 @@ public class YysService {
 
 	// 좋아요 저장
 	public int exelikeupdate(YysVo yysVo) {
-		System.out.println("YysService.exelikeupdate()");
+		// System.out.println("YysService.exelikeupdate()");
 
 		int count = yysDao.likeinsert(yysVo);
 
@@ -180,7 +189,7 @@ public class YysService {
 
 	// 좋아요 삭제
 	public int exelikedelete(YysVo yysVo) {
-		System.out.println("YysService.exelikedelete()");
+		// System.out.println("YysService.exelikedelete()");
 
 		// 등록
 		int count = yysDao.likedelete(yysVo);
@@ -190,7 +199,7 @@ public class YysService {
 
 	// 리스트 조회수 수정
 	public int exeViewmodify(YysVo yysVo) {
-		System.out.println("YysService.exeViewmodify()");
+		// System.out.println("YysService.exeViewmodify()");
 
 		int count = yysDao.viewmodify(yysVo);
 

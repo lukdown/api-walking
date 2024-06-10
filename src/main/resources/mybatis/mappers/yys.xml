@@ -3,6 +3,22 @@
 
 <mapper namespace="yys">
 
+
+<!-- 좋아요 리스트 -->
+	<select id="selectCourse_Info" parameterType="int"
+		resultType="YysVo">
+      <![CDATA[ 
+        select *
+		from course_list
+		where course_no = #{course_no}
+      ]]>
+	</select>
+
+
+
+
+
+
 	<!-- 편의시설(화장실) 리스트 -->
 	<select id="facilitiesList" resultType="YysVo">
 		<![CDATA[
