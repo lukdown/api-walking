@@ -28,6 +28,16 @@ public class KsbController {
 	@Autowired
 	private KsbService ksbService;
 	
+	//도전과제 리스트 가져오기
+	@GetMapping("/api/gathering/get4Achievement")
+	public JsonResult get4Achievement(HttpServletRequest request) {
+		System.out.println("KsbController.achievementList()");
+		int no = JwtUtil.getNoFromHeader(request);
+		List<KsbVo> achievementList = ksbService.exeGet4Achievement(no);
+		
+		return JsonResult.success(achievementList);
+	}
+	
 	// 프로필 사진 업데이트
 	@PutMapping("/api/walking/addchallenge")
 	public JsonResult challengeUpdate(@RequestParam int challenge_no, @RequestParam MultipartFile file) {
@@ -175,7 +185,12 @@ public class KsbController {
 			
 			double totalLength = ksbService.exeTotalWalk(no);
 			
+			if(totalLength == 0.0){
+				return JsonResult.success("0");
+			}else {
+			
 			return JsonResult.success(totalLength);
+			}
 		}
 	
 	//스티커 교환하기
