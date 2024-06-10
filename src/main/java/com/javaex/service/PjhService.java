@@ -103,7 +103,7 @@ public class PjhService {
 			sb.append("&client_id=10058c98eea1a5e753d74e9e41744dbd");
 
 			// 2번 파라미터 redirect_uri
-			sb.append("&redirect_uri=http://localhost:8080/walking/kakaojoinpage");
+			sb.append("&redirect_uri=http://43.201.96.200:9020/walking/kakaojoinpage");
 
 			// 3번 파라미터 code
 			sb.append("&code=" + code);
@@ -300,7 +300,7 @@ public class PjhService {
 			sb.append("code=" + code);
 			sb.append("&client_id=17637626061-ss04i67obe0couopq08tu72i1efjil82.apps.googleusercontent.com");
 			sb.append("&client_secret=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");
-			sb.append("&redirect_uri=http://localhost:8080/walking/googlejoinpage");
+			sb.append("&redirect_uri=http://43.201.96.200:9020/walking/googlejoinpage");
 			sb.append("&grant_type=authorization_code");
 			sb.append("&approval_prompt=auto");
 

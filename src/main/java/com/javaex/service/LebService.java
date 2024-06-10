@@ -58,7 +58,7 @@ public class LebService {
 				sb.append("&client_secret=Em4NnXdU56");
 
 				// 3번 파라미터 redirect_uri
-				sb.append("&redirect_uri=http://localhost:8080/walking/naverjoinpage");
+				sb.append("&redirect_uri=http://43.201.96.200:9020/walking/naverjoinpage");
 				
 				// 4번 파라미터 code
 				sb.append("&code=" + code);

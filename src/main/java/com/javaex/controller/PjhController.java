@@ -24,7 +24,7 @@ import com.javaex.vo.YysVo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://43.201.96.200:9020")
 @RestController
 public class PjhController {
 
@@ -121,7 +121,7 @@ public class PjhController {
 	// 카카오로그인 시작
 	@GetMapping("/api/walking/kakaologin")
 	public String Kakaomain() {
-		String url = "https://kauth.kakao.com/oauth/authorize?client_id=10058c98eea1a5e753d74e9e41744dbd&redirect_uri=http://localhost:8080/walking/kakaojoinpage&response_type=code";
+		String url = "https://kauth.kakao.com/oauth/authorize?client_id=10058c98eea1a5e753d74e9e41744dbd&redirect_uri=http://43.201.96.200:9020/walking/kakaojoinpage&response_type=code";
 		System.out.println("login 컨트롤러 접근");
 		return url;
 	}
@@ -207,7 +207,7 @@ public class PjhController {
 	// 카카오로그아웃
 	@GetMapping("/api/walking/kakaologout")
 	public String Kakaologout() {
-		String url = "https://kauth.kakao.com/oauth/logout?client_id=10058c98eea1a5e753d74e9e41744dbd&logout_redirect_uri=http://localhost:8080/";
+		String url = "https://kauth.kakao.com/oauth/logout?client_id=10058c98eea1a5e753d74e9e41744dbd&logout_redirect_uri=http://43.201.96.200:9020/";
 		System.out.println("logout 컨트롤러 접근");
 		return url;
 	}
@@ -359,7 +359,7 @@ public class PjhController {
 
 	@GetMapping("/api/walking/googlelogin")
 	public String Googlemain() {
-		String url = "https://accounts.google.com/o/oauth2/v2/auth?client_id=17637626061-ss04i67obe0couopq08tu72i1efjil82.apps.googleusercontent.com&redirect_uri=http://localhost:8080/walking/googlejoinpage&response_type=code&scope=email profile https://www.googleapis.com/auth/user.gender.read https://www.googleapis.com/auth/user.birthday.read https://www.googleapis.com/auth/userinfo.profile";
+		String url = "https://accounts.google.com/o/oauth2/v2/auth?client_id=17637626061-ss04i67obe0couopq08tu72i1efjil82.apps.googleusercontent.com&redirect_uri=http://43.201.96.200:9020/walking/googlejoinpage&response_type=code&scope=email profile https://www.googleapis.com/auth/user.gender.read https://www.googleapis.com/auth/user.birthday.read https://www.googleapis.com/auth/userinfo.profile";
 		System.out.println("googlelogin 컨트롤러 접근");
 		return url;
 	}
