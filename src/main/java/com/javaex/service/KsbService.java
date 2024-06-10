@@ -23,6 +23,15 @@ public class KsbService {
 
 	// 수빈이꺼
 	
+	//도전과제 리스트 4개 가져오기
+		public List<KsbVo> exeGet4Achievement(int no) {
+			 System.out.println("ksbService.exeachievementList()");
+
+			List<KsbVo> achievementList = ksbDao.get4achievementList(no);
+
+			return achievementList;
+		}
+	
 	// 도전과제 사진 업데이트
 	public void exeChallengeUpdate(int challenge_no, MultipartFile file) {
 		System.out.println("ksbService.exeChallengeUpdate");
@@ -169,7 +178,7 @@ public class KsbService {
 
 	}
 	
-	
+
 
 	// 소모임 1개 불러오기
 	public KsbVo exeGetGathering(int small_gathering_no) {

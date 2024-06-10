@@ -204,12 +204,12 @@
 	</select>
 
 	<!-- 총 걸음 수 구하기 -->
-	<select id="totalLength" parameterType="int" resultType="double">
-		SELECT SUM(record_length) / 1000 AS total_length_km
-		FROM record
-		WHERE users_no = #{no}
-
-	</select>
+		<select id="totalLength" parameterType="int" resultType="double">
+			SELECT ROUND(SUM(record_length) / 1000, 3) AS total_length_km
+		    FROM record
+		    WHERE users_no = #{no}
+	
+		</select>
 
 	<!-- 소모임 리스트 가져오기 -->
 	<select id="selectlist" parameterType="map" resultType="KsbVo">
@@ -355,7 +355,7 @@
 		]]>
 	</select>
 	
-	<!-- 코스 리스트 가져오기 -->
+	<!-- 도전과제 리스트 가져오기 -->
 	<select id="achievementList" resultType="KsbVo">
 		<![CDATA[
 			select  challenge_no,
@@ -376,5 +376,35 @@
 			where challenge_no = #{challenge_no}
 		]]>
 	</update>
+	
+	<!-- 도전과제 리스트 4개 가져오기 -->
+	<select id="get4achievementList" resultType="KsbVo">
+		<![CDATA[
+			SELECT  cg.challenge_no,
+        			cg.challenge_name,
+			        cg.filePath,
+			        cg.orgName,
+			        cg.saveName,
+			        cg.fileSize,
+			        cg.challenge_explanation,
+			        cp.person_no,
+			        cp.login_users_no,
+        			CASE 
+            		WHEN cp.login_users_no IS NOT NULL THEN 1 
+            		ELSE 0 
+        			END AS is_challenge_t_f
+			FROM challenge cg
+			LEFT JOIN (
+	    	SELECT  person_no,
+	           		challenge_no,
+	           		users_no AS 'login_users_no'
+	    	FROM challenge_person
+	    	WHERE users_no = #{no}
+			) cp 
+			ON cp.challenge_no = cg.challenge_no
+			WHERE cp.login_users_no IS NOT NULL
+			LIMIT 4
+		]]>
+	</select>
 	
 </mapper>
