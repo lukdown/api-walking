@@ -23,7 +23,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 				.allowedMethods("GET", "POST", "PUT", "DELETE")
 				.allowedOrigins("http://localhost:8080", "http://localhost:8081", "https://www.walkingstep.site",
 						"http://www.walkingstep.site", "https://walkingstep.site", "http://walkingstep.site",
-						"http://43.201.96.200", "https://43.201.96.200")
+						"http://43.201.96.200:9020", "https://43.201.96.200:9020")
 				.allowedHeaders("*") // 모든 요청해더
 				.exposedHeaders("Authorization")// 노출시킬 헤더
 				.allowCredentials(true); // 쿠키허용
