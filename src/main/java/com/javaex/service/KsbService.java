@@ -1,6 +1,7 @@
 package com.javaex.service;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -22,16 +23,16 @@ public class KsbService {
 	private KsbDao ksbDao;
 
 	// 수빈이꺼
-	
-	//도전과제 리스트 4개 가져오기
-		public List<KsbVo> exeGet4Achievement(int no) {
-			 System.out.println("ksbService.exeachievementList()");
 
-			List<KsbVo> achievementList = ksbDao.get4achievementList(no);
+	// 도전과제 리스트 4개 가져오기
+	public List<KsbVo> exeGet4Achievement(int no) {
+		System.out.println("ksbService.exeachievementList()");
 
-			return achievementList;
-		}
-	
+		List<KsbVo> achievementList = ksbDao.get4achievementList(no);
+
+		return achievementList;
+	}
+
 	// 도전과제 사진 업데이트
 	public void exeChallengeUpdate(int challenge_no, MultipartFile file) {
 		System.out.println("ksbService.exeChallengeUpdate");
@@ -88,40 +89,39 @@ public class KsbService {
 
 	}
 
-	
-	
-	//도전과제 리스트 가져오기
+	// 도전과제 리스트 가져오기
 	public List<KsbVo> exeAchievementList() {
-		 System.out.println("ksbService.exeachievementList()");
+		System.out.println("ksbService.exeachievementList()");
 
 		List<KsbVo> achievementList = ksbDao.achievementList();
 
 		return achievementList;
 	}
-	
+
 	// 즐겨찾기 갯수 구하기
-		public int exegetFavCount(int no) {
-			//System.out.println("ksbService.exeTotalWalk()");
+	public int exegetFavCount(int no) {
+		// System.out.println("ksbService.exeTotalWalk()");
 
-			int FavCount = ksbDao.getFavCount(no);
+		int FavCount = ksbDao.getFavCount(no);
 
-			return FavCount;
-		}
-	
-	//대표 도전과제 가져오기
+		return FavCount;
+	}
+
+	// 대표 도전과제 가져오기
 	public KsbVo exeGetChallengeDaepyo(int no) {
-		//System.out.println("ksbService.exeGetChallengeDaepyo()");
-		
+		// System.out.println("ksbService.exeGetChallengeDaepyo()");
+
 		KsbVo daepyoInfo = ksbDao.getChallengeDaepyo(no);
-		
+
 		return daepyoInfo;
 	}
 
 	// 소모임 수정하기
-	public int exeGatheringModify(int small_gathering_no, int no, int course_no, String small_gathering_name, String small_gathering_host_name,
-			String small_gathering_hp, int small_gathering_total_personnel, String small_gathering_date,
-			String small_gathering_deadline, String small_gathering_region, String small_gathering_gender_limit,
-			String small_gathering_age_limit, String small_gathering_information, MultipartFile file) {
+	public int exeGatheringModify(int small_gathering_no, int no, int course_no, String small_gathering_name,
+			String small_gathering_host_name, String small_gathering_hp, int small_gathering_total_personnel,
+			String small_gathering_date, String small_gathering_deadline, String small_gathering_region,
+			String small_gathering_gender_limit, String small_gathering_age_limit, String small_gathering_information,
+			MultipartFile file) {
 		System.out.println("ksbService.exeGatheringModify()");
 		// 파일저장 폴더
 		String saveDir = "C:\\javaStudy\\upload";
@@ -150,10 +150,11 @@ public class KsbService {
 		// (1)파일정보를 DB에 저장
 		// *vo묶어주고
 
-		KsbVo KsbVo = new KsbVo(small_gathering_no, no, course_no, small_gathering_name, small_gathering_host_name, small_gathering_hp,
-				small_gathering_total_personnel, small_gathering_date, small_gathering_deadline, small_gathering_region,
-				small_gathering_gender_limit, small_gathering_age_limit, small_gathering_information,
-				small_gathering_filePath, small_gathering_orgName, small_gathering_saveName, small_gathering_listcol);
+		KsbVo KsbVo = new KsbVo(small_gathering_no, no, course_no, small_gathering_name, small_gathering_host_name,
+				small_gathering_hp, small_gathering_total_personnel, small_gathering_date, small_gathering_deadline,
+				small_gathering_region, small_gathering_gender_limit, small_gathering_age_limit,
+				small_gathering_information, small_gathering_filePath, small_gathering_orgName,
+				small_gathering_saveName, small_gathering_listcol);
 		System.out.println(KsbVo);
 		// *db에 저장
 		System.out.println(".......DB저장롼료");
@@ -177,8 +178,6 @@ public class KsbService {
 		return count;
 
 	}
-	
-
 
 	// 소모임 1개 불러오기
 	public KsbVo exeGetGathering(int small_gathering_no) {
@@ -428,9 +427,22 @@ public class KsbService {
 	// 프로필 사진 업데이트
 	public void exeProfileUpdate(int users_no, MultipartFile file) {
 		// System.out.println("ksbService.exeProfileUpdate");
-
-		// 파일저장 폴더
-		String saveDir = "C:\\javaStudy\\upload";
+		// 운영 체제 이름 확인
+		String osName = System.getProperty("os.name").toLowerCase();
+		String saveDir;
+		System.out.println(users_no);
+		System.out.println("==========================================");
+		
+		// 운영 체제에 따라 다른 경로 설정
+		if (osName.contains("linux")) {
+			System.out.println("리눅스");
+			// 파일저장디렉토리
+			saveDir = "/app/upload"; // Linux 경로. username을 실제 사용자 이름으로 변경하세요.
+		} else {
+			System.out.println("윈도우");
+			// 파일저장디렉토리
+			saveDir = "D:\\javaStudy\\upload";
+		}
 
 		// (0)파일관련 정보수집
 		// 오리지날 파일명
@@ -450,7 +462,7 @@ public class KsbService {
 		System.out.println("fileSize:" + fileSize);
 
 		// 파일 전체 경로(저장파일명 포함)
-		String filePath = saveDir + "\\" + saveName;
+		String filePath = saveDir + File.separator + saveName;
 		System.out.println("filePath:" + filePath);
 
 		// (1)파일정보를 DB에 저장
@@ -467,7 +479,8 @@ public class KsbService {
 
 		// 파일 저장
 		try {
-			byte[] fileData = file.getBytes();
+			byte[] fileData;
+			fileData = file.getBytes();
 
 			OutputStream os = new FileOutputStream(filePath);
 			BufferedOutputStream bos = new BufferedOutputStream(os);
@@ -477,7 +490,8 @@ public class KsbService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		;
+
+		int count = 1;
 
 	}
 

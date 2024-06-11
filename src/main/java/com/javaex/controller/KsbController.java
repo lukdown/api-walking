@@ -300,10 +300,12 @@ public class KsbController {
 	@PutMapping("/api/walking/mypage")
 	public JsonResult profileUpdate(@RequestParam int users_no, @RequestParam MultipartFile file) {
 		//System.out.println("KsbController.profileUpdate()");
-
+		
+		//System.out.println(users_no);
+		
 		ksbService.exeProfileUpdate(users_no, file);
 
-		return JsonResult.success("성공");
+		return JsonResult.success("success");
 	}
 
 }

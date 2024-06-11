@@ -210,8 +210,9 @@ public class KsbDao {
 	//프로필 사진 업데이트
 	public int exeProfileUpdate(KsbVo ksbVo) {
 		//System.out.println("ksbDao.exeProfileUpdate()");
+		int count = sqlSession.update("ksb.profileUpdate", ksbVo);
 		
-		return sqlSession.update("ksb.profileUpdate", ksbVo);
+		return count;
 	}
 	
 	
