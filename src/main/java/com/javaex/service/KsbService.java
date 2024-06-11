@@ -37,8 +37,21 @@ public class KsbService {
 	public void exeChallengeUpdate(int challenge_no, MultipartFile file) {
 		System.out.println("ksbService.exeChallengeUpdate");
 
-		// 파일저장 폴더
-		String saveDir = "C:\\javaStudy\\upload";
+		String osName = System.getProperty("os.name").toLowerCase();
+		String saveDir;
+		// System.out.println(users_no);
+		// System.out.println("==========================================");
+
+		// 운영 체제에 따라 다른 경로 설정
+		if (osName.contains("linux")) {
+			System.out.println("리눅스");
+			// 파일저장디렉토리
+			saveDir = "/app/upload"; // Linux 경로. username을 실제 사용자 이름으로 변경하세요.
+		} else {
+			System.out.println("윈도우");
+			// 파일저장디렉토리
+			saveDir = "D:\\javaStudy\\upload";
+		}
 
 		// (0)파일관련 정보수집
 		// 오리지날 파일명
@@ -58,7 +71,7 @@ public class KsbService {
 		System.out.println("fileSize:" + fileSize);
 
 		// 파일 전체 경로(저장파일명 포함)
-		String filePath = saveDir + "\\" + saveName;
+		String filePath = saveDir + File.separator + saveName;
 		System.out.println("filePath:" + filePath);
 
 		// (1)파일정보를 DB에 저장
@@ -75,7 +88,8 @@ public class KsbService {
 
 		// 파일 저장
 		try {
-			byte[] fileData = file.getBytes();
+			byte[] fileData;
+			fileData = file.getBytes();
 
 			OutputStream os = new FileOutputStream(filePath);
 			BufferedOutputStream bos = new BufferedOutputStream(os);
@@ -123,8 +137,21 @@ public class KsbService {
 			String small_gathering_gender_limit, String small_gathering_age_limit, String small_gathering_information,
 			MultipartFile file) {
 		System.out.println("ksbService.exeGatheringModify()");
-		// 파일저장 폴더
-		String saveDir = "C:\\javaStudy\\upload";
+		String osName = System.getProperty("os.name").toLowerCase();
+		String saveDir;
+		// System.out.println(users_no);
+		// System.out.println("==========================================");
+
+		// 운영 체제에 따라 다른 경로 설정
+		if (osName.contains("linux")) {
+			System.out.println("리눅스");
+			// 파일저장디렉토리
+			saveDir = "/app/upload"; // Linux 경로. username을 실제 사용자 이름으로 변경하세요.
+		} else {
+			System.out.println("윈도우");
+			// 파일저장디렉토리
+			saveDir = "D:\\javaStudy\\upload";
+		}
 
 		// (0)파일관련 정보수집
 		// 오리지날 파일명
@@ -144,7 +171,7 @@ public class KsbService {
 		System.out.println("fileSize:" + small_gathering_listcol);
 
 		// 파일 전체 경로(저장파일명 포함)
-		String small_gathering_filePath = saveDir + "\\" + small_gathering_saveName;
+		String small_gathering_filePath = saveDir + File.separator + small_gathering_saveName;
 		System.out.println("filePath:" + small_gathering_filePath);
 
 		// (1)파일정보를 DB에 저장
@@ -163,7 +190,8 @@ public class KsbService {
 
 		// 파일 저장
 		try {
-			byte[] fileData = file.getBytes();
+			byte[] fileData;
+			fileData = file.getBytes();
 
 			OutputStream os = new FileOutputStream(small_gathering_filePath);
 			BufferedOutputStream bos = new BufferedOutputStream(os);
@@ -195,8 +223,22 @@ public class KsbService {
 			String small_gathering_age_limit, String small_gathering_information, MultipartFile file) {
 		System.out.println("KsbService.exeAddGathering()");
 
-		// 파일저장 폴더
-		String saveDir = "C:\\javaStudy\\upload";
+		// 운영 체제 이름 확인
+		String osName = System.getProperty("os.name").toLowerCase();
+		String saveDir;
+		// System.out.println(users_no);
+		// System.out.println("==========================================");
+
+		// 운영 체제에 따라 다른 경로 설정
+		if (osName.contains("linux")) {
+			System.out.println("리눅스");
+			// 파일저장디렉토리
+			saveDir = "/app/upload"; // Linux 경로. username을 실제 사용자 이름으로 변경하세요.
+		} else {
+			System.out.println("윈도우");
+			// 파일저장디렉토리
+			saveDir = "D:\\javaStudy\\upload";
+		}
 
 		// (0)파일관련 정보수집
 		// 오리지날 파일명
@@ -216,7 +258,7 @@ public class KsbService {
 		System.out.println("fileSize:" + small_gathering_listcol);
 
 		// 파일 전체 경로(저장파일명 포함)
-		String small_gathering_filePath = saveDir + "\\" + small_gathering_saveName;
+		String small_gathering_filePath = saveDir + File.separator + small_gathering_saveName;
 		System.out.println("filePath:" + small_gathering_filePath);
 
 		// (1)파일정보를 DB에 저장
@@ -234,7 +276,8 @@ public class KsbService {
 
 		// 파일 저장
 		try {
-			byte[] fileData = file.getBytes();
+			byte[] fileData;
+			fileData = file.getBytes();
 
 			OutputStream os = new FileOutputStream(small_gathering_filePath);
 			BufferedOutputStream bos = new BufferedOutputStream(os);
@@ -430,9 +473,9 @@ public class KsbService {
 		// 운영 체제 이름 확인
 		String osName = System.getProperty("os.name").toLowerCase();
 		String saveDir;
-		System.out.println(users_no);
-		System.out.println("==========================================");
-		
+		// System.out.println(users_no);
+		// System.out.println("==========================================");
+
 		// 운영 체제에 따라 다른 경로 설정
 		if (osName.contains("linux")) {
 			System.out.println("리눅스");
