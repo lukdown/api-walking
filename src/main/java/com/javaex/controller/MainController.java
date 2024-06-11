@@ -15,6 +15,7 @@ public class MainController implements ErrorController {
         return "index.html";
     }
     
+    
     @GetMapping("/healthcheck")
     public String healthcheck(){
         return "OK";
