@@ -35,7 +35,7 @@ public class LebController {
 	 @GetMapping("/api/walking/naverlogin")
 	    public String getNaverLoginUrl() {
 	        String clientId = "jYthT0GCru4tGxzofFp0"; // 네이버 개발자센터에서 발급받은 JavaScript Key
-	        String redirectUri = "http://43.201.96.200:9020/walking/naverjoinpage"; // 네이버 개발자센터에서 설정한 Callback URI
+	        String redirectUri = "https://www.walkingstep.site/walking/naverjoinpage"; // 네이버 개발자센터에서 설정한 Callback URI
 	        String state = UUID.randomUUID().toString(); // 랜덤하게 생성된 state 값
 
 	        String url = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
