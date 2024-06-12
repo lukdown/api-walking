@@ -27,7 +27,8 @@
 		left join (select record_date, course_no from record) re on re.course_no = gl.course_no
 		left join (select course_no, course_name, course_region, course_length, course_time, course_difficulty from course_list) cl on cl.course_no = gl.course_no
 		left join (select cp.users_no, ch.challenge_name, ch.saveName FROM challenge_person cp 
-     				left join challenge ch ON cp.challenge_no = ch.challenge_no) ch ON ch.users_no = gl.users_no
+     				left join challenge ch ON cp.challenge_no = ch.challenge_no
+     				where cp.challenge_daepyo = 1) ch ON ch.users_no = gl.users_no
      	left join (select gallery_no, COUNT(*) AS like_count FROM gallery_like 
         			GROUP BY gallery_no
     				) like_counts ON like_counts.gallery_no = gl.gallery_no
