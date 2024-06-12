@@ -170,7 +170,7 @@
 					course_introduce
 					        
 			FROM course_list 
-			WHERE users_no = #{usersNo}
+			
         ]]>
 	</select>
 	
