@@ -31,6 +31,8 @@ public class YdsVo {
 	private String record_date;
 	private String challenge_name;
 	
+	private String saveName;
+	
 	
 	private List<YdsAttachVo> tList;
 	
@@ -43,15 +45,27 @@ public class YdsVo {
 	}
 
 
-	public YdsVo(int gallery_no, int course_no, int users_no, String users_nickname, String users_orgName,
-			String users_saveName, String users_filePath, long users_fileSize, YdsAttachVo gallery_attach,
-			String course_name, String course_region, int course_length, String course_time, int course_hit,
-			String course_difficulty, String gallery_introduce, String record_date, String challenge_name,
-			String gallery_filePath, String gallery_orgName, String gallery_saveName, long gallery_fileSize,
+
+	public YdsVo(int gallery_no, String gallery_introduce, String gallery_filePath, String gallery_orgName,
+			String gallery_saveName, long gallery_fileSize, int course_no, String course_name, String course_region,
+			int course_length, String course_time, int course_hit, String course_difficulty, int users_no,
+			String users_nickname, String users_orgName, String users_saveName, String users_filePath,
+			long users_fileSize, YdsAttachVo gallery_attach, String record_date, String challenge_name, String saveName,
 			List<YdsAttachVo> tList, int gallery_likeCount) {
 		super();
 		this.gallery_no = gallery_no;
+		this.gallery_introduce = gallery_introduce;
+		this.gallery_filePath = gallery_filePath;
+		this.gallery_orgName = gallery_orgName;
+		this.gallery_saveName = gallery_saveName;
+		this.gallery_fileSize = gallery_fileSize;
 		this.course_no = course_no;
+		this.course_name = course_name;
+		this.course_region = course_region;
+		this.course_length = course_length;
+		this.course_time = course_time;
+		this.course_hit = course_hit;
+		this.course_difficulty = course_difficulty;
 		this.users_no = users_no;
 		this.users_nickname = users_nickname;
 		this.users_orgName = users_orgName;
@@ -59,21 +73,23 @@ public class YdsVo {
 		this.users_filePath = users_filePath;
 		this.users_fileSize = users_fileSize;
 		this.gallery_attach = gallery_attach;
-		this.course_name = course_name;
-		this.course_region = course_region;
-		this.course_length = course_length;
-		this.course_time = course_time;
-		this.course_hit = course_hit;
-		this.course_difficulty = course_difficulty;
-		this.gallery_introduce = gallery_introduce;
 		this.record_date = record_date;
 		this.challenge_name = challenge_name;
-		this.gallery_filePath = gallery_filePath;
-		this.gallery_orgName = gallery_orgName;
-		this.gallery_saveName = gallery_saveName;
-		this.gallery_fileSize = gallery_fileSize;
+		this.saveName = saveName;
 		this.tList = tList;
 		this.gallery_likeCount = gallery_likeCount;
+	}
+
+
+
+	public String getSaveName() {
+		return saveName;
+	}
+
+
+
+	public void setSaveName(String saveName) {
+		this.saveName = saveName;
 	}
 
 
@@ -275,7 +291,6 @@ public class YdsVo {
 		this.challenge_name = challenge_name;
 	}
 
-
 	@Override
 	public String toString() {
 		return "YdsVo [gallery_no=" + gallery_no + ", gallery_introduce=" + gallery_introduce + ", gallery_filePath="
@@ -286,13 +301,9 @@ public class YdsVo {
 				+ ", users_no=" + users_no + ", users_nickname=" + users_nickname + ", users_orgName=" + users_orgName
 				+ ", users_saveName=" + users_saveName + ", users_filePath=" + users_filePath + ", users_fileSize="
 				+ users_fileSize + ", gallery_attach=" + gallery_attach + ", record_date=" + record_date
-				+ ", challenge_name=" + challenge_name + ", tList=" + tList + ", gallery_likeCount=" + gallery_likeCount
-				+ "]";
+				+ ", challenge_name=" + challenge_name + ", saveName=" + saveName + ", tList=" + tList
+				+ ", gallery_likeCount=" + gallery_likeCount + "]";
 	}
 
-
-	
-
-	
 
 }
