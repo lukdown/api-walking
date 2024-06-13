@@ -254,7 +254,8 @@
 			       crl.review_content,
 			       crl.review_date,
 			       ul.users_name,
-			       ul.users_nickname
+			       ul.users_nickname,
+			       ul.users_saveName
 			from course_review_list crl
 			left join course_list cl on crl.course_no = cl.course_no
 			left join users_list ul on ul.users_no = crl.users_no

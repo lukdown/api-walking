@@ -36,6 +36,7 @@ public class YysVo {
 	private String users_nickname;
 	private String users_hp;
 	private String users_residence;
+	private String users_saveName;
 	
 	// 코스 위도 경도
 	private int course_point_no;
@@ -59,15 +60,14 @@ public class YysVo {
 		super();
 	}
 
-
 	public YysVo(int course_no, int users_no, int course_favorites_no, int course_like_no, String course_name,
 			String course_difficulty, int course_length, String course_time, int course_hit, String course_region,
 			String course_date, boolean course_open, String course_introduce, int like_count, int write_users_no,
 			int login_users_no, int review_no, String review_content, String review_date, String users_name,
-			String users_id, String users_nickname, String users_hp, String users_residence, int course_point_no,
-			double course_latitude, double course_longitude, int course_order, String course_division, int group_num,
-			int facilities_no, int convenient_facilities_type_no, String facilities_name, double facilities_latitude,
-			double facilities_longitude, String facilities_memo) {
+			String users_id, String users_nickname, String users_hp, String users_residence, String users_saveName,
+			int course_point_no, double course_latitude, double course_longitude, int course_order,
+			String course_division, int group_num, int facilities_no, int convenient_facilities_type_no,
+			String facilities_name, double facilities_latitude, double facilities_longitude, String facilities_memo) {
 		super();
 		this.course_no = course_no;
 		this.users_no = users_no;
@@ -93,6 +93,7 @@ public class YysVo {
 		this.users_nickname = users_nickname;
 		this.users_hp = users_hp;
 		this.users_residence = users_residence;
+		this.users_saveName = users_saveName;
 		this.course_point_no = course_point_no;
 		this.course_latitude = course_latitude;
 		this.course_longitude = course_longitude;
@@ -107,6 +108,17 @@ public class YysVo {
 		this.facilities_memo = facilities_memo;
 	}
 
+
+
+
+
+	public String getUsers_saveName() {
+		return users_saveName;
+	}
+
+	public void setUsers_saveName(String users_saveName) {
+		this.users_saveName = users_saveName;
+	}
 
 	public int getFacilities_no() {
 		return facilities_no;
@@ -429,7 +441,6 @@ public class YysVo {
 		this.users_residence = users_residence;
 	}
 
-
 	@Override
 	public String toString() {
 		return "YysVo [course_no=" + course_no + ", users_no=" + users_no + ", course_favorites_no="
@@ -441,15 +452,14 @@ public class YysVo {
 				+ login_users_no + ", review_no=" + review_no + ", review_content=" + review_content + ", review_date="
 				+ review_date + ", users_name=" + users_name + ", users_id=" + users_id + ", users_nickname="
 				+ users_nickname + ", users_hp=" + users_hp + ", users_residence=" + users_residence
-				+ ", course_point_no=" + course_point_no + ", course_latitude=" + course_latitude
-				+ ", course_longitude=" + course_longitude + ", course_order=" + course_order + ", course_division="
-				+ course_division + ", group_num=" + group_num + ", facilities_no=" + facilities_no
-				+ ", convenient_facilities_type_no=" + convenient_facilities_type_no + ", facilities_name="
-				+ facilities_name + ", facilities_latitude=" + facilities_latitude + ", facilities_longitude="
-				+ facilities_longitude + ", facilities_memo=" + facilities_memo + "]";
+				+ ", users_saveName=" + users_saveName + ", course_point_no=" + course_point_no + ", course_latitude="
+				+ course_latitude + ", course_longitude=" + course_longitude + ", course_order=" + course_order
+				+ ", course_division=" + course_division + ", group_num=" + group_num + ", facilities_no="
+				+ facilities_no + ", convenient_facilities_type_no=" + convenient_facilities_type_no
+				+ ", facilities_name=" + facilities_name + ", facilities_latitude=" + facilities_latitude
+				+ ", facilities_longitude=" + facilities_longitude + ", facilities_memo=" + facilities_memo + "]";
 	}
 
-	
 
 
 
