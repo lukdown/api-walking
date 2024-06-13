@@ -113,6 +113,7 @@ public class YdsController {
 		return JsonResult.success(courseInfo);
 	}
 
+	
 	// 특정 포스팅의 좋아요 수 조회
 	@GetMapping("/gallery/{galleryNo}/likes")
 	public JsonResult getGalleryLikes(@PathVariable int galleryNo) {
